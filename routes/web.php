@@ -14,7 +14,7 @@ use Inertia\Inertia;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,18 +25,27 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/main', function () {
-    return Inertia::render('App');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware', 'auth'], function () {
+    Route::group(['middleware', 'verified'], function () {
+        Route::group(['prefix' => '/main', 'as' => 'main.'], function () {
 
-Route::get('/welcome', function () {
-    return Inertia::render('Welcome');
-})->middleware(['auth', 'verified'])->name('welcome');
+            Route::get('/dashboard', function () {
+                return Inertia::render('Dashboard/index');
+            })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+            Route::get('/master-files', function () {
+                return Inertia::render('MasterFiles/index');
+            })->name('master_files');
+
+            Route::get('/sessions', function () {
+                return Inertia::render('Sessions/index');
+            })->name('sessions');
+
+            Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        });
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

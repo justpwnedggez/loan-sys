@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
+import Dropdown from "@/Components/NavBar/Dropdown";
 
 export default function Component({ children }) {
     const { auth } = usePage().props;
@@ -41,7 +42,7 @@ export default function Component({ children }) {
                         </button>
                     </div>
                     <Link
-                        href="/dashboard"
+                        href={route('main.dashboard')}
                         className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
                     >
                         <svg
@@ -67,7 +68,7 @@ export default function Component({ children }) {
                         Dashboard
                     </Link>
                     <Link
-                        href="/products"
+                        href={route('main.master_files')}
                         className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
                     >
                         <svg
@@ -101,7 +102,7 @@ export default function Component({ children }) {
                         Master Files
                     </Link>
                     <Link
-                        href="/cart"
+                        href={route('main.sessions')}
                         className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
                     >
                         <svg
@@ -147,21 +148,7 @@ export default function Component({ children }) {
                             Loan Management System
                         </h1>
                         <div>
-                            {auth.user ? (
-                                <Link
-                                    href="/profile"
-                                    className="text-gray-800 hover:text-gray-600"
-                                >
-                                    Profile
-                                </Link>
-                            ) : (
-                                <Link
-                                    href="/login"
-                                    className="text-gray-800 hover:text-gray-600"
-                                >
-                                    Login
-                                </Link>
-                            )}
+                            <Dropdown auth={auth} />
                         </div>
                     </div>
                 </header>
