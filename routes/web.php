@@ -33,17 +33,50 @@ Route::group(['middleware', 'auth'], function () {
                 return Inertia::render('Dashboard/index');
             })->name('dashboard');
 
-            Route::get('/master-files', function () {
-                return Inertia::render('MasterFiles/index');
-            })->name('master_files');
+            Route::group(['prefix' => '/activity'], function () {
 
-            Route::get('/sessions', function () {
-                return Inertia::render('Sessions/index');
-            })->name('sessions');
+                Route::get('/transactions', function () {
+                    return Inertia::render('Activities/Transactions');
+                })->name('act_trans');
 
-            Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('auth');
-            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
-            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy')->middleware('auth');
+                Route::get('/memberships', function () {
+                    return Inertia::render('Activities/Memberships');
+                })->name('act_mems');
+            });
+
+            Route::group(['prefix' => '/approval'], function () {
+
+                Route::get('/loans', function () {
+                    return Inertia::render('Approvals/LoanApproval');
+                })->name('loan_approve');
+
+                Route::get('/memberships', function () {
+                    return Inertia::render('Approvals/MemsApproval');
+                })->name('mems_approve');
+            });
+
+
+            Route::group(['prefix' => '/master-files'], function () {
+                Route::get('/loan', function () {
+                    return Inertia::render('MasterFiles/Loan');
+                })->name('loans');
+
+                Route::get('/users', function () {
+                    return Inertia::render('MasterFiles/Users');
+                })->name('users');
+            });
+
+            Route::group(['prefix' => '/sessions'], function () {
+                Route::get('/active-users', function () {
+                    return Inertia::render('Sessions/index');
+                })->name('active.sess');
+            });
+
+            Route::group(['prefix' => '/profile', 'as' => 'profile.'], function () {
+                Route::get('/index', [ProfileController::class, 'edit'])->name('edit');
+                Route::patch('/update', [ProfileController::class, 'update'])->name('update');
+                Route::delete('/delete', [ProfileController::class, 'destroy'])->name('destroy');
+            });
         });
     });
 });
