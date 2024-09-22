@@ -1,4 +1,3 @@
-// Dropdown.jsx
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
 

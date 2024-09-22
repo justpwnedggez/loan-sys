@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
-import Dropdown from "@/Components/NavBar/Dropdown";
+import DropdownNav from "@/Components/NavBar/Dropdown";
+import DropdownSideNav from "@/Components/Sidebar/MasterFiles/Dropdown";
 
 export default function Component({ children }) {
     const { auth } = usePage().props;
@@ -32,17 +33,12 @@ export default function Component({ children }) {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
+                                <path d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
                     <Link
-                        href={route('main.dashboard')}
+                        href={route("main.dashboard")}
                         className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
                     >
                         <svg
@@ -56,8 +52,6 @@ export default function Component({ children }) {
                                 xmlns="http://www.w3.org/2000/svg"
                                 d="M4 4V16C4 18.2091 5.79086 20 8 20H20"
                                 stroke="#6B7B94"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
                             />
                             <path
                                 xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +62,7 @@ export default function Component({ children }) {
                         Dashboard
                     </Link>
                     <Link
-                        href={route('main.master_files')}
+                        href="#"
                         className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
                     >
                         <svg
@@ -78,31 +72,17 @@ export default function Component({ children }) {
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                         >
-                            <path
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="cls-1"
-                                d="M20,8H8A3,3,0,0,1,8,2H20a1,1,0,0,1,1,1V7A1,1,0,0,1,20,8ZM8,4A1,1,0,0,0,8,6H19V4Z"
-                            />
-                            <path
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="cls-1"
-                                d="M19,22H5a3,3,0,0,1,0-6H19a1,1,0,0,1,1,1v4A1,1,0,0,1,19,22ZM5,18a1,1,0,0,0,0,2H18V18Z"
-                            />
-                            <path
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="cls-1"
-                                d="M17,12H5A3,3,0,0,1,5,6H17a1,1,0,0,1,0,2H5a1,1,0,0,0,0,2H17a1,1,0,0,1,0,2Z"
-                            />
-                            <path
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="cls-1"
-                                d="M21,18H10a4,4,0,0,1,0-8H21a1,1,0,0,1,0,2H10a2,2,0,0,0,0,4H20V14a1,1,0,0,1,2,0v3A1,1,0,0,1,21,18Z"
-                            />
+                            <path d="M20,8H8A3,3,0,0,1,8,2H20a1,1,0,0,1,1,1V7A1,1,0,0,1,20,8ZM8,4A1,1,0,0,0,8,6H19V4Z" />
+                            <path d="M19,22H5a3,3,0,0,1,0-6H19a1,1,0,0,1,1,1v4A1,1,0,0,1,19,22ZM5,18a1,1,0,0,0,0,2H18V18Z" />
+                            <path d="M17,12H5A3,3,0,0,1,5,6H17a1,1,0,0,1,0,2H5a1,1,0,0,0,0,2H17a1,1,0,0,1,0,2Z" />
+                            <path d="M21,18H10a4,4,0,0,1,0-8H21a1,1,0,0,1,0,2H10a2,2,0,0,0,0,4H20V14a1,1,0,0,1,2,0v3A1,1,0,0,1,21,18Z" />
                         </svg>
-                        Master Files
+                        <span>Master Files</span>
+                            <DropdownSideNav auth={auth} />
                     </Link>
+
                     <Link
-                        href={route('main.sessions')}
+                        href={route("main.sessions")}
                         className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
                     >
                         <svg
@@ -113,8 +93,6 @@ export default function Component({ children }) {
                             stroke="currentColor"
                         >
                             <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
                                 d="M3.99658 4H19.9999V20H3.99658V4ZM5.49658 5.5V8H18.4999V5.5H5.49658ZM18.4999 9.5H9.99994V18.5H18.4999V9.5ZM8.49994 18.5V16.5H5.49658V18.5H8.49994ZM5.49658 15H8.49994V13H5.49658V15ZM5.49658 11.5H8.49994V9.5H5.49658V11.5Z"
                                 fill="#1F2328"
                             />
@@ -136,19 +114,14 @@ export default function Component({ children }) {
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                             >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
+                                <path d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
                         <h1 className="text-2xl font-semibold text-gray-900">
                             Loan Management System
                         </h1>
                         <div>
-                            <Dropdown auth={auth} />
+                            <DropdownNav auth={auth} />
                         </div>
                     </div>
                 </header>
