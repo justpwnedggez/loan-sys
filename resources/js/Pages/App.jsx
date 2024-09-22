@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import DropdownNav from "@/Components/NavBar/Dropdown";
-import DropdownSideNav from "@/Components/Sidebar/MasterFiles/Dropdown";
+import DropdownSideNavMastFil from "@/Components/Sidebar/MasterFiles/Dropdown";
+import DropdownSideNavAct from "@/Components/Sidebar/Activity/Dropdown"
+import DropdownSideNavApprv from "@/Components/Sidebar/Approvals/Dropdown"
 
 export default function Component({ children }) {
     const { auth } = usePage().props;
@@ -61,28 +63,21 @@ export default function Component({ children }) {
                         </svg>
                         Dashboard
                     </Link>
-                    <Link
-                        href="#"
-                        className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5 mr-3"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path d="M20,8H8A3,3,0,0,1,8,2H20a1,1,0,0,1,1,1V7A1,1,0,0,1,20,8ZM8,4A1,1,0,0,0,8,6H19V4Z" />
-                            <path d="M19,22H5a3,3,0,0,1,0-6H19a1,1,0,0,1,1,1v4A1,1,0,0,1,19,22ZM5,18a1,1,0,0,0,0,2H18V18Z" />
-                            <path d="M17,12H5A3,3,0,0,1,5,6H17a1,1,0,0,1,0,2H5a1,1,0,0,0,0,2H17a1,1,0,0,1,0,2Z" />
-                            <path d="M21,18H10a4,4,0,0,1,0-8H21a1,1,0,0,1,0,2H10a2,2,0,0,0,0,4H20V14a1,1,0,0,1,2,0v3A1,1,0,0,1,21,18Z" />
-                        </svg>
-                        <span>Master Files</span>
-                            <DropdownSideNav auth={auth} />
-                    </Link>
+
+                    <div>{/** Activities Dropdown */}
+                        <DropdownSideNavAct />
+                    </div>
+
+                    <div>{/** Approvals Dropdown */}
+                        <DropdownSideNavApprv />
+                    </div>
+
+                    <div>{/** Master Files Dropdown */}
+                        <DropdownSideNavMastFil />
+                    </div>
 
                     <Link
-                        href={route("main.sessions")}
+                        href={route("main.active.sess")}
                         className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
                     >
                         <svg
