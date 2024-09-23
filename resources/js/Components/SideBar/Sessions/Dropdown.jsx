@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 
 //Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faUsersRectangle } from '@fortawesome/free-solid-svg-icons';
 
 export default function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,13 +12,14 @@ export default function Dropdown() {
 
     return (
         <div className="relative">
-            {/* Activities toggle button */}
+            {/* Master Files toggle button */}
             <button
                 onClick={toggleDropdown}
                 className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center w-full text-left"
             >
-                <FontAwesomeIcon icon={ faPenToSquare } className="mr-2" />
-                <span>Activities</span>
+                <FontAwesomeIcon icon={ faUsersRectangle } className="mr-2" />
+
+                <span>Sessions</span>
 
                 {/* Dropdown arrow */}
                 <svg
@@ -41,16 +42,10 @@ export default function Dropdown() {
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
                     <Link
-                        href={route('main.act_trans')}
+                        href={route('main.active.sess')}
                         className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
                     >
-                        Transaction
-                    </Link>
-                    <Link
-                        href={route('main.act_mems')}
-                        className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
-                    >
-                        Membership
+                        Active Sessions
                     </Link>
                 </div>
             )}

@@ -64,6 +64,16 @@ Route::group(['middleware', 'auth'], function () {
                 Route::get('/users', function () {
                     return Inertia::render('MasterFiles/Users');
                 })->name('users');
+
+                Route::get('/memberships', function () {
+                    return Inertia::render('MasterFiles/Memberships');
+                })->name('mems');
+            });
+
+            Route::group(['prefix' => '/reports'], function () {
+                Route::get('/reports', function () {
+                    return Inertia::render('Reports/LoanPortfolio');
+                })->name('loan_portf');
             });
 
             Route::group(['prefix' => '/sessions'], function () {
