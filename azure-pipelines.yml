@@ -1,19 +1,29 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+  branches:
+    include:
+      - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
+# Step 1: Checkout the GitHub repository
+- checkout: none
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    git config --global user.name "Azure Pipelines"
+    git config --global user.email "justpwnedggez@gmail.com"
+    git clone https://github.com/justpwnedggez/loan-sys.git
+    cd loan-sys
+    git checkout main
+  displayName: 'Checkout GitHub main branch'
+
+# Step 2: Push the changes to Azure DevOps repository
+- script: |
+    git remote add azure https://dev.azure.com/Capstone/_git/Capstone
+    git fetch azure
+    git checkout develop
+    git merge origin/develop
+    git push azure develop
+  displayName: 'Merge GitHub main into Azure develop'
+
+# You can add other build, test, or deployment steps here
