@@ -3,7 +3,7 @@ import App from '../App';
 export default function index() {
     return (
         <div>
-            <h1>Sessions</h1>
+            <h1>Active Sessions</h1>
         </div>
     );
 }

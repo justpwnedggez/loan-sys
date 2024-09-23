@@ -45,7 +45,7 @@ export default function Dropdown() {
                         href={route('main.active.sess')}
                         className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
                     >
-                        Loan Portfolio
+                        Active Sessions
                     </Link>
                 </div>
             )}

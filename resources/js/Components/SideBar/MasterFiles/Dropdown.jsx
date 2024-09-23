@@ -48,6 +48,12 @@ export default function Dropdown() {
                         Loans
                     </Link>
                     <Link
+                        href={route('main.mems')}
+                        className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
+                    >
+                        Memberships
+                    </Link>
+                    <Link
                         href={route('main.users')}
                         className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
                     >
