@@ -66,6 +66,12 @@ Route::group(['middleware', 'auth'], function () {
                 })->name('users');
             });
 
+            Route::group(['prefix' => '/reports'], function () {
+                Route::get('/reports', function () {
+                    return Inertia::render('Reports/LoanPortfolio');
+                })->name('loan_portf');
+            });
+
             Route::group(['prefix' => '/sessions'], function () {
                 Route::get('/active-users', function () {
                     return Inertia::render('Sessions/index');
