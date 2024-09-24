@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 
 //Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTableList } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTableList } from "@fortawesome/free-solid-svg-icons";
 
 export default function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
-
     const toggleDropdown = () => setIsOpen(!isOpen);
-
     return (
         <div className="relative">
             {/* Master Files toggle button */}
@@ -17,7 +15,7 @@ export default function Dropdown() {
                 onClick={toggleDropdown}
                 className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center w-full text-left"
             >
-                <FontAwesomeIcon icon={ faTableList } className="mr-2" />
+                <FontAwesomeIcon icon={faTableList} className="mr-2" />
 
                 <span>Master Files</span>
 
@@ -25,7 +23,7 @@ export default function Dropdown() {
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={`ml-auto h-5 w-5 transform transition-transform ${
-                        isOpen ? 'rotate-180' : ''
+                        isOpen ? "rotate-180" : ""
                     }`}
                     viewBox="0 0 20 20"
                     fill="currentColor"
@@ -42,20 +40,32 @@ export default function Dropdown() {
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
                     <Link
-                        href={route('main.loans')}
-                        className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
+                        href={route("main.loans")}
+                        className={`block max-w-48 px-4 py-2 rounded ${
+                            route().current() === "main.loans"
+                                ? "bg-blue-600 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                        }`}
                     >
                         Loans
                     </Link>
                     <Link
-                        href={route('main.mems')}
-                        className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
+                        href={route("main.mems")}
+                        className={`block max-w-48 px-4 py-2 rounded ${
+                            route().current() === "main.mems"
+                                ? "bg-blue-600 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                        }`}
                     >
                         Memberships
                     </Link>
                     <Link
-                        href={route('main.users')}
-                        className="block max-w-48 px-4 py-2 text-gray-300 hover:bg-gray-600 rounded hover:text-white"
+                        href={route("main.users")}
+                        className={`block max-w-48 px-4 py-2 rounded ${
+                            route().current() === "main.users"
+                                ? "bg-blue-600 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                        }`}
                     >
                         Users
                     </Link>
