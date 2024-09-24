@@ -49,7 +49,12 @@ export default function Component({ children }) {
                     </div>
                     <Link
                         href={route("main.dashboard")}
-                        className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center"
+                        className={`block py-2.5 px-4 rounded ${
+                            route().current() === "main.dashboard"
+                                ? "bg-blue-700 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-700 hover:text-white" // Default style
+                        }`}
+
                     >
                         <FontAwesomeIcon icon={faChartLine} className="mr-2" />
                         Dashboard
