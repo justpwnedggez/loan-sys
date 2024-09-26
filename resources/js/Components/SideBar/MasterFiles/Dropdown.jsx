@@ -60,9 +60,9 @@ export default function Dropdown() {
                         Memberships
                     </Link>
                     <Link
-                        href={route("main.users")}
+                        href={route("main.list.user")}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.users"
+                            route().current() === "main.list.user"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}

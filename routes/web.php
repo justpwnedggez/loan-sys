@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+
+//Controllers
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Main\MasterFiles\Users\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,9 +64,17 @@ Route::group(['middleware', 'auth'], function () {
                     return Inertia::render('MasterFiles/Loan');
                 })->name('loans');
 
-                Route::get('/users', function () {
-                    return Inertia::render('MasterFiles/Users');
-                })->name('users');
+                Route::group(['prefix' => '/users'], function () {
+
+                    Route::get('/list', [UsersController::class, 'view'])->name('list.user');
+
+                    Route::get('/create', function () {
+                        return Inertia::render('MasterFiles/Users/CreateUser');
+                    })->name('add.user');
+
+                });
+
+
 
                 Route::get('/memberships', function () {
                     return Inertia::render('MasterFiles/Memberships');
