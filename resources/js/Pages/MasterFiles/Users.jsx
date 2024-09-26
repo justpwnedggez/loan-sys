@@ -1,76 +1,44 @@
-import App from "../App";
+import { Link } from "@inertiajs/react";
+import App from "../App"; // Main application layout
 
-export default function Users({ users, form, setForm }) {
+export default function Users({ children }) {
     return (
-        <div className="grid grid-cols-2 grid-rows-1 gap-4">
-            <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
-                <h1 className="text-2xl font-bold text-center mb-6">
-                    User Management
-                </h1>
+        <div className="max-w-screen-2xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
+            <h1 className="text-2xl font-bold text-center mb-6">
+                User Management
+            </h1>
 
-                <form className="mb-6">
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        required
-                        className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    />
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        required
-                        className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                        className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    />
-                    <button
-                        type="submit"
-                        className={`w-full p-2 text-white rounded-md bg-blue-500 hover:bg-blue-600 transition duration-200`}
-                    >
-                        {" "}
-                        Submit
-                    </button>
-                </form>
+            {/* Tab buttons */}
+            <div className="flex justify-center mb-4 space-x-4">
+                <Link
+                    href={route("main.list.user")}
+                    className={`block max-w-48 px-4 py-2 rounded ${
+                        route().current() === "main.list.user"
+                            ? "bg-blue-600 text-white" // Active style (highlighted)
+                            : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                    }`}
+                >
+                    Users
+                </Link>
+                <Link
+                    href={route("main.add.user")}
+                    className={`block max-w-48 px-4 py-2 rounded ${
+                        route().current() === "main.add.user"
+                            ? "bg-blue-600 text-white" // Active style (highlighted)
+                            : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                    }`}
+                >
+                    Add User
+                </Link>
             </div>
-            <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
-                <h1 className="text-2xl font-bold text-center mb-6">
-                    User Management
-                </h1>
 
-                <form className="mb-6">
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        required
-                        className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    />
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        required
-                        className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                        className="w-full mb-4 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                    />
-                    <button
-                        type="submit"
-                        className={`w-full p-2 text-white rounded-md bg-blue-500 hover:bg-blue-600 transition duration-200`}
-                    >
-                        {" "}
-                        Submit
-                    </button>
-                </form>
+            {/* Render child content passed down (User List or Add User component) */}
+            <div className="mt-6">
+                {children}
             </div>
         </div>
     );
 }
 
+// This will apply the `App` layout as the root layout
 Users.layout = (page) => <App children={page} />;
