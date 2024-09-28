@@ -21,6 +21,6 @@ class UsersController extends Controller
     {
         $users = $this->userRepository->getUsers($request);
 
-        return Inertia::render('MasterFiles/Users/ListUser');
+        return Inertia::render('MasterFiles/Users/ListUser', ['users' => $users]);
     }
 }
