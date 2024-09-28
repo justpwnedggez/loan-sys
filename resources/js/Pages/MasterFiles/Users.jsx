@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import App from "../App"; // Main application layout
+import App from "../App";
 
 export default function Users({ children }) {
     return (
