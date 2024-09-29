@@ -5,14 +5,13 @@ export default function Dropdown({ auth }) {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-
     return (
         <div className="relative inline-block">
             <button
                 onClick={toggleDropdown}
                 className="text-gray-800 hover:text-gray-600 focus:outline-none"
             >
-                {auth.user.name} {/* Display username */}
+                {auth.user.first_name} {/* Display username */}
             </button>
 
             {dropdownOpen && (

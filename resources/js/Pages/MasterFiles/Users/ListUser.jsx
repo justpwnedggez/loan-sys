@@ -16,11 +16,11 @@ export default function ListUser({ users }) {
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     tableStyle={{ minWidth: "50rem" }}
                 >
-                    <Column field="id" header="#"></Column>
+                    <Column field="no" header="#"></Column>
                     <Column field="first_name" header="First Name"></Column>
                     <Column field="last_name" header="Last Name"></Column>
                     <Column field="email" header="Email"></Column>
-                    <Column field="created_at" header="Created At"></Column>
+                    <Column field="date_created" header="Created At"></Column>
                 </DataTable>
             </div>
         </div>
