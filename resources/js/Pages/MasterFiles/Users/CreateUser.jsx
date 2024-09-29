@@ -66,7 +66,7 @@ export default function CreateUser() {
                                     value={formData.first_name}
                                     onChange={handleInputChange}
                                     required
-                                    autoComplete='off'
+                                    autocomplete="off"
                                 />
                                 <label htmlFor="first_name">First Name</label>
                             </FloatLabel>
@@ -82,7 +82,7 @@ export default function CreateUser() {
                                     value={formData.last_name}
                                     onChange={handleInputChange}
                                     required
-                                    autoComplete='off'
+                                    autocomplete="off"
                                 />
                                 <label htmlFor="last_name">Last Name</label>
                             </FloatLabel>
@@ -98,7 +98,7 @@ export default function CreateUser() {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     required
-                                    autoComplete='off'
+                                    autocomplete="off"
                                 />
                                 <label htmlFor="email">Email</label>
                             </FloatLabel>
@@ -108,7 +108,10 @@ export default function CreateUser() {
                                 <i className="pi pi-user"></i>
                             </span>
                             <FloatLabel>
-                                <SelectButton value={formData.is_active} onChange={handleStatusChange} options={options} />
+                                <SelectButton
+                                    value={formData.is_active}
+                                    onChange={handleStatusChange}
+                                    options={options} />
                             </FloatLabel>
                         </div>
                         <div className="p-inputgroup flex">
@@ -123,7 +126,7 @@ export default function CreateUser() {
                                     value={formData.password}
                                     onChange={handleInputChange}
                                     required
-                                    autoComplete='off'
+                                    autocomplete="off"
                                 />
                                 <label htmlFor="password">Password</label>
                             </FloatLabel>
@@ -140,7 +143,7 @@ export default function CreateUser() {
                                     value={formData.confirmPassword}
                                     onChange={handleInputChange}
                                     required
-                                    autoComplete='off'
+                                    autocomplete="off"
                                 />
                                 <label htmlFor="confirmPassword">
                                     Confirm Password
