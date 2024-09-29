@@ -65,12 +65,18 @@ Route::group(['middleware', 'auth'], function () {
                 })->name('loans');
 
                 Route::group(['prefix' => '/users'], function () {
+                    //Get Methods
 
                     Route::get('/list', [UsersController::class, 'view'])->name('list.user');
 
                     Route::get('/create', function () {
                         return Inertia::render('MasterFiles/Users/CreateUser');
                     })->name('add.user');
+
+                    //Post Methods
+
+                    //User Create
+                    Route::post('/create/post', [UsersController::class, 'createUsers'])->name('post.create.user');
 
                 });
 
