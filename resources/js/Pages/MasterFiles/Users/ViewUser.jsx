@@ -14,15 +14,13 @@ import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { SelectButton } from "primereact/selectbutton";
 
-export default function CreateUser() {
+export default function CreateUser({ user }) {
 
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        is_active: 'Y',
-        password: '',
-        confirmPassword: ''
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        is_active: user.is_active
     });
 
     const options = [
@@ -49,7 +47,7 @@ export default function CreateUser() {
     return (
         <div>
             <div>
-                <h2 className="text-xl font-bold mb-4">Create User</h2>
+                <h2 className="text-xl font-bold mb-4">Update User</h2>
                 <Toast ref={toast} />
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-4 mb-4">
@@ -64,7 +62,8 @@ export default function CreateUser() {
                                     value={formData.first_name}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
+                                    disabled
                                 />
                                 <label htmlFor="first_name">First Name</label>
                             </FloatLabel>
@@ -80,7 +79,8 @@ export default function CreateUser() {
                                     value={formData.last_name}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
+                                    disabled
                                 />
                                 <label htmlFor="last_name">Last Name</label>
                             </FloatLabel>
@@ -96,7 +96,8 @@ export default function CreateUser() {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
+                                    disabled
                                 />
                                 <label htmlFor="email">Email</label>
                             </FloatLabel>
@@ -112,51 +113,15 @@ export default function CreateUser() {
                                     options={options} />
                             </FloatLabel>
                         </div>
-                        <div className="p-inputgroup flex">
-                            <span className="p-inputgroup-addon">
-                                <i className="pi pi-lock"></i>
-                            </span>
-                            <FloatLabel>
-                                <InputText
-                                    className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    id="password"
-                                    type="password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                    required
-                                    autocomplete="off"
-                                />
-                                <label htmlFor="password">Password</label>
-                            </FloatLabel>
-                        </div>
-                        <div className="p-inputgroup flex">
-                            <span className="p-inputgroup-addon">
-                                <i className="pi pi-lock"></i>
-                            </span>
-                            <FloatLabel>
-                                <InputText
-                                    className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    id="confirmPassword"
-                                    type="password"
-                                    value={formData.confirmPassword}
-                                    onChange={handleInputChange}
-                                    required
-                                    autocomplete="off"
-                                />
-                                <label htmlFor="confirmPassword">
-                                    Confirm Password
-                                </label>
-                            </FloatLabel>
-                        </div>
                     </div>
                     <div className="flex items-center justify-center">
                         <Button
                             icon="pi pi-check"
                             iconPos="right"
-                            label="Submit"
+                            label="Update"
                             severity="success"
                             type="submit"
-                            className="w-auto p-2 text-white rounded-md bg-gray-500 hover:bg-green-600 transition duration-200"
+                            className="w-auto p-2 text-white rounded-md bg-blue-500 hover:bg-green-600 transition duration-200"
                         />
                     </div>
                 </form>

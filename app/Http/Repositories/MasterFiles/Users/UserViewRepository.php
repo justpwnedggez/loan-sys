@@ -2,13 +2,16 @@
 
 namespace App\Http\Repositories\MasterFiles\Users;
 
+use App\Http\Traits\MasterFiles\Users\UsersTrait;
 use App\Models\User;
 
 class UserViewRepository implements UserInterface
 {
+    use UsersTrait;
+
     public function getUsers($request)
     {
-        $users = User::get();
+        $users = $this->getUser()->get();
         return $this->modifyFields($users);
     }
 
@@ -23,7 +26,13 @@ class UserViewRepository implements UserInterface
     {
         $item['no'] = $key + 1;
         $item['date_created'] = date('m/d/Y', strtotime($item->created_at));
+        $item['action'] = route('main.view.user', ['id' => $item->encrypted_id]);
 
         return $item;
+    }
+
+    public function findUser($id)
+    {
+        return $this->findById($id);
     }
 }

@@ -21,11 +21,18 @@ class UsersController extends Controller
         $this->userService = $userService;
     }
 
-    public function view(Request $request)
+    public function listView(Request $request)
     {
         $users = $this->userRepository->getUsers($request);
 
         return Inertia::render('MasterFiles/Users/ListUser', ['users' => $users]);
+    }
+
+    public function userView($id)
+    {
+        $user = $this->userRepository->findUser($id);
+
+        return Inertia::render('MasterFiles/Users/ViewUser', ['user' => $user]);
     }
 
     public function createUsers(CreateUserRequest $request)
