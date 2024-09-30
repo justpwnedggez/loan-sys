@@ -1,11 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-
 import App from "../../App";
 import Users from "../Users";
+import { Button } from 'primereact/button'; // Import PrimeReact button component
 
 export default function ListUser({ users }) {
+
+    // Template for the "Actions" column
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <Button
+                label="View"
+                icon="pi pi-eye"
+                className="p-button-sm p-button-primary"
+                onClick={() => window.location.href = rowData.action} // Navigate to the Laravel route
+            />
+        );
+    };
+
     return (
         <div>
             <div className="overflow-x-auto mt-6">
@@ -21,6 +34,10 @@ export default function ListUser({ users }) {
                     <Column field="last_name" header="Last Name"></Column>
                     <Column field="email" header="Email"></Column>
                     <Column field="date_created" header="Created At"></Column>
+                    <Column
+                        header="Actions"
+                        body={actionBodyTemplate} // Use the custom template for action buttons
+                    ></Column>
                 </DataTable>
             </div>
         </div>
