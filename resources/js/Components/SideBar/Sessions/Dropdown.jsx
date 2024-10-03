@@ -42,9 +42,9 @@ export default function Dropdown() {
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
                     <Link
-                        href={route('main.active.sess')}
+                        href={route('main.sess.list')}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.active.sess"
+                            route().current() === "main.sess.list"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}
