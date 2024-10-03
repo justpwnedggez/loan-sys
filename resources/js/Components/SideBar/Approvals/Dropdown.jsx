@@ -42,9 +42,9 @@ export default function Dropdown() {
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
                     <Link
-                        href={route("main.loan_approve")}
+                        href={route("main.apprv.loans.list")}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.loan_approve"
+                            route().current() === "main.apprv.loans.list"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}
@@ -52,9 +52,9 @@ export default function Dropdown() {
                         Loans
                     </Link>
                     <Link
-                        href={route("main.mems_approve")}
+                        href={route("main.apprv.mems.list")}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.mems_approve"
+                            route().current() === "main.apprv.mems.list"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}

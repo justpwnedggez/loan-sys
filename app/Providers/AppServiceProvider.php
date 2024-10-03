@@ -2,11 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\Repositories\MasterFiles\Loans\LoansInterface;
+use App\Http\Repositories\MasterFiles\Loans\LoansViewRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Services\MasterFiles\Users\UserService;
 use App\Http\Repositories\MasterFiles\Users\UserInterface;
 use App\Http\Repositories\MasterFiles\Users\UserViewRepository;
-use App\Http\Repositories\MasterFiles\Users\UserCreateRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
         //Repositories
         //Master Files
         $this->app->bind(UserInterface::class, UserViewRepository::class);
+        $this->app->bind(LoansInterface::class, LoansViewRepository::class);
 
         //Services
         $this->app->singleton(UserService::class, function($app) {
