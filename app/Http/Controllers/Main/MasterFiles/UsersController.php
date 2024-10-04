@@ -6,7 +6,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Services\MasterFiles\Users\UserService;
 use App\Http\Repositories\MasterFiles\Users\UserInterface;
 
