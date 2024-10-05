@@ -16,3 +16,4 @@ use App\Http\Controllers\Main\MasterFiles\UsersController;
 
     //User Create
     Route::post('/create/post', [UsersController::class, 'createUsers'])->name('post.create.user');
+    Route::post('/update/post', [UsersController::class, 'updateUsers'])->name('post.update.user');

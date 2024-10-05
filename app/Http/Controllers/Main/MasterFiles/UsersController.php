@@ -7,6 +7,7 @@ use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateUserRequest;
+use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Services\MasterFiles\Users\UserService;
 use App\Http\Repositories\MasterFiles\Users\UserInterface;
 
@@ -42,5 +43,10 @@ class UsersController extends Controller
         return response()->json([
             'message' => 'User ' . $user->first_name . ' created successfully'
         ]);
+    }
+
+    public function updateUsers(UpdateUserRequest $request)
+    {
+        $user = $this->userService->updateUser($request->validated());
     }
 }
