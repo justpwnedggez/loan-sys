@@ -3,7 +3,7 @@ import App from "../../App";
 import Roles from "../Roles";
 
 //Methods
-import { submitCreateRoleForm } from '../../../Methods/MasterFiles/Roles/Submit/SubmitFormData';
+import { submitCreateRoleForm } from '../../../Methods/MasterFiles/Roles/CreateRole/Submit/SubmitFormData';
 
 //Message Popper
 import { Toast } from 'primereact/toast';
@@ -32,6 +32,17 @@ export default function CreateRole({ roles }) {
         e.preventDefault();
         submitCreateRoleForm(formData, toast);
         setFormData({ name: '' }); // Reset form after submission
+    };
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <Button
+                label="View"
+                icon="pi pi-eye"
+                className="p-button-sm p-button-primary"
+                onClick={() => window.location.href = rowData.action} // Navigate to the Laravel route
+            />
+        );
     };
 
     return (
@@ -84,6 +95,10 @@ export default function CreateRole({ roles }) {
                     <Column field="no" header="#"></Column>
                     <Column field="name" header="Role Name"></Column>
                     <Column field="date_created" header="Created At"></Column>
+                    <Column
+                        header="Actions"
+                        body={actionBodyTemplate} // Use the custom template for action buttons
+                    ></Column>
                 </DataTable>
             </div>
             </div>

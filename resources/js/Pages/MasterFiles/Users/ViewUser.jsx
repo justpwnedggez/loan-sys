@@ -3,7 +3,7 @@ import App from "../../App";
 import Users from "../Users";
 
 //Methods
-import { submitCreateUserForm } from '../../../Methods/MasterFiles/Users/CreateUser/Submit/SubmitFormData';
+import { submitUpdateUserForm } from '../../../Methods/MasterFiles/Users/UpdateUser/Submit/SubmitFormData';
 
 //Message Popper
 import { Toast } from 'primereact/toast';
@@ -14,9 +14,10 @@ import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { SelectButton } from "primereact/selectbutton";
 
-export default function CreateUser({ user }) {
+export default function EditUser({ user }) {
 
     const [formData, setFormData] = useState({
+        id: user.id,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
@@ -30,18 +31,13 @@ export default function CreateUser({ user }) {
 
     const toast = useRef(null);
 
-    const handleInputChange = (e) => {
-        const { id, value } = e.target;
-        setFormData({ ...formData, [id]: value });
-    };
-
     const handleStatusChange = (e) => {
         setFormData({ ...formData, is_active: e.value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        submitCreateUserForm(formData, toast);
+        submitUpdateUserForm(formData, toast);
     };
 
     return (
@@ -51,6 +47,7 @@ export default function CreateUser({ user }) {
                 <Toast ref={toast} />
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-4 mb-4">
+                        <InputText type="hidden" value={formData.id}/>
                         <div className="p-inputgroup flex">
                             <span className="p-inputgroup-addon">
                                 <i className="pi pi-user"></i>
@@ -60,7 +57,6 @@ export default function CreateUser({ user }) {
                                     className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     id="first_name"
                                     value={formData.first_name}
-                                    onChange={handleInputChange}
                                     required
                                     autoComplete="off"
                                     disabled
@@ -77,7 +73,6 @@ export default function CreateUser({ user }) {
                                     className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     id="last_name"
                                     value={formData.last_name}
-                                    onChange={handleInputChange}
                                     required
                                     autoComplete="off"
                                     disabled
@@ -94,7 +89,6 @@ export default function CreateUser({ user }) {
                                     className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     id="email"
                                     value={formData.email}
-                                    onChange={handleInputChange}
                                     required
                                     autoComplete="off"
                                     disabled
@@ -130,4 +124,4 @@ export default function CreateUser({ user }) {
     );
 }
 
-CreateUser.layout = (page) => <App>{<Users>{page}</Users>}</App>;
+EditUser.layout = (page) => <App>{<Users>{page}</Users>}</App>;
