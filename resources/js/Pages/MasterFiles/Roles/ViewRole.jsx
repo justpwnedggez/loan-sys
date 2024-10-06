@@ -21,7 +21,7 @@ export default function UpdateRole({ role }) {
         role_name: role.original.role_name,
         permissions: {
             dashboard: {
-                enabled: role.original.permissions.dashboard.enabled || false,
+                enabled: role.original.permissions.dashboard.enabled,
             },
             activities: {
                 enabled: role.original.permissions.activities.enabled,
