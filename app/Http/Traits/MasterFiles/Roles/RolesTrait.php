@@ -17,39 +17,36 @@ trait RolesTrait
     public function findById($encryptedId)
     {
         $id = $this->decryptId($encryptedId);
-
-        // Find the role and include its permissions
         $role = Role::with('permissions')->findOrFail($id);
 
-        // Prepare the permissions data in the desired format
         $permissionsData = [
             'dashboard' => [
-                'enabled' => $role->hasPermissionTo('view dashboard'), // Adjust as needed
+                'enabled' => $role->hasPermissionTo('view dashboard'),
             ],
             'activities' => [
-                'enabled' => $role->hasPermissionTo('view activities'), // Adjust as needed
-                'transactions' => $role->hasPermissionTo('view transactions'), // Adjust as needed
-                'membership' => $role->hasPermissionTo('view memberships'), // Adjust as needed
+                'enabled' => $role->hasPermissionTo('view activities'),
+                'transactions' => $role->hasPermissionTo('view transactions'),
+                'membership' => $role->hasPermissionTo('view memberships'),
             ],
             'approvals' => [
-                'enabled' => $role->hasPermissionTo('view approvals'), // Adjust as needed
-                'loan_approvals' => $role->hasPermissionTo('view loan_approvals'), // Adjust as needed
-                'membership_approvals' => $role->hasPermissionTo('view membership_approvals'), // Adjust as needed
+                'enabled' => $role->hasPermissionTo('view approvals'),
+                'loan_approvals' => $role->hasPermissionTo('view loan_approvals'),
+                'membership_approvals' => $role->hasPermissionTo('view membership_approvals'),
             ],
             'master_files' => [
-                'enabled' => $role->hasPermissionTo('view master files'), // Adjust as needed
-                'users' => $role->hasPermissionTo('view users'), // Adjust as needed
-                'roles' => $role->hasPermissionTo('view roles'), // Adjust as needed
-                'memberships' => $role->hasPermissionTo('view memberships'), // Adjust as needed
-                'loans' => $role->hasPermissionTo('view loans'), // Adjust as needed
+                'enabled' => $role->hasPermissionTo('view master files'),
+                'users' => $role->hasPermissionTo('view users'),
+                'roles' => $role->hasPermissionTo('view roles'),
+                'memberships' => $role->hasPermissionTo('view memberships'),
+                'loans' => $role->hasPermissionTo('view loans'),
             ],
             'reports' => [
-                'enabled' => $role->hasPermissionTo('view reports'), // Adjust as needed
-                'loan_portfolio' => $role->hasPermissionTo('view loan_portfolio'), // Adjust as needed
+                'enabled' => $role->hasPermissionTo('view reports'),
+                'loan_portfolio' => $role->hasPermissionTo('view loan_portfolio'),
             ],
             'sessions' => [
-                'enabled' => $role->hasPermissionTo('view sessions'), // Adjust as needed
-                'active_sessions' => $role->hasPermissionTo('view active_sessions'), // Adjust as needed
+                'enabled' => $role->hasPermissionTo('view sessions'),
+                'active_sessions' => $role->hasPermissionTo('view active_sessions'),
             ],
         ];
 
@@ -62,22 +59,42 @@ trait RolesTrait
 
     public function permissionAssignment(array $data)
     {
-        foreach ($data['permissions'] as $key => $permission) {
-            $this->roleId = $data['id'];
+        $roleId = $data['id'];
 
-            $parentPermName = $this->viewParentPerm($key);
-            $this->findOrCreatePermission($parentPermName);
+        foreach ($data['permissions'] as $parentPermission => $permissionDetails) {
+            $parentPermName = $this->viewParentPerm($parentPermission);
+            $this->processParentPermission($roleId, $parentPermName, $permissionDetails);
+        }
+    }
 
-            if ($permission['enabled']) {
-                $this->assignmentPermissionToRole($parentPermName);
+    private function processParentPermission($roleId, $parentPermName, $permissionDetails)
+    {
+        // Assign or revoke the parent permission based on its enabled status
+        if ($permissionDetails['enabled']) {
+            $this->assignPermission($roleId, $parentPermName);
+        } else {
+            $this->revokePermission($roleId, $parentPermName);
+        }
 
-                $ChildPermNames = $this->viewChildPerm($permission);
-                $ChildPermNames->map(function ($childPermName) {
-                    $permName = $this->findOrCreatePermission($childPermName);
-                    return $this->assignmentPermissionToRole($permName);
-                });
+        // Process child permissions
+        $this->processChildPermissions($roleId, $permissionDetails);
+    }
+
+    private function processChildPermissions($roleId, $permissionDetails)
+    {
+        foreach ($permissionDetails as $childPermission => $isEnabled) {
+            if ($childPermission === 'enabled') {
+                continue; // Skip the 'enabled' property
+            }
+
+            $childPermName = $this->viewChildPerm($childPermission);
+
+            // If the parent is disabled, revoke all child permissions immediately
+            if (!$permissionDetails['enabled']) {
+                $this->revokePermission($roleId, $childPermName);
             } else {
-                $this->revokePermissionFromRole($this->roleId, $parentPermName);
+                // Assign or revoke the child permission based on its enabled status
+                $isEnabled ? $this->assignPermission($roleId, $childPermName) : $this->revokePermission($roleId, $childPermName);
             }
         }
     }
@@ -94,13 +111,9 @@ trait RolesTrait
         ][$str];
     }
 
-    public function viewChildPerm(array $perms)
+    public function viewChildPerm(String $perms)
     {
-        return collect(array_keys($perms))
-            ->except([0])
-            ->map(function ($value) {
-                return 'view ' . $value;
-            });
+        return 'view ' . $perms;
     }
 
     public function findOrCreatePermission(String $permName)
@@ -108,17 +121,22 @@ trait RolesTrait
         return Permission::firstOrCreate(['name' => $permName]);
     }
 
-    public function assignmentPermissionToRole($permName)
+    private function assignPermission($roleId, $permissionName)
     {
-        $role = Role::findOrFail($this->roleId);
+        $this->findOrCreatePermission($permissionName);
+        $this->assignmentPermissionToRole($roleId, $permissionName);
+    }
+
+    private function assignmentPermissionToRole($roleId, $permName)
+    {
+        $role = Role::findOrFail($roleId);
 
         return $role->givePermissionTo($permName);
     }
 
-    public function revokePermissionFromRole($roleId, $permissionName)
+    private function revokePermission($roleId, $permissionName)
     {
         $role = Role::findOrFail($roleId);
-
         return $role->revokePermissionTo($permissionName);
     }
 }
