@@ -1,137 +1,163 @@
 import App from '../App';
+import React, { useState } from 'react';
+
+//Elements
+import { Button } from "primereact/button";
 
 export default function Memberships() {
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        is_active: 'Y',
+        password: '',
+        confirmPassword: ''
+    });
+    const [page, setPage] = useState(1); // Keep track of the current page
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setFormData({ ...formData, [id]: value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Submit form logic here
+    };
+
+    // Function to render different pages
+    const renderPageContent = () => {
+        switch (page) {
+            case 1:
+                return (
+                    <div className="grid grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label className="block font-medium">Last Name:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label className="block font-medium">First Name:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label className="block font-medium">Middle Name:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                    </div>
+                );
+            case 2:
+                return (
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label className="block font-medium">Present Address:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label className="block font-medium">Permanent Address:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                    </div>
+                );
+            case 3:
+                return (
+                    <div className="grid grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label className="block font-medium">Birthdate:</label>
+                            <input type="date" className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label className="block font-medium">Age:</label>
+                            <input type="number" className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label className="block font-medium">Birthplace:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                    </div>
+                );
+            case 4:
+                return (
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label className="block font-medium">Civil Status:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                        <div>
+                            <label className="block font-medium">Name of Husband/Wife:</label>
+                            <input type="text" className="w-full border p-2 rounded" />
+                        </div>
+                    </div>
+                );
+            case 5:
+                return (
+                    <div className="mb-4">
+                        <label className="block font-medium">Gross Annual Income:</label>
+                        <div className="flex items-center">
+                            <input type="checkbox" className="mr-2" />
+                            <span>below 50,000.00</span>
+                        </div>
+                        <div className="flex items-center">
+                            <input type="checkbox" className="mr-2" />
+                            <span>50,000-100,000</span>
+                        </div>
+                        <div className="flex items-center">
+                            <input type="checkbox" className="mr-2" />
+                            <span>100,000-200,000</span>
+                        </div>
+                        <div className="flex items-center">
+                            <input type="checkbox" className="mr-2" />
+                            <span>200,000 above</span>
+                        </div>
+                    </div>
+                );
+            case 6:
+                return (
+                    <div className="mb-4">
+                        <label className="block font-medium">Designated Beneficiaries:</label>
+                        <div className="grid grid-cols-3 gap-4">
+                            <div>
+                                <label className="block font-medium">Name:</label>
+                                <input type="text" className="w-full border p-2 rounded" />
+                            </div>
+                            <div>
+                                <label className="block font-medium">Relationship:</label>
+                                <input type="text" className="w-full border p-2 rounded" />
+                            </div>
+                        </div>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
+    // Function to handle page navigation
+    const nextPage = () => {
+        if (page < 6) setPage(page + 1);
+    };
+
+    const previousPage = () => {
+        if (page > 1) setPage(page - 1);
+    };
+
     return (
         <div className="max-w-5xl mx-auto p-8 border border-gray-300 bg-white rounded-lg shadow-md">
             <h1 className="text-2xl font-bold text-center mb-4">
                 CABARUAN MULTI-PURPOSE COOPERATIVE
             </h1>
-            <h2 className="text-xl text-center mb-6">Biodata</h2>
+            <h2 className="text-xl text-center mb-6">Biodata - Page {page} of 6</h2>
 
-            {/* Personal Information Section */}
-            <div className="grid grid-cols-3 gap-4 mb-4">
-                <div>
-                    <label className="block font-medium">Last Name:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-                <div>
-                    <label className="block font-medium">First Name:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-                <div>
-                    <label className="block font-medium">Middle Name:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-            </div>
+            {/* Render the content of the current page */}
+            {renderPageContent()}
 
-            {/* Address Section */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label className="block font-medium">Present Address:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-                <div>
-                    <label className="block font-medium">Permanent Address:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-            </div>
-
-            {/* Additional Information Section */}
-            <div className="grid grid-cols-3 gap-4 mb-4">
-                <div>
-                    <label className="block font-medium">Birthdate:</label>
-                    <input type="date" className="w-full border p-2 rounded" />
-                </div>
-                <div>
-                    <label className="block font-medium">Age:</label>
-                    <input type="number" className="w-full border p-2 rounded" />
-                </div>
-                <div>
-                    <label className="block font-medium">Birthplace:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-            </div>
-
-            {/* Civil Status Section */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label className="block font-medium">Civil Status:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-                <div>
-                    <label className="block font-medium">Name of Husband/Wife:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-            </div>
-
-            {/* Income and Education */}
-            <div className="mb-4">
-                <label className="block font-medium">Gross Annual Income:</label>
-                <div className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    <span>below 50,000.00</span>
-                </div>
-                <div className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    <span>50,000-100,000</span>
-                </div>
-                <div className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    <span>100,000-200,000</span>
-                </div>
-                <div className="flex items-center">
-                    <input type="checkbox" className="mr-2" />
-                    <span>200,000 above</span>
-                </div>
-            </div>
-
-            {/* Designated Beneficiaries */}
-            <div className="mb-4">
-                <label className="block font-medium">Designated Beneficiaries:</label>
-                <div className="grid grid-cols-3 gap-4">
-                    <div>
-                        <label className="block font-medium">Name:</label>
-                        <input type="text" className="w-full border p-2 rounded" />
-                    </div>
-                    <div>
-                        <label className="block font-medium">Relationship:</label>
-                        <input type="text" className="w-full border p-2 rounded" />
-                    </div>
-                </div>
-            </div>
-
-            {/* References */}
-            <div className="mb-4">
-                <label className="block font-medium">References (Must be a member of this cooperative):</label>
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label className="block font-medium">Name:</label>
-                        <input type="text" className="w-full border p-2 rounded" />
-                    </div>
-                    <div>
-                        <label className="block font-medium">Contact Number:</label>
-                        <input type="text" className="w-full border p-2 rounded" />
-                    </div>
-                </div>
-            </div>
-
-            {/* Signature Section */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label className="block font-medium">Signature:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-                <div>
-                    <label className="block font-medium">Thumb Mark:</label>
-                    <input type="text" className="w-full border p-2 rounded" />
-                </div>
-            </div>
-
-            {/* Submit Button */}
-            <div className="text-center">
-                <button className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                    Submit
-                </button>
+            {/* Navigation Buttons */}
+            <div className="flex justify-between mt-8">
+                <Button label="Previous" onClick={previousPage} disabled={page === 1} />
+                {page < 6 ? (
+                    <Button label="Next" onClick={nextPage} />
+                ) : (
+                    <Button label="Submit" onClick={handleSubmit} />
+                )}
             </div>
         </div>
     );
