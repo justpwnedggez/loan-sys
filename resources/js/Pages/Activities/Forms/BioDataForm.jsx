@@ -33,12 +33,10 @@ export default function BioDataForm() {
 
     const handleIncomeChange = (selectedValues) => {
         setIncomeRange(selectedValues);
-        console.log("Selected income range:", selectedValues);
     };
 
     const handleRsbsaChange = (selectedValues) => {
         setRsbsaStatus(selectedValues);
-        console.log("RSBSA selection:", selectedValues);
     };
 
     const handleSubmit = (e) => {

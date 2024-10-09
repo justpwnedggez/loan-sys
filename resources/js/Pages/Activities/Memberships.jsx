@@ -6,6 +6,9 @@ import { Button } from "primereact/button";
 
 //Forms
 import BioDataForm from "../Activities/Forms/BioDataForm";
+import SubscriptionAgreement from "./Forms/SubscriptionAgreementMember";
+import MemorandumAgreement from "./Forms/MemorandumAgreement";
+import PalagipUtang from "./Forms/Palagiputang";
 
 export default function Memberships() {
     const [page, setPage] = useState(1);
@@ -15,135 +18,11 @@ export default function Memberships() {
             case 1:
             return <BioDataForm/>
             case 2:
-                return (
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label className="block font-medium">
-                                Present Address:
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
-                        <div>
-                            <label className="block font-medium">
-                                Permanent Address:
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
-                    </div>
-                );
+                return <SubscriptionAgreement/>
             case 3:
-                return (
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <label className="block font-medium">
-                                Birthdate:
-                            </label>
-                            <input
-                                type="date"
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
-                        <div>
-                            <label className="block font-medium">Age:</label>
-                            <input
-                                type="number"
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
-                        <div>
-                            <label className="block font-medium">
-                                Birthplace:
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
-                    </div>
-                );
+                return <MemorandumAgreement/>
             case 4:
-                return (
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label className="block font-medium">
-                                Civil Status:
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
-                        <div>
-                            <label className="block font-medium">
-                                Name of Husband/Wife:
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full border p-2 rounded"
-                            />
-                        </div>
-                    </div>
-                );
-            case 5:
-                return (
-                    <div className="mb-4">
-                        <label className="block font-medium">
-                            Gross Annual Income:
-                        </label>
-                        <div className="flex items-center">
-                            <input type="checkbox" className="mr-2" />
-                            <span>below 50,000.00</span>
-                        </div>
-                        <div className="flex items-center">
-                            <input type="checkbox" className="mr-2" />
-                            <span>50,000-100,000</span>
-                        </div>
-                        <div className="flex items-center">
-                            <input type="checkbox" className="mr-2" />
-                            <span>100,000-200,000</span>
-                        </div>
-                        <div className="flex items-center">
-                            <input type="checkbox" className="mr-2" />
-                            <span>200,000 above</span>
-                        </div>
-                    </div>
-                );
-            case 6:
-                return (
-                    <div className="mb-4">
-                        <label className="block font-medium">
-                            Designated Beneficiaries:
-                        </label>
-                        <div className="grid grid-cols-3 gap-4">
-                            <div>
-                                <label className="block font-medium">
-                                    Name:
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full border p-2 rounded"
-                                />
-                            </div>
-                            <div>
-                                <label className="block font-medium">
-                                    Relationship:
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full border p-2 rounded"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                );
-            default:
-                return null;
+                return <PalagipUtang/>
         }
     };
 
@@ -158,11 +37,8 @@ export default function Memberships() {
 
     return (
         <div className="max-w-5xl mx-auto p-8 border border-gray-300 bg-white rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold text-center mb-4">
-                CABARUAN MULTI-PURPOSE COOPERATIVE
-            </h1>
             <h2 className="text-xl text-center mb-6">
-                Biodata - Page {page} of 6
+                Membership Form - Page {page} of 6
             </h2>
 
             {/* Render the content of the current page */}
