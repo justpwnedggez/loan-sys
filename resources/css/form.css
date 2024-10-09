@@ -1,0 +1,28 @@
+.underline {
+    border-bottom: 1px solid black;
+    display: inline-block;
+    width: 150px; /* Adjust the width to suit the text space */
+}
+
+.signature-line {
+    border-bottom: 1px solid black;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.asd {
+    font-weight: bold;
+}
+
+.text-indent {
+    text-indent: 10px;
+}
