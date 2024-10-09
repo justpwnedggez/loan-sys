@@ -1,60 +1,39 @@
-import App from '../App';
-import React, { useState } from 'react';
+import App from "../App";
+import React, { useState } from "react";
 
 //Elements
 import { Button } from "primereact/button";
 
+//Forms
+import BioDataForm from "../Activities/Forms/BioDataForm";
+
 export default function Memberships() {
-    const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        is_active: 'Y',
-        password: '',
-        confirmPassword: ''
-    });
-    const [page, setPage] = useState(1); // Keep track of the current page
-
-    const handleInputChange = (e) => {
-        const { id, value } = e.target;
-        setFormData({ ...formData, [id]: value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Submit form logic here
-    };
-
+    const [page, setPage] = useState(1);
     // Function to render different pages
     const renderPageContent = () => {
         switch (page) {
             case 1:
-                return (
-                    <div className="grid grid-cols-3 gap-4 mb-4">
-                        <div>
-                            <label className="block font-medium">Last Name:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
-                        </div>
-                        <div>
-                            <label className="block font-medium">First Name:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
-                        </div>
-                        <div>
-                            <label className="block font-medium">Middle Name:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
-                        </div>
-                    </div>
-                );
+            return <BioDataForm/>
             case 2:
                 return (
                     <div className="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label className="block font-medium">Present Address:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
+                            <label className="block font-medium">
+                                Present Address:
+                            </label>
+                            <input
+                                type="text"
+                                className="w-full border p-2 rounded"
+                            />
                         </div>
                         <div>
-                            <label className="block font-medium">Permanent Address:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
+                            <label className="block font-medium">
+                                Permanent Address:
+                            </label>
+                            <input
+                                type="text"
+                                className="w-full border p-2 rounded"
+                            />
                         </div>
                     </div>
                 );
@@ -62,16 +41,29 @@ export default function Memberships() {
                 return (
                     <div className="grid grid-cols-3 gap-4 mb-4">
                         <div>
-                            <label className="block font-medium">Birthdate:</label>
-                            <input type="date" className="w-full border p-2 rounded" />
+                            <label className="block font-medium">
+                                Birthdate:
+                            </label>
+                            <input
+                                type="date"
+                                className="w-full border p-2 rounded"
+                            />
                         </div>
                         <div>
                             <label className="block font-medium">Age:</label>
-                            <input type="number" className="w-full border p-2 rounded" />
+                            <input
+                                type="number"
+                                className="w-full border p-2 rounded"
+                            />
                         </div>
                         <div>
-                            <label className="block font-medium">Birthplace:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
+                            <label className="block font-medium">
+                                Birthplace:
+                            </label>
+                            <input
+                                type="text"
+                                className="w-full border p-2 rounded"
+                            />
                         </div>
                     </div>
                 );
@@ -79,19 +71,31 @@ export default function Memberships() {
                 return (
                     <div className="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label className="block font-medium">Civil Status:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
+                            <label className="block font-medium">
+                                Civil Status:
+                            </label>
+                            <input
+                                type="text"
+                                className="w-full border p-2 rounded"
+                            />
                         </div>
                         <div>
-                            <label className="block font-medium">Name of Husband/Wife:</label>
-                            <input type="text" className="w-full border p-2 rounded" />
+                            <label className="block font-medium">
+                                Name of Husband/Wife:
+                            </label>
+                            <input
+                                type="text"
+                                className="w-full border p-2 rounded"
+                            />
                         </div>
                     </div>
                 );
             case 5:
                 return (
                     <div className="mb-4">
-                        <label className="block font-medium">Gross Annual Income:</label>
+                        <label className="block font-medium">
+                            Gross Annual Income:
+                        </label>
                         <div className="flex items-center">
                             <input type="checkbox" className="mr-2" />
                             <span>below 50,000.00</span>
@@ -113,15 +117,27 @@ export default function Memberships() {
             case 6:
                 return (
                     <div className="mb-4">
-                        <label className="block font-medium">Designated Beneficiaries:</label>
+                        <label className="block font-medium">
+                            Designated Beneficiaries:
+                        </label>
                         <div className="grid grid-cols-3 gap-4">
                             <div>
-                                <label className="block font-medium">Name:</label>
-                                <input type="text" className="w-full border p-2 rounded" />
+                                <label className="block font-medium">
+                                    Name:
+                                </label>
+                                <input
+                                    type="text"
+                                    className="w-full border p-2 rounded"
+                                />
                             </div>
                             <div>
-                                <label className="block font-medium">Relationship:</label>
-                                <input type="text" className="w-full border p-2 rounded" />
+                                <label className="block font-medium">
+                                    Relationship:
+                                </label>
+                                <input
+                                    type="text"
+                                    className="w-full border p-2 rounded"
+                                />
                             </div>
                         </div>
                     </div>
@@ -145,14 +161,20 @@ export default function Memberships() {
             <h1 className="text-2xl font-bold text-center mb-4">
                 CABARUAN MULTI-PURPOSE COOPERATIVE
             </h1>
-            <h2 className="text-xl text-center mb-6">Biodata - Page {page} of 6</h2>
+            <h2 className="text-xl text-center mb-6">
+                Biodata - Page {page} of 6
+            </h2>
 
             {/* Render the content of the current page */}
             {renderPageContent()}
 
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-8">
-                <Button label="Previous" onClick={previousPage} disabled={page === 1} />
+                <Button
+                    label="Previous"
+                    onClick={previousPage}
+                    disabled={page === 1}
+                />
                 {page < 6 ? (
                     <Button label="Next" onClick={nextPage} />
                 ) : (
