@@ -1,23 +1,45 @@
-import React, { useState } from "react";
-
-//Elements
-import { InputTextarea } from 'primereact/inputtextarea';
-
-//Methods
+import React, { useState, useEffect } from "react";
+import { InputTextarea } from "primereact/inputtextarea";
+import { Dropdown } from "primereact/dropdown";
 import FlexibleCheckboxGroup from "@/Components/Checkbox/FlexibleCheckboxGroup";
 
 export default function BioDataForm() {
-    const [formData, setFormData] = useState({
+    // Initializing form data from localStorage if available
+    const initialFormData = JSON.parse(localStorage.getItem("biodata")) || {
         first_name: "",
         last_name: "",
-        email: "",
-        is_active: "Y",
-        password: "",
-        confirmPassword: "",
-    });
+        middle_name: "",
+        present_address: "",
+        permanent_address: "",
+        birthdate: "",
+        age: "",
+        birthplace: "",
+        religious_affiliation: "",
+        tribe: "",
+        civil_status: "",
+        cellphone_number: "",
+        tin: "",
+        educational_attainment: "",
+        occupation: "",
+        beneficiaries: [],
+        cooperative_member: "",
+        rsbsa_status: [],
+        income_range: [],
+        farm_area: "",
+        farm_location: "",
+        reason_for_joining: "",
+        father_first_name: "",
+        father_middle_name: "",
+        father_last_name: "",
+        mother_first_name: "",
+        mother_middle_name: "",
+        mother_last_name: "",
+    };
 
-    const [incomeRange, setIncomeRange] = useState([]);
-    const [rsbsaStatus, setRsbsaStatus] = useState([]);
+
+    const [formData, setFormData] = useState(initialFormData);
+
+    const [selectedStatus, setSelectedStatus] = useState(formData.civil_status);
 
     const incomeRanges = [
         { id: "below50k", label: "Below 50,000" },
@@ -31,17 +53,46 @@ export default function BioDataForm() {
         { id: "N", label: "No" },
     ];
 
+    // Handle form field changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedData = { ...formData, [name]: value };
+        setFormData(updatedData);
+        localStorage.setItem("biodata", JSON.stringify(updatedData));
+    };
+
+    // Handle Dropdown changes
+    const handleDropdownChange = (e) => {
+        const updatedData = { ...formData, civil_status: e.value };
+        setFormData(updatedData);
+        localStorage.setItem("biodata", JSON.stringify(updatedData));
+        setSelectedStatus(e.value);
+    };
+
+    useEffect(() => {
+        // Initialize formData from localStorage if available
+        const storedData = JSON.parse(localStorage.getItem("biodata")) || {};
+        setFormData((prev) => ({
+            ...prev,
+            income_range: storedData.income_range || [],
+            rsbsa_status: storedData.rsbsa_status || [],
+        }));
+    }, []);
+
     const handleIncomeChange = (selectedValues) => {
-        setIncomeRange(selectedValues);
+        setFormData((prev) => ({ ...prev, income_range: selectedValues }));
+        localStorage.setItem(
+            "biodata",
+            JSON.stringify({ ...formData, income_range: selectedValues })
+        );
     };
 
     const handleRsbsaChange = (selectedValues) => {
-        setRsbsaStatus(selectedValues);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Submit form logic here
+        setFormData((prev) => ({ ...prev, rsbsa_status: selectedValues }));
+        localStorage.setItem(
+            "biodata",
+            JSON.stringify({ ...formData, rsbsa_status: selectedValues })
+        );
     };
 
     return (
@@ -50,6 +101,9 @@ export default function BioDataForm() {
                 <label className="block font-medium">Last Name:</label>
                 <input
                     type="text"
+                    name="last_name"
+                    value={formData.last_name}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
@@ -57,6 +111,9 @@ export default function BioDataForm() {
                 <label className="block font-medium">First Name:</label>
                 <input
                     type="text"
+                    name="first_name"
+                    value={formData.first_name}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
@@ -64,169 +121,220 @@ export default function BioDataForm() {
                 <label className="block font-medium">Middle Name:</label>
                 <input
                     type="text"
+                    name="middle_name"
+                    value={formData.middle_name}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-3">
                 <label className="block font-medium">Present Address:</label>
                 <input
                     type="text"
+                    name="present_address"
+                    value={formData.present_address}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-3">
                 <label className="block font-medium">Permanent Address:</label>
                 <input
                     type="text"
+                    name="permanent_address"
+                    value={formData.permanent_address}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div>
                 <label className="block font-medium">Birthdate:</label>
                 <input
                     type="date"
+                    name="birthdate"
+                    value={formData.birthdate}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div>
                 <label className="block font-medium">Age:</label>
                 <input
                     type="text"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div>
                 <label className="block font-medium">Birthplace:</label>
                 <input
                     type="text"
+                    name="birthplace"
+                    value={formData.birthplace}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-2">
                 <label className="block font-medium">
                     Religious Affiliation:
                 </label>
                 <input
                     type="text"
+                    name="religious_affiliation"
+                    value={formData.religious_affiliation}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div>
                 <label className="block font-medium">Tribe:</label>
                 <input
                     type="text"
+                    name="tribe"
+                    value={formData.tribe}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div>
                 <label className="block font-medium">Civil Status:</label>
-                <input
-                    type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                <Dropdown
+                    value={selectedStatus}
+                    onChange={handleDropdownChange}
+                    options={[
+                        { label: "Single", value: "S" },
+                        { label: "Married", value: "M" },
+                        { label: "Divorced", value: "D" },
+                    ]}
+                    placeholder="Select Marital Status"
+                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent h-[34px]"
+                    style={{ height: "38px" }}
                 />
             </div>
-            <div className="col-span-2">
-                <label className="block font-medium">
-                    Name of Husband/Wife if married:
-                </label>
-                <input
-                    type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-            </div>
+
             <div>
                 <label className="block font-medium">Cellphone Number:</label>
                 <input
                     type="text"
+                    name="cellphone_number"
+                    value={formData.cellphone_number}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-2">
                 <label className="block font-medium">
                     Tax Identification Number (TIN):
                 </label>
                 <input
                     type="text"
+                    name="tin"
+                    value={formData.tin}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-2">
                 <label className="block font-medium">
                     Highest Educational Attainment:
                 </label>
                 <input
                     type="text"
+                    name="educational_attainment"
+                    value={formData.educational_attainment}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div>
                 <label className="block font-medium">Occupation:</label>
                 <input
                     type="text"
+                    name="occupation"
+                    value={formData.occupation}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
+            {/* FlexibleCheckboxGroup for RSBSA and Income */}
             <div className="col-span-3">
                 <label className="block font-medium mb-2">
                     Gross Annual Income:
                 </label>
-                <div className="flex flex-wrap items-center gap-4">
-                    <FlexibleCheckboxGroup
-                        options={incomeRanges}
-                        name="income"
-                        label="Income Range"
-                        onChange={handleIncomeChange}
-                    />
-                </div>
+                <FlexibleCheckboxGroup
+                    options={incomeRanges}
+                    name="income"
+                    label="Income Range"
+                    onChange={handleIncomeChange}
+                    selectedOptions={formData.income_range}
+                />
             </div>
+
             <div>
-                <label className="block font-medium">Name of Father:</label>
+                <label className="block font-medium">Father's Name:</label>
                 <input
                     type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2"
+                    name="last_names"
+                    value={formData.father_last_name}
+                    onChange={handleChange}
                     placeholder="Last Name"
                 />
-            </div>
-            <div>
-                <label className="block font-medium">&nbsp;</label>
                 <input
                     type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2"
+                    value={formData.father_first_name}
+                    onChange={handleChange}
                     placeholder="First Name"
                 />
-            </div>
-            <div>
-                <label className="block font-medium">&nbsp;</label>
                 <input
                     type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2"
+                    value={formData.father_middle_name}
+                    onChange={handleChange}
                     placeholder="Middle Name"
                 />
             </div>
             <div>
-                <label className="block font-medium">Name of Mother:</label>
+                <label className="block font-medium">Mother's Name:</label>
                 <input
                     type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2"
+                    value={formData.mother_last_name}
+                    onChange={handleChange}
                     placeholder="Last Name"
                 />
-            </div>
-            <div>
-                <label className="block font-medium">&nbsp;</label>
                 <input
                     type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2"
+                    value={formData.mother_first_name}
+                    onChange={handleChange}
                     placeholder="First Name"
                 />
-            </div>
-            <div>
-                <label className="block font-medium">&nbsp;</label>
                 <input
                     type="text"
-                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full border border-gray-300 rounded-md text-sm py-1 px-2"
+                    value={formData.mother_middle_name}
+                    onChange={handleChange}
                     placeholder="Middle Name"
                 />
             </div>
+
             <div className="col-span-3">
                 <label className="block font-medium mb-2">
                     Designated Beneficiaries:
@@ -238,6 +346,8 @@ export default function BioDataForm() {
                             id="beneficiaries"
                             name="beneficiaries"
                             className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            value={formData.occupation}
+                            onChange={handleChange}
                             placeholder="Name"
                         />
                     </div>
@@ -247,6 +357,8 @@ export default function BioDataForm() {
                             id="beneficiaries"
                             name="beneficiaries"
                             className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            value={formData.occupation}
+                            onChange={handleChange}
                             placeholder="Relationship"
                         />
                     </div>
@@ -256,6 +368,8 @@ export default function BioDataForm() {
                             id="beneficiaries"
                             name="beneficiaries"
                             className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            value={formData.occupation}
+                            onChange={handleChange}
                             placeholder="Name"
                         />
                     </div>
@@ -265,6 +379,8 @@ export default function BioDataForm() {
                             id="beneficiaries"
                             name="beneficiaries"
                             className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            value={formData.occupation}
+                            onChange={handleChange}
                             placeholder="Relationship"
                         />
                     </div>
@@ -274,6 +390,8 @@ export default function BioDataForm() {
                             id="beneficiaries"
                             name="beneficiaries"
                             className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            value={formData.occupation}
+                            onChange={handleChange}
                             placeholder="Name"
                         />
                     </div>
@@ -283,6 +401,8 @@ export default function BioDataForm() {
                             id="beneficiaries"
                             name="beneficiaries"
                             className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            value={formData.occupation}
+                            onChange={handleChange}
                             placeholder="Relationship"
                         />
                     </div>
@@ -297,42 +417,48 @@ export default function BioDataForm() {
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-3">
-                <label className="block font-medium mb-2">
-                    Are you a member of RSBSA:
-                </label>
-                <div className="flex flex-wrap items-center gap-4">
-                    <FlexibleCheckboxGroup
-                        options={rsbsaBool}
-                        name="rsbsa"
-                        onChange={handleRsbsaChange}
-                    />
-                </div>
+                <label className="block font-medium mb-2">RSBSA Status:</label>
+                <FlexibleCheckboxGroup
+                    options={rsbsaBool}
+                    name="rsbsa"
+                    onChange={handleRsbsaChange}
+                    selectedOptions={formData.rsbsa_status}
+                />
             </div>
+
             <div>
                 <label className="block font-medium">
-                    Area of Farm Owned:
+                    Farm Area (in hectares):
                 </label>
                 <input
                     type="text"
+                    name="farm_area"
+                    value={formData.farm_area}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-2">
-                <label className="block font-medium">
-                    Location:
-                </label>
+                <label className="block font-medium">Farm Location:</label>
                 <input
                     type="text"
+                    name="farm_location"
+                    value={formData.farm_location}
+                    onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>
+
             <div className="col-span-3">
-                <label className="block font-medium">
-                    Reason for joining the cooperative:
-                </label>
+                <label className="block font-medium">Reason for Joining:</label>
                 <InputTextarea
-                    type="text"
+                    name="reason_for_joining"
+                    value={formData.reason_for_joining}
+                    onChange={handleChange}
+                    rows={4}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
             </div>

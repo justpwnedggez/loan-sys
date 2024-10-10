@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Checkbox } from 'primereact/checkbox';
 
 const FlexibleCheckboxGroup = ({
@@ -6,9 +6,17 @@ const FlexibleCheckboxGroup = ({
   name = '',
   label = '',
   multiSelect = false,
+  selectedOptions = [], // This will be passed from the parent
   onChange = () => {},
 }) => {
   const [selectedValues, setSelectedValues] = useState([]);
+
+  // Initialize selectedValues from selectedOptions (parent's state or localStorage) when the component mounts
+  useEffect(() => {
+    if (selectedOptions.length > 0) {
+      setSelectedValues(selectedOptions);
+    }
+  }, [selectedOptions]);
 
   const handleCheckboxChange = (e) => {
     let newSelectedValues;
@@ -22,7 +30,7 @@ const FlexibleCheckboxGroup = ({
     }
 
     setSelectedValues(newSelectedValues);
-    onChange(newSelectedValues);
+    onChange(newSelectedValues); // Trigger parent's handler to sync with localStorage
   };
 
   if (!Array.isArray(options) || options.length === 0) {
@@ -40,7 +48,7 @@ const FlexibleCheckboxGroup = ({
               name={name}
               value={option.id}
               onChange={handleCheckboxChange}
-              checked={selectedValues.includes(option.id)}
+              checked={selectedValues.includes(option.id)} // Maintain checked state
             />
             <label htmlFor={`${name}-${option.id}`} className="ml-2 text-sm text-gray-600">
               {option.label}
