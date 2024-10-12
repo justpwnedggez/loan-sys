@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('first_name', 50);
             $table->string('middle_name', 50);
             $table->string('last_name', 50);
+            $table->decimal('subscription_amount', 18,2)->default('0.00');
+            $table->tinyInteger('subscription_years');
+            $table->string('status', 1)->default('Y');
             $table->string('present_address', 100);
             $table->string('permanent_address', 100);
             $table->date('birth_date');
