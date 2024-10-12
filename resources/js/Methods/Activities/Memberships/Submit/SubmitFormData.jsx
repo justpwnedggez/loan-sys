@@ -13,24 +13,22 @@ export const submitMembershipForm = async (toast) => {
             // Include any other fields that may be needed
         };
 
-        console.log(formData)
+        const route = "/main/activities/memberships/create";
 
-        // const route = "/main/master-files/users/create/post";
-
-        // await axios.post(route, formData).then((response) => {
-        //     toast.current.show({
-        //         severity: "success",
-        //         summary: "Success",
-        //         detail: response.data.message,
-        //         life: 3000,
-        //     });
-        //     setTimeout(function () {
-        //         Inertia.reload({
-        //             preserveScroll: true, // Optional: Keeps the scroll position
-        //             preserveState: true,  // Optional: Keeps the current component state
-        //         });
-        //     }, 2000);
-        // });
+        await axios.post(route, formData).then((response) => {
+            toast.current.show({
+                severity: "success",
+                summary: "Success",
+                detail: response.data.message,
+                life: 3000,
+            });
+            setTimeout(function () {
+                Inertia.reload({
+                    preserveScroll: true, // Optional: Keeps the scroll position
+                    preserveState: true,  // Optional: Keeps the current component state
+                });
+            }, 2000);
+        });
     } catch (error) {
         toast.current.show({
             severity: "error",

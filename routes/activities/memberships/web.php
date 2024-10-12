@@ -2,4 +2,6 @@
 
 use App\Http\Controllers\Main\Activities\MembershipsController;
 
-Route::get('create', [MembershipsController::class, 'createView'])->name('mems.create');
+Route::get('/view', [MembershipsController::class, 'createView'])->name('mems.view');
+
+Route::post('/create', [MembershipsController::class, 'createSubmit'])->name('mems.create');
