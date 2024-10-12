@@ -51,9 +51,9 @@ export default function Dropdown() {
                         Transaction
                     </Link>
                     <Link
-                        href={route('main.mems.create')}
+                        href={route('main.mems.view')}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.mems.create"
+                            route().current() === "main.mems.view"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}

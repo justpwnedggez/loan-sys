@@ -71,7 +71,6 @@ const SubscriptionAgreement = () => {
                         suppressContentEditableWarning
                         style={{
                             display: "inline-block",
-                            minWidth: "100px",
                             padding: "2px 4px",
                             margin: "0 4px",
                             whiteSpace: "nowrap",
@@ -88,7 +87,6 @@ const SubscriptionAgreement = () => {
                         suppressContentEditableWarning
                         style={{
                             display: "inline-block",
-                            minWidth: "50px",
                             padding: "2px 4px",
                             margin: "0 4px",
                             whiteSpace: "nowrap",
