@@ -20,8 +20,8 @@ return new class extends Migration
             $table->decimal('subscription_amount', 18,2)->default('0.00');
             $table->tinyInteger('subscription_years');
             $table->string('status', 1)->default('Y');
-            $table->string('present_address', 100);
-            $table->string('permanent_address', 100);
+            $table->text('present_address');
+            $table->text('permanent_address');
             $table->date('birth_date');
             $table->tinyInteger('age');
             $table->string('birth_place');
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('cooperative_member_name', 50);
             $table->string('rsbsa', 1)->default('N');
             $table->float('farm_area', 8, 2);
-            $table->string('farm_location', 50);
+            $table->text('farm_location');
             $table->text('reason_for_joining');
             $table->timestamps();
         });
