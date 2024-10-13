@@ -28,7 +28,6 @@ export default function LoanPayment() {
       const header = (
         <div className="flex flex-wrap align-items-center justify-content-between gap-2">
           <span className="text-xl text-900 font-bold">Loan Amortization</span>
-          <Button icon="pi pi-refresh" rounded raised />
         </div>
       );
 
