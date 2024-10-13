@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Main\Activities;
 
+use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 
-class TransactionsController extends Controller
+class LoanPaymentController extends Controller
 {
     public function createView()
     {
-        return \Inertia\Inertia::render('Activities/Transactions');
+        return Inertia::render('Activities/LoanPayment');
     }
 }

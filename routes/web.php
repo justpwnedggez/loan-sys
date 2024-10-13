@@ -36,7 +36,9 @@ Route::group(['middleware', 'auth'], function () {
             Route::prefix('/dashboard')->group(base_path('routes/dashboard/web.php'));
 
             //Activities
-            Route::prefix('/activities/transactions')->group(base_path('routes/activities/transactions/web.php'));
+            Route::prefix('/activities/transactions/loans')->group(base_path('routes/activities/transactions/loans/web.php'));
+            Route::prefix('/activities/transactions/loan-renewal')->group(base_path('routes/activities/transactions/loan-renewal/web.php'));
+            Route::prefix('/activities/transactions/loan-payment')->group(base_path('routes/activities/transactions/loan-payment/web.php'));
             Route::prefix('/activities/memberships')->group(base_path('routes/activities/memberships/web.php'));
 
             //Approvals

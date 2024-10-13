@@ -41,14 +41,34 @@ export default function Dropdown() {
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
                     <Link
-                        href={route('main.trans.create')}
+                        href={route('main.loan.view')}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.trans.create"
+                            route().current() === "main.loan.view"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}
                     >
-                        Transaction
+                        Loan Transaction
+                    </Link>
+                    <Link
+                        href={route('main.loan.renew.view')}
+                        className={`block max-w-48 px-4 py-2 rounded ${
+                            route().current() === "main.loan.renew.view"
+                                ? "bg-blue-600 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                        }`}
+                    >
+                        Loan Renewal
+                    </Link>
+                    <Link
+                        href={route('main.loan.pay.view')}
+                        className={`block max-w-48 px-4 py-2 rounded ${
+                            route().current() === "main.loan.pay.view"
+                                ? "bg-blue-600 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                        }`}
+                    >
+                        Loan Payment
                     </Link>
                     <Link
                         href={route('main.mems.view')}
