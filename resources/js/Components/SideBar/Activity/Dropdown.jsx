@@ -68,7 +68,7 @@ export default function Dropdown() {
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}
                     >
-                        Loan Payment
+                        Loan Amortization
                     </Link>
                     <Link
                         href={route('main.mems.view')}
