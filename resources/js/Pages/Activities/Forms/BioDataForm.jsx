@@ -11,15 +11,15 @@ export default function BioDataForm() {
         middle_name: "",
         present_address: "",
         permanent_address: "",
-        birthdate: "",
+        birth_date: "",
         age: "",
-        birthplace: "",
-        religious_affiliation: "",
+        birth_place: "",
+        religion: "",
         tribe: "",
         civil_status: "",
-        cellphone_number: "",
-        tin: "",
-        educational_attainment: "",
+        phone_number: "",
+        tin_no: "",
+        highest_educ_attainment: "",
         occupation: "",
         beneficiary_name1: "",
         beneficiary_rel1: "",
@@ -27,7 +27,7 @@ export default function BioDataForm() {
         beneficiary_rel2: "",
         beneficiary_name3: "",
         beneficiary_rel3: "",
-        cooperative_member: "",
+        cooperative_member_name: "",
         rsbsa_status: [],
         income_range: [],
         farm_area: "",
@@ -160,8 +160,8 @@ export default function BioDataForm() {
                 <label className="block font-medium">Birthdate:</label>
                 <input
                     type="date"
-                    name="birthdate"
-                    value={formData.birthdate}
+                    name="birth_date"
+                    value={formData.birth_date}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -182,8 +182,8 @@ export default function BioDataForm() {
                 <label className="block font-medium">Birthplace:</label>
                 <input
                     type="text"
-                    name="birthplace"
-                    value={formData.birthplace}
+                    name="birth_place"
+                    value={formData.birth_place}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -195,8 +195,8 @@ export default function BioDataForm() {
                 </label>
                 <input
                     type="text"
-                    name="religious_affiliation"
-                    value={formData.religious_affiliation}
+                    name="religion"
+                    value={formData.religion}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -233,8 +233,8 @@ export default function BioDataForm() {
                 <label className="block font-medium">Cellphone Number:</label>
                 <input
                     type="text"
-                    name="cellphone_number"
-                    value={formData.cellphone_number}
+                    name="phone_number"
+                    value={formData.phone_number}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -246,8 +246,8 @@ export default function BioDataForm() {
                 </label>
                 <input
                     type="text"
-                    name="tin"
-                    value={formData.tin}
+                    name="tin_no"
+                    value={formData.tin_no}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -259,8 +259,8 @@ export default function BioDataForm() {
                 </label>
                 <input
                     type="text"
-                    name="educational_attainment"
-                    value={formData.educational_attainment}
+                    name="highest_educ_attainment"
+                    value={formData.highest_educ_attainment}
                     onChange={handleChange}
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -420,8 +420,8 @@ export default function BioDataForm() {
                 <input
                     type="text"
                     className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    name="cooperative_member"
-                    value={formData.cooperative_member}
+                    name="cooperative_member_name"
+                    value={formData.cooperative_member_name}
                     onChange={handleChange}
                 />
             </div>

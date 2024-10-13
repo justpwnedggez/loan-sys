@@ -46,11 +46,7 @@ export default function Memberships() {
     };
 
     const handleSubmit = () => {
-        // Retrieve all biodata from localStorage
-        const biodata = JSON.parse(localStorage.getItem("biodata")) || {};
-
-        // Process form submission
-        submitMembershipForm(biodata, toast);
+        submitMembershipForm(toast);
     };
 
     return (

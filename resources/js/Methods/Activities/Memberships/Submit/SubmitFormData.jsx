@@ -22,6 +22,7 @@ export const submitMembershipForm = async (toast) => {
                 detail: response.data.message,
                 life: 3000,
             });
+            localStorage.clear("biodata");
             setTimeout(function () {
                 Inertia.reload({
                     preserveScroll: true, // Optional: Keeps the scroll position

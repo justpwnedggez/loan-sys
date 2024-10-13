@@ -25,7 +25,7 @@ class MembershipsController extends Controller
         $member = $this->membershipService->createMembership($request->validated());
 
         return response()->json([
-            'message' => 'Role ' . $member->first_name . ' created successfully'
+            'message' => 'Member ' . $member->first_name . ' created successfully'
         ]);
     }
 
