@@ -87,7 +87,7 @@ export default function CreateUser() {
                         </div>
                         <div className="p-inputgroup flex">
                             <span className="p-inputgroup-addon">
-                                <i className="pi pi-user"></i>
+                                <i className="pi pi-at"></i>
                             </span>
                             <FloatLabel>
                                 <InputText
@@ -103,7 +103,7 @@ export default function CreateUser() {
                         </div>
                         <div className="p-inputgroup flex">
                             <span className="p-inputgroup-addon">
-                                <i className="pi pi-user"></i>
+                                <i className="pi pi-check-circle"></i>
                             </span>
                             <FloatLabel>
                                 <SelectButton

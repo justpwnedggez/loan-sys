@@ -1,20 +1,6 @@
-import React, { useState, useRef } from 'react';
-import App from "../../App";
-import Users from "../Users";
+import Loans from "@/Pages/Activities/Loans";
 
-//Methods
-import { submitUpdateUserForm } from '../../../Methods/MasterFiles/Users/UpdateUser/Submit/SubmitFormData';
-
-//Message Popper
-import { Toast } from 'primereact/toast';
-
-//Elements
-import { Button } from "primereact/button";
-import { FloatLabel } from "primereact/floatlabel";
-import { InputText } from "primereact/inputtext";
-import { SelectButton } from "primereact/selectbutton";
-
-export default function EditUser({ user }) {
+export default function listLoan() {
 
     const [formData, setFormData] = useState({
         id: user.id,
@@ -46,7 +32,7 @@ export default function EditUser({ user }) {
                 <h2 className="text-xl font-bold mb-4">Update User</h2>
                 <Toast ref={toast} />
                 <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-2 gap-6 mb-4">
+                    <div className="grid grid-cols-2 gap-4 mb-4">
                         <InputText type="hidden" value={formData.id}/>
                         <div className="p-inputgroup flex">
                             <span className="p-inputgroup-addon">
@@ -82,7 +68,7 @@ export default function EditUser({ user }) {
                         </div>
                         <div className="p-inputgroup flex">
                             <span className="p-inputgroup-addon">
-                                <i className="pi pi-at"></i>
+                                <i className="pi pi-user"></i>
                             </span>
                             <FloatLabel>
                                 <InputText
@@ -98,7 +84,7 @@ export default function EditUser({ user }) {
                         </div>
                         <div className="p-inputgroup flex">
                             <span className="p-inputgroup-addon">
-                                <i className="pi pi-check-circle"></i>
+                                <i className="pi pi-user"></i>
                             </span>
                             <FloatLabel>
                                 <SelectButton
@@ -124,4 +110,5 @@ export default function EditUser({ user }) {
     );
 }
 
-EditUser.layout = (page) => <App>{<Users>{page}</Users>}</App>;
+
+listLoan.layout = (page) => <App>{<Loans>{page}</Loans>}</App>;
