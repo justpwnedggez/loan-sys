@@ -19,4 +19,9 @@ Trait ModelsTrait
     {
         return \App\Models\MembersBeneficiaryModel::query();
     }
+
+    public function loansModel()
+    {
+        return \App\Models\Loans::query();
+    }
 }

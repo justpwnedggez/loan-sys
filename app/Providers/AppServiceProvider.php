@@ -11,6 +11,7 @@ use App\Http\Repositories\MasterFiles\Roles\RoleViewRepository;
 use App\Http\Repositories\MasterFiles\Users\UserViewRepository;
 use App\Http\Repositories\MasterFiles\Loans\LoansViewRepository;
 use App\Http\Services\Activities\Memberships\MembershipService;
+use App\Http\Services\MasterFiles\Loans\LoanService;
 use App\Http\Services\MasterFiles\Roles\RoleService;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,6 +38,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(RoleService::class, function($app) {
             return new RoleService();
+        });
+        $this->app->singleton(LoanService::class, function($app) {
+            return new LoanService();
         });
     }
 

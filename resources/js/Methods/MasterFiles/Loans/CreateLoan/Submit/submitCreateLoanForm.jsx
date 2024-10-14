@@ -1,11 +1,9 @@
 import axios from "axios";
 import { Inertia } from "@inertiajs/inertia";
 
-export const submitCreateRoleForm = async (formData, toast) => {
+export const submitCreateLoanForm = async (formData, toast) => {
     try {
-
-        const route = "/main/master-files/roles/create";
-
+        const route = "/main/master-files/loans/create/submit";
         await axios.post(route, formData).then((response) => {
             toast.current.show({
                 severity: "success",
