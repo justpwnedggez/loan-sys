@@ -24,4 +24,14 @@ Trait ModelsTrait
     {
         return \App\Models\Loans::query();
     }
+
+    public function collateralModel()
+    {
+        return \App\Models\Collaterals::query();
+    }
+
+    public function generalSettingModel()
+    {
+        return \App\Models\GeneralSettings::query();
+    }
 }
