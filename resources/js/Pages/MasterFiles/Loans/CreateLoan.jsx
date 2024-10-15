@@ -28,7 +28,6 @@ export default function createLoan() {
         loan_purpose: "",
     });
 
-
     const options = [
         { label: "Active", value: "Y" },
         { label: "Inactive", value: "N" },
@@ -186,7 +185,7 @@ export default function createLoan() {
                             label="Save"
                             severity="success"
                             type="submit"
-                            className="w-auto p-2 text-white rounded-md bg-blue-500 hover:bg-green-600 transition duration-200"
+                            className="w-auto p-2 text-white rounded-md bg-blue-500 hover:bg-green-600 transition duration-200 mt-2" // Added margin here
                         />
                     </div>
                 </form>

@@ -1,4 +1,4 @@
-export const AmountFormat = (e) => {
+export const AmountFormat = (e, formData, selectedLoan, memberData, setTotalInterest, setNetLoan) => {
     // Get the current value of the input
     let value = e.target.value;
 
@@ -19,6 +19,8 @@ export const AmountFormat = (e) => {
 
     // Update the input value with the formatted currency string
     e.target.value = integerPart + decimalPart;
+
+    calculateLoanDetails(e, formData, selectedLoan, memberData, setTotalInterest, setNetLoan);
 };
 
 export const NumberFormat = (e) => {
@@ -30,4 +32,22 @@ export const NumberFormat = (e) => {
 
     // Set the input value back to the sanitized whole number value
     e.target.value = value;
+};
+
+export const calculateLoanDetails = (e, formData, selectedLoan, memberData, setTotalInterest, setNetLoan) => {
+    if (formData.loan_amount && selectedLoan && memberData) {
+        const loanAmount = parseFloat(e.target.value.replace(/,/g, '') || 0);
+        const cbu = parseFloat(memberData?.subscription_amount.replace(/,/g, '') || 0);
+        const interest = parseFloat(selectedLoan?.interest || 0);
+        const loanPeriod = parseFloat(selectedLoan?.loan_period || 0);
+        const serviceFee = parseFloat(selectedLoan?.service_fee || 0);
+        // Interest formula
+        const interestAmount = (loanAmount - cbu) * interest * loanPeriod;
+
+        setTotalInterest(interestAmount.toFixed(2));
+
+        // Service Fee (2% of loan amount)
+        const netLoanAmount = loanAmount * serviceFee;
+        setNetLoan(netLoanAmount.toFixed(2));
+    }
 };
