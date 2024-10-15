@@ -10,7 +10,6 @@ Trait LoansTrait {
             'loans' => $this->loanMasterData(),
             'collat_data' => $this->collateralAssetMasterData(),
             'general_setting' => $this->generalSettingMasterData(),
-            'members' => $this->membersData()
         ];
     }
 
@@ -29,8 +28,10 @@ Trait LoansTrait {
         return $this->generalSettingModel()->first();
     }
 
-    public function membersData()
+    public function membersData($request)
     {
-        return $this->membershipModel()->get();
+        $size = $request->input('size');
+        $page = $request->input('page');
+        return $this->membershipModel()->paginate($size, ['*'], 'page', $page);
     }
 }
