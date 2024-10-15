@@ -204,7 +204,7 @@ export default function Loans({ data }) {
                         </p>
                         <p className="m-0">RSBSA: <i>{memberData?.rsbsa == 'Y' ? 'Yes' : 'No' || ""}</i></p>
                         <p className="m-0">
-                            Farm Area: <i>{memberData?.farm_area || ""}</i>
+                            Farm Area: <i>{memberData?.farm_area || ""} sqm</i>
                         </p>
                         <p className="m-0">
                             Farm Location: <i>{memberData?.farm_location || ""}</i>

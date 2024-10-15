@@ -13,4 +13,9 @@ class LoansRepository implements LoansInterface
     {
         return $this->groupViewData();
     }
+
+    public function retrieveMemberData($request)
+    {
+        return $this->membersData($request);
+    }
 }
