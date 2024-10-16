@@ -16,6 +16,7 @@ class Loans extends Model
         'max_loan_amount',
         'loan_period',
         'interest',
+        'service_fee',
         'status',
         'loan_purpose'
     ];

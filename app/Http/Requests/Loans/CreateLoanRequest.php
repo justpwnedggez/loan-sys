@@ -26,7 +26,8 @@ class CreateLoanRequest extends FormRequest
             'loan_name' => 'required|string',
             'max_loan_amount' => 'required',
             'loan_period' => 'required|int',
-            'interest' => 'required|int',
+            'interest' => 'required|numeric',
+            'service_fee' => 'required|numeric',
             'loan_purpose' => 'required|string'
         ];
     }

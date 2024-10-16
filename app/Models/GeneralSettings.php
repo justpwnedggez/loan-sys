@@ -20,7 +20,6 @@ class GeneralSettings extends Model
         'zip_code',
         'tin_no',
         'phone_number',
-        'service_fee'
     ];
 
     protected $table = 'general_settings';

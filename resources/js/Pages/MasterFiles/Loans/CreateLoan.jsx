@@ -25,6 +25,7 @@ export default function createLoan() {
         max_loan_amount: "",
         loan_period: "",
         interest: "",
+        service_fee: "",
         loan_purpose: "",
     });
 
@@ -143,7 +144,26 @@ export default function createLoan() {
                                     autoComplete="off"
                                 />
                                 <label htmlFor="interest">
-                                    Monthly Interest (1%)
+                                    Monthly Interest (0.01)
+                                </label>
+                            </FloatLabel>
+                        </div>
+                        <div className="p-inputgroup flex">
+                            <span className="p-inputgroup-addon">
+                                <i className="pi pi-percentage"></i>
+                            </span>
+                            <FloatLabel>
+                                <InputText
+                                    className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    id="service_fee"
+                                    value={formData.service_fee}
+                                    onChange={handleInputChange}
+                                    onInput={NumberFormat}
+                                    required
+                                    autoComplete="off"
+                                />
+                                <label htmlFor="service_fee">
+                                    Service Fee (0.01)
                                 </label>
                             </FloatLabel>
                         </div>

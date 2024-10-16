@@ -22,7 +22,6 @@ return new class extends Migration
             $table->bigInteger('zip_code');
             $table->string('tin_no', 20);
             $table->string('phone_no', 20);
-            $table->decimal('service_fee', 18,2)->default(0.02);
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-export const AmountFormat = (e, formData, selectedLoan, memberData, setTotalInterest, setNetLoan) => {
+export const AmountFormat = (e) => {
     // Get the current value of the input
     let value = e.target.value;
 
@@ -19,8 +19,6 @@ export const AmountFormat = (e, formData, selectedLoan, memberData, setTotalInte
 
     // Update the input value with the formatted currency string
     e.target.value = integerPart + decimalPart;
-
-    calculateLoanDetails(e, formData, selectedLoan, memberData, setTotalInterest, setNetLoan);
 };
 
 export const NumberFormat = (e) => {
@@ -28,26 +26,29 @@ export const NumberFormat = (e) => {
     let value = e.target.value;
 
     // Remove any non-numeric characters (allow only digits)
-    value = value.replace(/[^0-9]/g, '');
+    value = value.replace(/[^0-9.]/g, "");
 
     // Set the input value back to the sanitized whole number value
     e.target.value = value;
 };
 
-export const calculateLoanDetails = (e, formData, selectedLoan, memberData, setTotalInterest, setNetLoan) => {
-    if (formData.loan_amount && selectedLoan && memberData) {
-        const loanAmount = parseFloat(e.target.value.replace(/,/g, '') || 0);
-        const cbu = parseFloat(memberData?.subscription_amount.replace(/,/g, '') || 0);
-        const interest = parseFloat(selectedLoan?.interest || 0);
-        const loanPeriod = parseFloat(selectedLoan?.loan_period || 0);
-        const serviceFee = parseFloat(selectedLoan?.service_fee || 0);
-        // Interest formula
-        const interestAmount = (loanAmount - cbu) * interest * loanPeriod;
+export const calculateLoanDetails = (formData) => {
+    const loanAmount = parseFloat(formData.loan_amount.replace(/,/g, "") || 0);
+    const cbu = parseFloat(formData.cbu.replace(/,/g, "") || 0);
+    const interest = parseFloat(formData.interest || 0);
+    const loanPeriod = parseFloat(formData.loan_period || 0);
+    const serviceFee = parseFloat(formData.service_fee || 0);
 
-        setTotalInterest(interestAmount.toFixed(2));
+    // Interest formula
+    const interestAmount = (loanAmount - cbu) * interest * loanPeriod;
+    // Service Fee (2% of loan amount)
+    const serviceFeeDeduction = loanAmount * serviceFee;
 
-        // Service Fee (2% of loan amount)
-        const netLoanAmount = loanAmount * serviceFee;
-        setNetLoan(netLoanAmount.toFixed(2));
-    }
+    // Return the calculated values
+    return {
+        total_interest: interestAmount,
+        service_fee_deduction: serviceFeeDeduction,
+        net_loan: (loanAmount - serviceFeeDeduction) - interestAmount
+    };
 };
+

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('max_loan_amount', 18,2)->default('0.00');
             $table->bigInteger('loan_period');
             $table->decimal('interest', 18,2)->default('0.00');
+            $table->decimal('service_fee', 18,2)->default('0.00');
             $table->string('status', 1)->default('Y');
             $table->text('loan_purpose');
             $table->timestamps();
