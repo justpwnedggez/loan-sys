@@ -7,6 +7,7 @@ const FlexibleCheckboxGroup = ({
   label = '',
   multiSelect = false,
   selectedOptions = [], // This will be passed from the parent
+  disabled = false,
   onChange = () => {},
 }) => {
   const [selectedValues, setSelectedValues] = useState([]);
@@ -49,6 +50,7 @@ const FlexibleCheckboxGroup = ({
               value={option.id}
               onChange={handleCheckboxChange}
               checked={selectedValues.includes(option.id)} // Maintain checked state
+              {...(disabled && { disabled: true })}
             />
             <label htmlFor={`${name}-${option.id}`} className="ml-2 text-sm text-gray-600">
               {option.label}
