@@ -26,14 +26,14 @@ class MembershipService
     public function insertMemberParentData($model, $memParentData)
     {
         foreach($memParentData as $data) {
-            return $model->create($data);
+            $model->create($data);
         }
     }
 
     public function insertMemberBeneficiaryData($model, $memBenefData)
     {
         foreach($memBenefData as $data) {
-            return $model->create($data);
+            $model->create($data);
         }
     }
 
