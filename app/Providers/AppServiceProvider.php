@@ -12,6 +12,8 @@ use App\Http\Repositories\MasterFiles\Loans\LoansInterface;
 use App\Http\Repositories\MasterFiles\Roles\RoleViewRepository;
 use App\Http\Repositories\MasterFiles\Users\UserViewRepository;
 use App\Http\Repositories\MasterFiles\Loans\LoansViewRepository;
+use App\Http\Repositories\MasterFiles\Memberships\MembershipInterface;
+use App\Http\Repositories\MasterFiles\Memberships\MembershipRepository;
 use App\Http\Services\Activities\Memberships\MembershipService;
 use App\Http\Services\MasterFiles\Loans\LoanService;
 use App\Http\Services\MasterFiles\Roles\RoleService;
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LoansInterface::class, LoansViewRepository::class);
         $this->app->bind(RoleInterface::class, RoleViewRepository::class);
         $this->app->bind(ActLoansInterface::class, LoansRepository::class);
+        $this->app->bind(MembershipInterface::class, MembershipRepository::class);
 
         //Services
         //Activities
