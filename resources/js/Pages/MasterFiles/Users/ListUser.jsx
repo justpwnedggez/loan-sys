@@ -1,9 +1,12 @@
-import React from 'react';
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import App from "../../App";
 import Users from "../Users";
-import { Button } from 'primereact/button'; // Import PrimeReact button component
+
+import React from 'react';
+
+//Elements
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from 'primereact/button';
 
 export default function ListUser({ users }) {
 

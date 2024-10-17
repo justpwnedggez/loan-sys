@@ -25,7 +25,7 @@ export const submitUpdateRoleForm = async (formData, toast) => {
         toast.current.show({
             severity: "error",
             summary: "Error",
-            detail: error.response?.data?.message || "Error creating user",
+            detail: error.response?.data?.message || "Error creating role",
             life: 3000,
         });
     }
