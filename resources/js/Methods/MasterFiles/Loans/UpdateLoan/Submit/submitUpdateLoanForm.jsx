@@ -1,16 +1,14 @@
 import axios from "axios";
 import { Inertia } from "@inertiajs/inertia";
 
-export const submitCreateRoleForm = async (formData, toast) => {
+export const submitUpdateLoanForm = async (formData, toast) => {
     try {
-
-        const route = "/main/master-files/roles/create";
-
+        const route = "/main/master-files/loans/update/submit";
         await axios.post(route, formData).then((response) => {
             toast.current.show({
                 severity: "success",
                 summary: "Success",
-                detail: response.data.message,
+                detail: "Updated Sucessfully",
                 life: 3000,
             });
             setTimeout(function() {
@@ -24,7 +22,7 @@ export const submitCreateRoleForm = async (formData, toast) => {
         toast.current.show({
             severity: "error",
             summary: "Error",
-            detail: error.response?.data?.message || "Error creating role",
+            detail: error.response?.data?.message || "Error creating loan",
             life: 3000,
         });
     }

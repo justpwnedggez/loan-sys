@@ -1,5 +1,5 @@
 import Loan from "@/Pages/MasterFiles/Loan";
-import App from "../../App";
+import App from "@/Pages/App";
 
 import { submitCreateLoanForm } from "@/Methods/MasterFiles/Loans/CreateLoan/Submit/submitCreateLoanForm";
 import React, { useState, useRef } from "react";

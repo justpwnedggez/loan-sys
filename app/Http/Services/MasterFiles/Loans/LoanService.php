@@ -16,4 +16,11 @@ class LoanService
 
         return $this->loansModel()->create($formattedData);
     }
+
+    public function updateLoan(array $data)
+    {
+        $formattedData = $this->formatData($data);
+
+        return $this->loansModel()->where('id', $formattedData['id'])->update($formattedData);
+    }
 }
