@@ -13,16 +13,6 @@ export default function Loan({ children }) {
     {/* Tab buttons */}
     <div className="flex justify-center mb-0 space-x-4 border-b border-gray-200">
         <Link
-            href={route("main.list.loans")}
-            className={`px-4 py-2 rounded-t-lg border-l border-t border-r ${
-                route().current() === "main.list.loans"
-                    ? "bg-white text-blue-600 border-blue-600" // Active tab style
-                    : "bg-gray-200 text-gray-500 hover:bg-white hover:text-blue-600 border-gray-200" // Inactive tab style
-            }`}
-        >
-            Loans
-        </Link>
-        <Link
             href={route("main.create.loans")}
             className={`px-4 py-2 rounded-t-lg border-l border-t border-r ${
                 route().current() === "main.create.loans"
@@ -31,6 +21,16 @@ export default function Loan({ children }) {
             }`}
         >
             Add Loan
+        </Link>
+        <Link
+            href={route("main.list.loans")}
+            className={`px-4 py-2 rounded-t-lg border-l border-t border-r ${
+                route().current() === "main.list.loans"
+                    ? "bg-white text-blue-600 border-blue-600" // Active tab style
+                    : "bg-gray-200 text-gray-500 hover:bg-white hover:text-blue-600 border-gray-200" // Inactive tab style
+            }`}
+        >
+            Loans
         </Link>
     </div>
 
