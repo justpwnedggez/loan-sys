@@ -50,7 +50,7 @@ export default function Dropdown() {
                     >
                         Loan Transaction
                     </Link>
-                    <Link
+                    {/* <Link
                         href={route('main.loan.renew.view')}
                         className={`block max-w-48 px-4 py-2 rounded ${
                             route().current() === "main.loan.renew.view"
@@ -59,7 +59,7 @@ export default function Dropdown() {
                         }`}
                     >
                         Loan Renewal
-                    </Link>
+                    </Link> */}
                     <Link
                         href={route('main.loan.pay.view')}
                         className={`block max-w-48 px-4 py-2 rounded ${
