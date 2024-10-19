@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('approve_code', 20)->index();
             $table->string('trans_type', 20);
             $table->text('approve_desc');
+            $table->string('status', 4);
             $table->unsignedBigInteger('approved_by')->index();
             $table->timestamps();
         });

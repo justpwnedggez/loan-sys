@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Repositories\Activities\Transactions\Loans\LoansInterface as ActLoansInterface;
 use App\Http\Repositories\Activities\Transactions\Loans\LoansRepository;
+use App\Http\Repositories\Approvals\Loans\LoanApprovalsInterface;
+use App\Http\Repositories\Approvals\Loans\LoanApprovalsRepository;
 use App\Http\Services\MasterFiles\Users\UserService;
 use App\Http\Repositories\MasterFiles\Roles\RoleInterface;
 use App\Http\Repositories\MasterFiles\Users\UserInterface;
@@ -27,12 +29,16 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //Repositories
+
         //Master Files
         $this->app->bind(UserInterface::class, UserViewRepository::class);
         $this->app->bind(LoansInterface::class, LoansViewRepository::class);
         $this->app->bind(RoleInterface::class, RoleViewRepository::class);
+
+        //Activities
         $this->app->bind(ActLoansInterface::class, LoansRepository::class);
         $this->app->bind(MembershipInterface::class, MembershipRepository::class);
+        $this->app->bind(LoanApprovalsInterface::class, LoanApprovalsRepository::class);
 
         //Services
         //Activities

@@ -205,7 +205,6 @@ export default function Loans({ data }) {
                     style={{ width: "50vw" }}
                 >
                     <MemberSelectionList
-                        membersData={data.members}
                         onSelect={selectMember}
                     />
                 </Dialog>
@@ -313,7 +312,7 @@ export default function Loans({ data }) {
                             <p className="m-0">
                                 Service Deduction: {AmountFormatText(formData?.service_deduction) || 0}
                             </p>
-                            <p className="m-0">Net Loan: {AmountFormatText(formData?.net_amt) || 0}</p>
+                            <p className="m-0">Net Amount: {AmountFormatText(formData?.net_amt) || 0}</p>
                         </Panel>
                     </div>
                 </form>
