@@ -30,4 +30,19 @@ class LoanTransactions extends Model
     {
         return Crypt::encryptString($this->id);
     }
+
+    public function toMembership()
+    {
+        return $this->hasOne(MembershipModel::class, 'id', 'mem_id');
+    }
+
+    public function toLoanMaster()
+    {
+        return $this->hasOne(Loans::class, 'id', 'loan_id');
+    }
+
+    public function toCollateralMaster()
+    {
+        return $this->hasOne(Collaterals::class, 'id', 'loan_collat_id');
+    }
 }

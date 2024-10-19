@@ -43,4 +43,6 @@ Trait ModelsTrait
     {
         return \App\Models\LoanTransactions::query();
     }
+
+    //Approvals
 }

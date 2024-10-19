@@ -8,8 +8,7 @@ Trait LoansTrait {
     {
         return [
             'loans' => $this->loanMasterData(),
-            'collat_data' => $this->collateralAssetMasterData(),
-            'general_setting' => $this->generalSettingMasterData(),
+            'collat_data' => $this->collateralAssetMasterData()
         ];
     }
 
@@ -21,11 +20,6 @@ Trait LoansTrait {
     public function collateralAssetMasterData()
     {
         return $this->collateralModel()->get();
-    }
-
-    public function generalSettingMasterData()
-    {
-        return $this->generalSettingModel()->first();
     }
 
     public function membersData($request)

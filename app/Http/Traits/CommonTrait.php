@@ -36,7 +36,6 @@ Trait CommonTrait
             return $this->generateMembershipCode($length);
         }
 
-        // Return the unique membership code
         return $randomString;
     }
 }
