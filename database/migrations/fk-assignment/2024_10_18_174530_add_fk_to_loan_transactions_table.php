@@ -29,12 +29,6 @@ return new class extends Migration
                 ->on('collaterals')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-            $table->foreign('approval_id')
-                ->references('id')
-                ->on('approvals')
-                ->onDelete('set null')
-                ->onUpdate('cascade');
         });
     }
 

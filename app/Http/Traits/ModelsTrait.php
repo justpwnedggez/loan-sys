@@ -5,6 +5,8 @@ namespace App\Http\Traits;
 
 Trait ModelsTrait
 {
+    //Master Files
+
     public function membershipModel()
     {
         return \App\Models\MembershipModel::query();
@@ -33,5 +35,12 @@ Trait ModelsTrait
     public function generalSettingModel()
     {
         return \App\Models\GeneralSettings::query();
+    }
+
+    //Transactions
+
+    public function loanTransactionModel()
+    {
+        return \App\Models\LoanTransactions::query();
     }
 }

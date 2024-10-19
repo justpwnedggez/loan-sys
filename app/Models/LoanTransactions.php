@@ -14,13 +14,13 @@ class LoanTransactions extends Model
         'mem_id',
         'loan_id',
         'loan_collat_id',
-        'approval_id',
         'trans_no',
         'loan_collat_desc',
         'status',
         'principal_amt',
         'total_interest',
         'service_deduction',
+        'cbu',
         'net_amt'
     ];
 
