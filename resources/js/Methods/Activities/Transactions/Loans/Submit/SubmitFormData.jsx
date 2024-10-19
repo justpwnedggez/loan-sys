@@ -1,12 +1,9 @@
-// SubmitFormData.jsx
 import axios from "axios";
 import { Inertia } from "@inertiajs/inertia";
 
-export const submitLoanForm = async (toast) => {
+export const submitLoanForm = async (formData, toast) => {
     try {
-
         const route = "/main/activities/transactions/loans/create";
-
         await axios.post(route, formData).then((response) => {
             toast.current.show({
                 severity: "success",
@@ -14,7 +11,6 @@ export const submitLoanForm = async (toast) => {
                 detail: response.data.message,
                 life: 3000,
             });
-            localStorage.clear("biodata");
             setTimeout(function () {
                 Inertia.reload({
                     preserveScroll: true, // Optional: Keeps the scroll position

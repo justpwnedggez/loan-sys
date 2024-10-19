@@ -9,28 +9,36 @@ import { Dialog } from "primereact/dialog"; // Modal Component
 import { Panel } from "primereact/panel";
 import { InputTextarea } from "primereact/inputtextarea";
 
+//Message Poppers
+import { Toast } from "primereact/toast";
+
 // Methods
-import { AmountFormat } from "@/Methods/Common/FieldFormats";
+import { AmountFormat, AmountFormatText } from "@/Methods/Common/FieldFormats";
+import { GenerateTransactionNumber } from "@/Methods/Common/TransNumber";
 import { calculateLoanDetails } from "@/Methods/Common/FieldFormats";
+import { submitLoanForm } from "@/Methods/Activities/Transactions/Loans/Submit/SubmitFormData";
 //Modals
 import { MemberSelectionList } from "@/Components/SideBar/Activity/SearchMemberModal";
 
 export default function Loans({ data }) {
     const [formData, setFormData] = useState({
+        trans_no: 'LTR#' + GenerateTransactionNumber(),
+        loan_id: "",
         loan_type: "",
         loan_amount: "",
         collateral_asset_type: "",
-        collateral_asset_desc: "",
+        loan_collat_desc: "",
         status: "Y",
         cbu: "",
         interest: "",
         service_fee: "",
         loan_period: "",
-        service_fee_deduction: "",
+        service_deduction: "",
         total_interest: "",
-        net_loan: "",
+        net_amt: "",
     });
 
+    const [cbu, setCbuData] = useState("");
     const [selectedLoan, setSelectedLoan] = useState("");
     const [memberData, setMemberData] = useState("");
     const [isDialogVisible, setDialogVisible] = useState(false);
@@ -38,19 +46,21 @@ export default function Loans({ data }) {
     useEffect(() => {
         if (formData.loan_amount && formData.cbu && formData.interest) {
             // Get the calculated values
-            const { total_interest, service_fee_deduction, net_loan } = calculateLoanDetails(formData);
+            const { principal_amt, total_interest, service_deduction, net_amt } = calculateLoanDetails(formData);
 
             // Only update if values have changed to prevent infinite re-renders
             if (
+                principal_amt !== formData.principal_amt ||
                 total_interest !== formData.total_interest ||
-                service_fee_deduction !== formData.service_fee_deduction ||
-                net_loan !== formData.net_loan
+                service_deduction !== formData.service_deduction ||
+                net_amt !== formData.net_amt
             ) {
                 setFormData((prevData) => ({
                     ...prevData,
+                    principal_amt,
                     total_interest,
-                    service_fee_deduction,
-                    net_loan
+                    service_deduction,
+                    net_amt
                 }));
             }
         }
@@ -63,14 +73,16 @@ export default function Loans({ data }) {
     };
 
     const selectMember = (member) => {
+        const cbu = member?.subscription_amount >= 10000 ? 1000 : 250 || ""
+        setCbuData(cbu);
         setMemberData(member);
         setFormData((prevData) => ({
             ...prevData,
-            cbu: member?.subscription_amount || "", // Insert subscription_amount into formData
+            cbu: cbu,
+            mem_id: member?.id || "",
         }));
         setDialogVisible(false);
     };
-
     const toast = useRef(null);
 
     const handleInputChange = (e) => {
@@ -86,12 +98,24 @@ export default function Loans({ data }) {
 
                 updatedData = {
                     ...updatedData,
+                    loan_id: loan?.id || "",
                     interest: loan?.interest || "",
                     service_fee: loan?.service_fee || "",
                     loan_period: loan?.loan_period || "",
                 };
             }
 
+            if(id === "collateral_asset_type") {
+                const collat = data.collat_data.find(
+                    (collat) => collat.collat_code === value.collat_code
+                );
+
+                updatedData = {
+                    ...updatedData,
+                    loan_collat_id: collat?.id || "",
+                };
+
+            }
             return updatedData;
         });
     };
@@ -102,11 +126,11 @@ export default function Loans({ data }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        submitCreateLoanForm(formData, toast);
+        submitLoanForm(formData, toast);
     };
 
     return (
-        <div className="card">
+        (<div className="card">
             <Card
                 className="md:w-25rem lg:w-30rem xl:w-35rem mx-auto relative"
                 title={
@@ -119,6 +143,7 @@ export default function Loans({ data }) {
                     </div>
                 }
             >
+                <Toast ref={toast} />
                 <div className="p-fluid grid grid-cols-2 gap-4">
                     <div className="field col">
                         <p className="m-0">
@@ -132,7 +157,7 @@ export default function Loans({ data }) {
                             </i>
                         </p>
                         <p className="m-0">
-                            CBU: <i>{memberData?.subscription_amount || ""}</i>
+                            CBU: <i>{AmountFormatText(cbu) || ""}</i>
                         </p>
                         <p className="m-0">
                             Birth Date: <i>{memberData?.birth_date || ""}</i>
@@ -185,10 +210,9 @@ export default function Loans({ data }) {
                     />
                 </Dialog>
             </Card>
-
             <Card
                 className="md:w-25rem lg:w-30rem xl:w-35rem mx-auto mt-4"
-                title="Loan Transaction"
+                title={`Loan Transaction ${formData.trans_no}`}
             >
                 <Button
                     icon="pi pi-check"
@@ -244,8 +268,8 @@ export default function Loans({ data }) {
                         </label>
                         <InputTextarea
                             className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            id="collateral_asset_desc"
-                            value={formData.collateral_asset_desc}
+                            id="loan_collat_desc"
+                            value={formData.loan_collat_desc}
                             onChange={handleInputChange}
                             placeholder="Savings, Car, House, etc."
                         />
@@ -261,7 +285,7 @@ export default function Loans({ data }) {
                             </p>
                             <p className="m-0">
                                 Maximum Loan Amount:{" "}
-                                {selectedLoan?.max_loan_amount || ""}
+                                {AmountFormatText(selectedLoan.max_loan_amount) || ""}
                             </p>
                             <p className="m-0">
                                 Loan Period: {selectedLoan?.loan_period || ""}{" "}
@@ -281,20 +305,20 @@ export default function Loans({ data }) {
                     <div className="field col">
                         <Panel header="Total" toggleable>
                             <p className="m-0">
-                                Principal Amount: {formData?.loan_amount || 0}
+                                Principal Amount: {AmountFormatText(formData?.loan_amount) || 0}
                             </p>
                             <p className="m-0">
-                                Total Interest: {formData?.total_interest}
+                                Total Interest: {AmountFormatText(formData?.total_interest) || 0}
                             </p>
                             <p className="m-0">
-                                Service Deduction: {formData?.service_fee_deduction || 0}
+                                Service Deduction: {AmountFormatText(formData?.service_deduction) || 0}
                             </p>
-                            <p className="m-0">Net Loan: {formData?.net_loan || 0}</p>
+                            <p className="m-0">Net Loan: {AmountFormatText(formData?.net_amt) || 0}</p>
                         </Panel>
                     </div>
                 </form>
             </Card>
-        </div>
+        </div>)
     );
 }
 
