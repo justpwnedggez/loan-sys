@@ -11,14 +11,12 @@ class Approvals extends Model
     use HasFactory;
 
     protected $fillable = [
-        'loan_code',
-        'loan_name',
-        'max_loan_amount',
-        'loan_period',
-        'interest',
-        'service_fee',
+        'loan_trans_id',
+        'approve_code',
+        'trans_type',
+        'approve_desc',
         'status',
-        'loan_purpose'
+        'approved_by',
     ];
 
     protected $table = 'approvals';

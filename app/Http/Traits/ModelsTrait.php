@@ -45,4 +45,9 @@ Trait ModelsTrait
     }
 
     //Approvals
+
+    public function approvalsModel()
+    {
+        return \App\Models\Approvals::query();
+    }
 }

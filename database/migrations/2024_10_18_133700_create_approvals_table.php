@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('approvals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('loan_trans_id')->index();
-            $table->string('approve_code', 20)->index();
+            $table->string('approve_code', 50)->index();
             $table->string('trans_type', 20);
             $table->text('approve_desc');
             $table->string('status', 4);
