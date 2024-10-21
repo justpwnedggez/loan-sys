@@ -7,6 +7,8 @@ use App\Http\Repositories\Activities\Transactions\Loans\LoansInterface as ActLoa
 use App\Http\Repositories\Activities\Transactions\Loans\LoansRepository;
 use App\Http\Repositories\Approvals\Loans\LoanApprovalsInterface;
 use App\Http\Repositories\Approvals\Loans\LoanApprovalsRepository;
+use App\Http\Repositories\Approvals\Memberships\MembershipApprovalsInterface;
+use App\Http\Repositories\Approvals\Memberships\MembershipApprovalsRepository;
 use App\Http\Services\MasterFiles\Users\UserService;
 use App\Http\Repositories\MasterFiles\Roles\RoleInterface;
 use App\Http\Repositories\MasterFiles\Users\UserInterface;
@@ -40,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ActLoansInterface::class, LoansRepository::class);
         $this->app->bind(MembershipInterface::class, MembershipRepository::class);
         $this->app->bind(LoanApprovalsInterface::class, LoanApprovalsRepository::class);
+        $this->app->bind(MembershipApprovalsInterface::class, MembershipApprovalsRepository::class);
 
         //Services
         //Activities

@@ -12,6 +12,7 @@ class Approvals extends Model
 
     protected $fillable = [
         'loan_trans_id',
+        'mem_trans_id',
         'approve_code',
         'trans_type',
         'approve_desc',

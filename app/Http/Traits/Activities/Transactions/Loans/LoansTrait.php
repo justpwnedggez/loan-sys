@@ -26,6 +26,8 @@ Trait LoansTrait {
     {
         $size = $request->input('size');
         $page = $request->input('page');
-        return $this->membershipModel()->paginate($size, ['*'], 'page', $page);
+        return $this->membershipModel()
+                    ->with('memberParent', 'memberBeneficiary')
+                    ->paginate($size, ['*'], 'page', $page);
     }
 }

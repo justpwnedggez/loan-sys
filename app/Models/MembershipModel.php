@@ -55,4 +55,9 @@ class MembershipModel extends Model
     {
         return $this->hasMany(MembersBeneficiaryModel::class, 'mem_id', 'id');
     }
+
+    public function toApprovals()
+    {
+        return $this->hasOne(Approvals::class, 'mem_trans_id', 'id');
+    }
 }

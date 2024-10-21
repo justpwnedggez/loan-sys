@@ -10,7 +10,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Toast } from "primereact/toast";
 
 //Submit
-import { submitLoanApprovalForm } from "@/Methods/Approvals/LoanApproval/Submit/submitLoanApprovalForm";
+import { submitMemberApprovalForm } from "@/Methods/Approvals/MembershipApproval/Submit/submitMemberApprovalForm";
 
 export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
     const toast = useRef(null);
@@ -20,13 +20,12 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
         const { id, value } = e.target;
         setFormData((prevData) => {
             return { ...prevData, auth_user: auth.user.id, [id]: value };
-
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        submitLoanApprovalForm(formData, toast);
+        submitMemberApprovalForm(formData, toast);
     };
 
     return (
@@ -37,7 +36,7 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
                     style={{ flexBasis: "90rem" }}
                     className="md:w-25rem lg:w-30rem xl:w-35rem mx-auto relative"
                     title=<div className="flex justify-between">
-                        Loan Application Approval
+                        Member Application Approval
                         <Button
                             icon="pi pi-check"
                             iconPos="right"
@@ -70,7 +69,6 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
                             <Dropdown
                                 id="status"
                                 value={formData?.status}
-                                onChange={handleInputChange}
                                 options={[
                                     {
                                         label: "Approved",
@@ -84,6 +82,7 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
                                 placeholder="Select Approval Status"
                                 className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent h-[34px]"
                                 style={{ height: "38px" }}
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div className="field col">
@@ -91,10 +90,10 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
                                 Approval Description
                             </label>
                             <InputTextarea
-                                id="approve_desc"
-                                onChange={handleInputChange}
                                 className="w-full border border-gray-300 rounded-md text-sm py-1 px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                id="approve_desc"
                                 value={formData?.approve_desc}
+                                onChange={handleInputChange}
                             />
                         </div>
                     </div>
