@@ -4,7 +4,7 @@ namespace App\Http\Requests\Approvals;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateApprovalRequest extends FormRequest
+class CreateLoanApprovalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,6 @@ class CreateApprovalRequest extends FormRequest
     public function rules(): array
     {
         return [
-        //Approval Data
         'loan_trans_id' => "required|int",
         'approve_code' => "required",
         'approve_desc' => "required|string",

@@ -57,6 +57,7 @@ export default function MemsApproval() {
         setFormData((prevData) => ({
             ...prevData,
             //Member Info
+            mem_trans_id: member?.id,
             mem_code: member?.mem_code,
             mem_name: member?.first_name + " " + member?.middle_name + " " + member?.last_name,
             birth_date: member?.birth_date,
@@ -80,7 +81,7 @@ export default function MemsApproval() {
             highest_educ_attain: member?.highest_educ_attainment,
             parents: member?.member_parent,
             beneficiaries: member?.member_beneficiary,
-            reason_for_joining: member?.farm_location,
+            reason_for_joining: member?.reason_for_joining,
         }));
 
         setDialogVisible(false);

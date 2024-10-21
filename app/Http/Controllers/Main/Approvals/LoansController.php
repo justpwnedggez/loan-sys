@@ -6,15 +6,15 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Approvals\Loans\LoanApprovalsInterface;
-use App\Http\Requests\Approvals\CreateApprovalRequest;
-use App\Http\Services\Approvals\LoanApprovals\createApprovalService;
+use App\Http\Requests\Approvals\CreateLoanApprovalRequest;
+use App\Http\Services\Approvals\LoanApprovals\CreateApprovalService;
 
 class LoansController extends Controller
 {
     protected $loanApprovalRepository;
     protected $loanApprovalService;
 
-    public function __construct(LoanApprovalsInterface $loanApprovalRepository, createApprovalService $loanApprovalService)
+    public function __construct(LoanApprovalsInterface $loanApprovalRepository, CreateApprovalService $loanApprovalService)
     {
         $this->loanApprovalRepository = $loanApprovalRepository;
         $this->loanApprovalService = $loanApprovalService;
@@ -29,7 +29,7 @@ class LoansController extends Controller
         return $this->loanApprovalRepository->retrieveLoanTransactions($request);
     }
 
-    public function submitApproval(CreateApprovalRequest $request)
+    public function submitApproval(CreateLoanApprovalRequest $request)
     {
         $approval = $this->loanApprovalService->createApproval($request->validated());
 
