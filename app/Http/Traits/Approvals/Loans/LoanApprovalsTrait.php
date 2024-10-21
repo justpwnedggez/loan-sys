@@ -8,7 +8,10 @@ trait LoanApprovalsTrait
     {
         $size = $request->input('size');
         $page = $request->input('page');
-        $data = $this->loanTransactionModel()->paginate($size, ['*'], 'page', $page);
+        $data = $this->loanTransactionModel()
+                     ->doesntHave('toApprovals')
+                     ->paginate($size, ['*'], 'page', $page);
+
         $modifiedData = $this->modifyFields($data->getCollection());
 
         return $data->setCollection($modifiedData);
