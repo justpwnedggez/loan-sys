@@ -12,6 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('approvals', function (Blueprint $table) {
+            $table->foreign('mem_trans_id')
+                ->references('id')
+                ->on('membership')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->foreign('loan_trans_id')
                 ->references('id')
                 ->on('loan_transactions')

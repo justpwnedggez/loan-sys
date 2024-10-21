@@ -3,12 +3,16 @@ import { Card } from "primereact/card";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 
-//Modals
-import { LoanTransSelectionList } from "@/Components/SideBar/Approvals/SearchLoanTransModal";
+//Modal
+import { MemberSelectionList } from "@/Components/SideBar/Approvals/SearchMemberModal";
 
-export default function LoanInformation({ formData, isDialogVisible, setDialogVisible, selectLoanTrans, stepperRef }) {
-
-
+export default function MemberInformation({
+    formData,
+    isDialogVisible,
+    setDialogVisible,
+    selectMember,
+    stepperRef,
+}) {
     const openSearchDialog = () => {
         setDialogVisible(true);
     };
@@ -27,7 +31,6 @@ export default function LoanInformation({ formData, isDialogVisible, setDialogVi
                         />
                     </div>
                 >
-
                     <div className="p-fluid grid grid-cols-2 gap-4">
                         <div className="field col">
                             <p className="m-0">
@@ -84,13 +87,13 @@ export default function LoanInformation({ formData, isDialogVisible, setDialogVi
                                 <span className="font-bold underline">
                                     RSBSA:
                                 </span>{" "}
-                                <i>{formData?.rsbsa}</i>
+                                <i>{formData?.rsbsa === 'Y' ? 'Yes' : 'No'}</i>
                             </p>
                             <p className="m-0">
                                 <span className="font-bold underline">
                                     Farm Area:
                                 </span>{" "}
-                                <i>{formData?.farm_area}</i>
+                                <i>{formData?.farm_area} sqm</i>
                             </p>
                             <p className="m-0">
                                 <span className="font-bold underline">
@@ -106,91 +109,103 @@ export default function LoanInformation({ formData, isDialogVisible, setDialogVi
                 <Card
                     className="md:w-25rem lg:w-30rem xl:w-35rem mx-auto mt-4"
                     style={{ flexBasis: "90rem" }}
-                    title=<div className="flex justify-between">
-                        Loan Transaction Information
-                    </div>
+                    title=<div className="flex justify-between">Others</div>
                 >
                     <div className="p-fluid grid grid-cols-2 gap-4">
                         <div className="field col">
                             <p className="m-0">
                                 <span className="font-bold underline">
-                                    Transaction No.:
+                                    Present Address:
                                 </span>{" "}
-                                <i>{formData?.trans_no}</i>
+                                <i>{formData?.present_addr}</i>
                             </p>
                             <p className="m-0">
                                 <span className="font-bold underline">
-                                    Collateral Asset Type:
+                                    Permanent Address:
                                 </span>{" "}
-                                <i>{formData?.collat_asset_type}</i>
+                                <i>{formData?.permanent_addr}</i>
                             </p>
                             <p className="m-0">
                                 <span className="font-bold underline">
-                                    Loan Name:
+                                    Birth Place:
                                 </span>{" "}
-                                <i>{formData?.loan_name}</i>
+                                <i>{formData?.birth_place}</i>
                             </p>
                             <p className="m-0">
                                 <span className="font-bold underline">
-                                    Maximum Loan Amount:
+                                    Religion:
                                 </span>{" "}
-                                <i>{formData?.max_loan_amount}</i>
+                                <i>{formData?.religion}</i>
                             </p>
                             <p className="m-0">
                                 <span className="font-bold underline">
-                                    Loan Period:
+                                    Tribe:
                                 </span>{" "}
-                                <i>{formData?.loan_period}</i>
+                                <i>{formData?.tribe}</i>
                             </p>
-                            <p className="m-0">
                                 <span className="font-bold underline">
-                                    Interest:
+                                    Civil Status:
                                 </span>{" "}
-                                <i>{formData?.interest}</i>
-                            </p>
+                                <i>
+                                    {formData?.civil_status === "S"
+                                        ? "Single"
+                                        : formData?.civil_status === "M"
+                                        ? "Married"
+                                        : formData?.civil_status === "D"
+                                        ? "Divorced"
+                                        : "Unknown"}
+                                </i>
                             <p className="m-0 text-capitalize">
                                 <span className="font-bold underline">
-                                    Loan Purpose:
+                                    Tin No.:
                                 </span>{" "}
-                                <i>{formData?.loan_purpose}</i>
+                                <i>{formData?.tin_no}</i>
                             </p>
                             <p className="m-0">
                                 <span className="font-bold underline">
-                                    Service Fee:
+                                    Highest Educational Attainment:
                                 </span>{" "}
-                                <i>{formData?.service_fee}</i>
+                                <i>{formData?.highest_educ_attainment}</i>
                             </p>
                         </div>
                         <div className="field col">
+                                <span className="font-bold underline">
+                                    Parents:
+                                </span>
+                                <ul className="list-disc ml-4">
+                                    {" "}
+                                    {/* Add appropriate classes for styling */}
+                                    {formData?.parents.map((parent, index) => (
+                                        <li key={index}>
+                                            {`${parent.first_name} ${
+                                                parent.middle_name
+                                            } ${parent.last_name} (${
+                                                parent.parent_type === "M"
+                                                    ? "Mother"
+                                                    : "Father"
+                                            })`}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <span className="font-bold underline">
+                                    Beneficiaries:
+                                </span>{" "}
+                                <ul className="list-disc ml-4">
+                                    {" "}
+                                    {/* Add appropriate classes for styling */}
+                                    {formData?.beneficiaries.map(
+                                        (beneficiary, index) => (
+                                            <li key={index}>
+                                                {`${beneficiary.name} (${beneficiary.relationship})`}
+                                            </li>
+                                        )
+                                    )}
+                                </ul>
                             <p className="m-0">
                                 <span className="font-bold underline">
-                                    Collateral Asset Description:
+                                    Reason For Joining:
                                 </span>{" "}
-                                <i>{formData?.collat_asset_desc}</i>
-                            </p>
-                            <p className="m-0">
-                                <span className="font-bold underline">
-                                    Principal Amount:
-                                </span>{" "}
-                                <i>{formData?.principal_amt}</i>
-                            </p>
-                            <p className="m-0">
-                                <span className="font-bold underline">
-                                    Total Interest:
-                                </span>{" "}
-                                <i>{formData?.total_interest}</i>
-                            </p>
-                            <p className="m-0">
-                                <span className="font-bold underline">
-                                    Service Deduction:
-                                </span>{" "}
-                                <i>{formData?.service_deduction}</i>
-                            </p>
-                            <p className="m-0">
-                                <span className="font-bold underline">
-                                    Net Amount:
-                                </span>{" "}
-                                <i>{formData?.net_amt}</i>
+                                <i>{formData?.reason_for_joining}</i>
                             </p>
                         </div>
                     </div>
@@ -201,7 +216,7 @@ export default function LoanInformation({ formData, isDialogVisible, setDialogVi
                         onHide={() => setDialogVisible(false)}
                         style={{ width: "50vw" }}
                     >
-                        <LoanTransSelectionList onSelect={selectLoanTrans} />
+                        <MemberSelectionList onSelect={selectMember} />
                     </Dialog>
                 </Card>
             </div>

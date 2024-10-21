@@ -45,4 +45,9 @@ class LoanTransactions extends Model
     {
         return $this->hasOne(Collaterals::class, 'id', 'loan_collat_id');
     }
+
+    public function toApprovals()
+    {
+        return $this->hasOne(Approvals::class, 'loan_trans_id', 'id');
+    }
 }
