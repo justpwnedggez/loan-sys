@@ -18,6 +18,9 @@ import { Toast } from "primereact/toast";
 import { LoanTransSelectionList } from "@/Components/SideBar/Approvals/SearchLoanTransModal";
 import { InputTextarea } from "primereact/inputtextarea";
 
+//Methods
+import { GenerateTransactionNumber } from "@/Methods/Common/TransNumber";
+
 export default function LoanApproval() {
     const [formData, setFormData] = useState({
         //Member Info
@@ -50,6 +53,9 @@ export default function LoanApproval() {
         total_interest: "",
         service_deduction: "",
         net_amt: "",
+
+        //Approval Data
+        approval_code: 'APRV#' + GenerateTransactionNumber()
     });
 
     const [isDialogVisible, setDialogVisible] = useState(false);
@@ -311,7 +317,7 @@ export default function LoanApproval() {
                             style={{ flexBasis: "90rem" }}
                             className="md:w-25rem lg:w-30rem xl:w-35rem mx-auto relative"
                             title=<div className="flex justify-between">
-                                Member Requirements
+                                Member Requirements <i>Please check the following:</i>
                             </div>
                         >
                             <div className="p-fluid grid grid-cols-2 gap-4">
