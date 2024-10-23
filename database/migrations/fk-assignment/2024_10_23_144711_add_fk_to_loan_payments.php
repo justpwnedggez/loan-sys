@@ -11,22 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('loan_transactions', function (Blueprint $table) {
+        Schema::table('loan_payments', function (Blueprint $table) {
+            $table->foreign('loan_id')
+                ->references('id')
+                ->on('loan_transactions')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->foreign('mem_id')
                 ->references('id')
                 ->on('membership')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-            $table->foreign('loan_id')
-                ->references('id')
-                ->on('loans')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-            $table->foreign('loan_collat_id')
-                ->references('id')
-                ->on('collaterals')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
@@ -43,7 +37,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('loan_transactions', function (Blueprint $table) {
+        Schema::table('loan_payments', function (Blueprint $table) {
             //
         });
     }

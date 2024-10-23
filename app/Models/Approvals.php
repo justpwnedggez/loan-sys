@@ -18,6 +18,8 @@ class Approvals extends Model
         'approve_desc',
         'status',
         'approved_by',
+        'start_date',
+        'end_date',
     ];
 
     protected $table = 'approvals';

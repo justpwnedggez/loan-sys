@@ -6,4 +6,4 @@ Route::get('list', [MembershipsController::class, 'listView'])->name('apprv.mems
 Route::get('/search-member', [MembershipsController::class, 'searchMember'])->name('apprv.mems.search');
 
 //POST METHOD
-Route::post('/create-approval', [MembershipsController::class, 'listView'])->name('apprv.mems.create');
+Route::post('/create-approval', [MembershipsController::class, 'submitApproval'])->name('apprv.mems.create');
