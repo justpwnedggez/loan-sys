@@ -51,4 +51,9 @@ class LoanTransactions extends Model
     {
         return $this->hasOne(Approvals::class, 'loan_trans_id', 'id');
     }
+
+    public function toLoanPayments()
+    {
+        return $this->hasMany(LoanPayment::class, 'loan_trans_id', 'id');
+    }
 }

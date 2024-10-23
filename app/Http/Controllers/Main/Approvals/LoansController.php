@@ -13,13 +13,13 @@ class LoansController extends Controller
 {
     protected $loanApprovalRepository;
     protected $loanApprovalService;
-    protected $loanUpdateApprovalService;
 
     public function __construct(LoanApprovalsInterface $loanApprovalRepository, CreateApprovalService $loanApprovalService)
     {
         $this->loanApprovalRepository = $loanApprovalRepository;
         $this->loanApprovalService = $loanApprovalService;
     }
+
     public function listView()
     {
         return Inertia::render('Approvals/LoanApproval');

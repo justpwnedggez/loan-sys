@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Repositories\Activities\Transactions\LoanAmortization\LoanAmortizationInterface;
+use App\Http\Repositories\Activities\Transactions\LoanAmortization\LoanAmortizationRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Repositories\Activities\Transactions\Loans\LoansInterface as ActLoansInterface;
 use App\Http\Repositories\Activities\Transactions\Loans\LoansRepository;
@@ -44,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MembershipInterface::class, MembershipRepository::class);
         $this->app->bind(LoanApprovalsInterface::class, LoanApprovalsRepository::class);
         $this->app->bind(MembershipApprovalsInterface::class, MembershipApprovalsRepository::class);
+        $this->app->bind(LoanAmortizationInterface::class, LoanAmortizationRepository::class);
 
         //Services
         //Activities
