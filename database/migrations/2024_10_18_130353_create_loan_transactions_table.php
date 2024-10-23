@@ -16,7 +16,7 @@ return new class extends Migration
         $table->unsignedBigInteger('mem_id')->index();
         $table->unsignedBigInteger('loan_id')->index();
         $table->unsignedBigInteger('loan_collat_id')->index();
-        $table->string('trans_no', 20)->index();
+        $table->string('trans_no', 50)->index();
         $table->text('loan_collat_desc');
         $table->string('status', 1)->default('Y');
         $table->decimal('principal_amt', 18, 2)->default('0.00');
@@ -24,6 +24,7 @@ return new class extends Migration
         $table->decimal('service_deduction', 18, 2)->default('0.00');
         $table->decimal('cbu', 18,2)->default('0.00');
         $table->decimal('net_amt', 18, 2)->default('0.00');
+        $table->unsignedBigInteger('encoded_by')->index();
         $table->timestamps();
     });
 }

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('approve_desc');
             $table->string('status', 4);
             $table->unsignedBigInteger('approved_by')->index();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
     }

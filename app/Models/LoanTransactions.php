@@ -21,7 +21,8 @@ class LoanTransactions extends Model
         'total_interest',
         'service_deduction',
         'cbu',
-        'net_amt'
+        'net_amt',
+        'encoded_by',
     ];
 
     protected $table = 'loan_transactions';

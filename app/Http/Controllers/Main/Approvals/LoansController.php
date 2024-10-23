@@ -13,6 +13,7 @@ class LoansController extends Controller
 {
     protected $loanApprovalRepository;
     protected $loanApprovalService;
+    protected $loanUpdateApprovalService;
 
     public function __construct(LoanApprovalsInterface $loanApprovalRepository, CreateApprovalService $loanApprovalService)
     {

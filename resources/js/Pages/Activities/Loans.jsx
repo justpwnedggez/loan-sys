@@ -197,7 +197,6 @@ export default function Loans({ data }) {
                     </div>
                 </div>
 
-                {/* Modal for selecting a member */}
                 <Dialog
                     header="Select a Member"
                     visible={isDialogVisible}

@@ -9,6 +9,6 @@ class LoanPaymentController extends Controller
 {
     public function createView()
     {
-        return Inertia::render('Activities/LoanPayment');
+        return Inertia::render('Activities/LoanAmortization');
     }
 }

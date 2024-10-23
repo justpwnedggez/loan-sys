@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { usePage } from "@inertiajs/react";
 
 //Elements
@@ -6,6 +6,7 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
+import { Calendar } from "primereact/calendar";
 //Message Popper
 import { Toast } from "primereact/toast";
 
@@ -20,10 +21,9 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
         const { id, value } = e.target;
         setFormData((prevData) => {
             return { ...prevData, auth_user: auth.user.id, [id]: value };
-
         });
     };
-
+    console.log(formData);
     const handleSubmit = (e) => {
         e.preventDefault();
         submitLoanApprovalForm(formData, toast);
@@ -87,6 +87,37 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
                             />
                         </div>
                         <div className="field col">
+                            <div className="card flex flex-wrap gap-3 p-fluid">
+                                <div className="flex-auto">
+                                    <label
+                                        htmlFor="start_date"
+                                        className="font-bold block mb-2"
+                                    >
+                                        Start Date:
+                                    </label>
+                                    <Calendar
+                                        id="start_date"
+                                        value={formData?.start_date}
+                                        onChange={handleInputChange}
+                                        showIcon
+                                    />
+                                </div>
+                                <div className="flex-auto">
+                                    <label
+                                        htmlFor="end_date"
+                                        className="font-bold block mb-2"
+                                    >
+                                        End Date:
+                                    </label>
+
+                                    <Calendar
+                                        id="end_date"
+                                        value={formData?.end_date}
+                                        onChange={handleInputChange}
+                                        showIcon
+                                    />
+                                </div>
+                            </div>
                             <label htmlFor="" className="font-bold">
                                 Approval Description
                             </label>

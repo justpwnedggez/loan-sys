@@ -48,7 +48,9 @@ export default function LoanApproval() {
         net_amt: "",
 
         //Approval Data
-        approve_code: 'APRV#' + GenerateTransactionNumber()
+        approve_code: 'APRV#' + GenerateTransactionNumber(),
+        start_date: "",
+        end_date: "",
     });
 
     const stepperRef = useRef(null);
