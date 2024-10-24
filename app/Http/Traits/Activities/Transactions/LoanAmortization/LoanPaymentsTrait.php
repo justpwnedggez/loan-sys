@@ -82,7 +82,6 @@ trait LoanPaymentsTrait
         $item['next_payment_due'] = date('m/d/Y', strtotime($this->nextPaymentDue($startDate, $paymentCount, $toLoanPayments)));
 
         //Loan Payments Details
-
         $item['loan_payments'] = $this->modifyFieldsDetails($toLoanPayments);
 
         return $item;

@@ -23,7 +23,7 @@ export default function ApprovalRelease({ stepperRef, formData, setFormData }) {
             return { ...prevData, auth_user: auth.user.id, [id]: value };
         });
     };
-    console.log(formData);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         submitLoanApprovalForm(formData, toast);

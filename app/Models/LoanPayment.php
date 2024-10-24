@@ -2,10 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class LoanPayment extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'loan_trans_id',
+        'mem_id',
+        'pay_code',
+        'payment_amount',
+        'beginning_balance',
+        'ending_balance',
+        'status',
+        'payment_date',
+        'encoded_by',
+    ];
+
+    protected $table = 'loan_payments';
+
+    public function getEncryptedIdAttribute()
+    {
+        return Crypt::encryptString($this->id);
+    }
 }

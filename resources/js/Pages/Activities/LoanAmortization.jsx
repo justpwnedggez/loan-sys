@@ -1,20 +1,32 @@
 import App from "../App";
-import { useRef, useState } from "react";
+import { useState, useRef } from "react";
+
+//Elements
 import { Card } from "primereact/card";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+
+//Message Popper
+import { Toast } from "primereact/toast";
 
 //Sections
 import { LoanTransSelectionList } from "@/Components/SideBar/Activity/SearchApprvLoanTrans";
 import { LoanHeaderInformation } from "./Sections/LoanAmortization/LoanHeaderInformation";
 import { LoanDetailsInformation } from "./Sections/LoanAmortization/LoanDetailsInformation";
+import { PaymentInformation } from "./Sections/LoanAmortization/PaymentInformation";
+
+//Methods
+import { GenerateTransactionNumber } from "@/Methods/Common/TransNumber";
+import { submitPaymentForm } from "@/Methods/Activities/Transactions/LoanAmortization/Submit/submitPaymentForm";
+
 
 export default function LoanPayment() {
     const [formData, setFormData] = useState({});
 
-    const [isDialogVisible, setDialogVisible] = useState(false);
+    const [isDialogVisibleSearch, setDialogVisibleSearch] = useState(false);
+    const [isDialogVisiblePay, setDialogVisiblePay] = useState(false);
+
+    const toast = useRef(null);
 
     const selectLoanTrans = (loanTrans) => {
         setFormData((prevData) => ({
@@ -40,14 +52,42 @@ export default function LoanPayment() {
 
             //Payment Details
             loan_payments: loanTrans?.loan_payments,
+            pay_code: 'PAY#' + GenerateTransactionNumber(),
+            payment_amount: ""
         }));
 
-        setDialogVisible(false);
+        setDialogVisibleSearch(false);
+        setDialogVisiblePay(false);
     };
 
-
     const openSearchDialog = () => {
-        setDialogVisible(true);
+        setDialogVisibleSearch(true);
+    };
+
+    const openPayDialog = () => {
+        if(Object.keys(formData).length === 0) {
+            toast.current.show({
+                severity: "error",
+                summary: "Error",
+                detail: "No Loan Transaction Selected!",
+                life: 2000,
+            });
+        } else {
+            setDialogVisiblePay(true);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => {
+            return { ...prevData, [id]: value };
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData);
+        submitPaymentForm(formData, toast);
     };
 
     const header = (
@@ -60,12 +100,33 @@ export default function LoanPayment() {
 
     const footer = (
         <div className="flex flex-wrap justify-content-end gap-2">
-            <Button label="Pay Up" icon="pi pi-list" />
+            <Button
+                label="Pay Up"
+                icon="pi pi-wallet"
+                onClick={openPayDialog}
+            />
+        </div>
+    );
+
+    const payModalFooter = (
+        <div className="flex flex-wrap justify-content-end gap-2">
+            <Button
+                label="Submit Payment"
+                icon="pi pi-check"
+                onClick={handleSubmit}
+            />
+            <Button
+                label="Cancel"
+                icon="pi pi-times"
+                onClick={() => setDialogVisiblePay(false)}
+                className="p-button-text"
+            />
         </div>
     );
 
     return (
         <div className="card">
+        <Toast ref={toast} />
             <Card
                 title={header}
                 footer={footer}
@@ -78,17 +139,25 @@ export default function LoanPayment() {
 
                 <h3 className="text-xl font-bold mb-4">Recent Transactions</h3>
 
-                <LoanDetailsInformation
-                    formData={formData}
-                />
+                <LoanDetailsInformation formData={formData} />
             </Card>
             <Dialog
                 header="Select a Transaction"
-                visible={isDialogVisible}
-                onHide={() => setDialogVisible(false)}
+                visible={isDialogVisibleSearch}
+                onHide={() => setDialogVisibleSearch(false)}
                 style={{ width: "50vw" }}
             >
                 <LoanTransSelectionList onSelect={selectLoanTrans} />
+            </Dialog>
+            <Dialog
+                header="Payment Submission"
+                visible={isDialogVisiblePay}
+                style={{ width: "50vw" }}
+                footer={payModalFooter}
+                onHide={() => setDialogVisiblePay(false)}
+            >
+                <p>Enter your payment details here.</p>
+                <PaymentInformation formData={formData} handleInputChange={handleInputChange} toast={toast}/>
             </Dialog>
         </div>
     );
