@@ -6,16 +6,19 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Activities\Transactions\LoanAmortization\LoanAmortizationInterface;
+use App\Http\Requests\Loans\CreateLoanPaymentRequest;
+use App\Http\Services\Activities\Transactions\LoanPaymentService;
 
 class LoanPaymentController extends Controller
 {
 
     protected $loanAmortizationRepository;
-    protected $loanApprovalService;
+    protected $loanPaymentService;
 
-    public function __construct(LoanAmortizationInterface $loanAmortizationRepository)
+    public function __construct(LoanAmortizationInterface $loanAmortizationRepository, LoanPaymentService $loanPaymentService)
     {
         $this->loanAmortizationRepository = $loanAmortizationRepository;
+        $this->loanPaymentService = $loanPaymentService;
     }
 
     public function listView()
@@ -28,12 +31,12 @@ class LoanPaymentController extends Controller
         return $this->loanAmortizationRepository->retrieveLoanTransactions($request);
     }
 
-    // public function submitApproval(CreateLoanApprovalRequest $request)
-    // {
-    //     $approval = $this->loanApprovalService->createApproval($request->validated());
+    public function submitPayment(CreateLoanPaymentRequest $request)
+    {
+        $payment = $this->loanPaymentService->createPayment($request->validated());
 
-    //     return response()->json([
-    //         'message' => 'Approval ' . $approval->approve_code . 'created successfully'
-    //     ]);
-    // }
+        return response()->json([
+            'message' => 'Payment ' . $payment->pay_code . 'created successfully'
+        ]);
+    }
 }
