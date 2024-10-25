@@ -64,7 +64,6 @@ export const NumberFormat = (e) => {
 
 export const calculateLoanDetails = (formData) => {
 
-    console.log(formData);
     const loanAmount = parseFloat(formData.loan_amount.replace(/,/g, "") || 0);
     const cbu = parseFloat(formData.cbu || 0);
     const interest = parseFloat(formData.interest || 0);

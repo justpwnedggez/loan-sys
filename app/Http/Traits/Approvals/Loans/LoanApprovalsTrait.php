@@ -33,6 +33,7 @@ trait LoanApprovalsTrait
         $item['no'] = $key + 1;
 
         //Membership Info
+        $item['mem_id'] = $toMembership->id;
         $item['mem_code'] = $toMembership->mem_code;
         $item['mem_name'] = $toMembership->first_name . ' ' . $toMembership->last_name;
         $item['birth_date'] = date('m/d/Y', strtotime($toMembership->birth_date));
