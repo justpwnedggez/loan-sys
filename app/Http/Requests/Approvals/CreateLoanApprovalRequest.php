@@ -22,13 +22,15 @@ class CreateLoanApprovalRequest extends FormRequest
     public function rules(): array
     {
         return [
+        'mem_id' => "required|int",
         'loan_trans_id' => "required|int",
         'approve_code' => "required",
         'approve_desc' => "required|string",
         'auth_user' => "required|int",
         'status' => "required|string",
         'start_date' => "required|date",
-        'end_date' => "required|date"
+        'end_date' => "required|date",
+        'subscription_amount' => "required"
         ];
     }
 }

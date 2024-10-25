@@ -61,6 +61,7 @@ export default function LoanApproval() {
         setFormData((prevData) => ({
             ...prevData,
             //Member Info
+            mem_id: loanTrans?.mem_id,
             mem_code: loanTrans?.mem_code,
             mem_name: loanTrans?.mem_name,
             birth_date: loanTrans?.birth_date,
@@ -80,6 +81,7 @@ export default function LoanApproval() {
             collat_asset_type: loanTrans?.collat_asset_type,
             collat_asset_desc: loanTrans?.loan_collat_desc,
             loan_name: loanTrans?.loan_name,
+            subscription_amount: loanTrans?.cbu,
             max_loan_amount: loanTrans?.max_loan_amount,
             loan_period: loanTrans?.loan_period,
             interest: loanTrans?.interest,

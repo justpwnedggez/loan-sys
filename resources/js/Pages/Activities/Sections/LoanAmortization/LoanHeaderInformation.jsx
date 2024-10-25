@@ -56,6 +56,12 @@ export const LoanHeaderInformation = ({ formData, openSearchDialog }) => {
                         {formData?.cbu}
                     </div>
                     <div className="text-500 font-medium mb-2">
+                        Net Amount:
+                    </div>
+                    <div className="text-900 text-xl font-medium">
+                        {formData?.net_amt}
+                    </div>
+                    <div className="text-500 font-medium mb-2">
                         Remaining Balance:
                     </div>
                     <div className="text-900 text-xl font-medium">
