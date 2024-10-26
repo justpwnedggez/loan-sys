@@ -64,12 +64,13 @@ export default function LoanPayment() {
         setDialogVisibleSearch(false);
         setDialogVisiblePay(false);
     };
-    console.log(formData);
+
     const openSearchDialog = () => {
         setDialogVisibleSearch(true);
     };
 
     const openPayDialog = () => {
+
         if (Object.keys(formData).length === 0) {
             toast.current.show({
                 severity: "error",
@@ -77,9 +78,20 @@ export default function LoanPayment() {
                 detail: "No Loan Transaction Selected!",
                 life: 2000,
             });
-        } else {
-            setDialogVisiblePay(true);
+            return;
         }
+
+        if(formData.remaning_amt == 0) {
+            toast.current.show({
+                severity: "error",
+                summary: "Error",
+                detail: "Loan Amount already paid!",
+                life: 2000,
+            });
+            return;
+        }
+
+        setDialogVisiblePay(true);
     };
 
     const handleInputChange = (e) => {
@@ -91,7 +103,7 @@ export default function LoanPayment() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        setDialogVisiblePay(false)
         submitPaymentForm(formData, toast);
     };
 
