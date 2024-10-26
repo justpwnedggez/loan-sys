@@ -20,6 +20,8 @@ use App\Http\Repositories\MasterFiles\Users\UserViewRepository;
 use App\Http\Repositories\MasterFiles\Loans\LoansViewRepository;
 use App\Http\Repositories\MasterFiles\Memberships\MembershipInterface;
 use App\Http\Repositories\MasterFiles\Memberships\MembershipRepository;
+use App\Http\Repositories\Reports\MasterFiles\Loans\LoansReportInterface;
+use App\Http\Repositories\Reports\MasterFiles\Loans\LoansReportRepository;
 use App\Http\Services\Activities\Memberships\MembershipService;
 use App\Http\Services\Activities\Transactions\LoanPaymentService;
 use App\Http\Services\Activities\Transactions\LoanTransService;
@@ -49,6 +51,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LoanApprovalsInterface::class, LoanApprovalsRepository::class);
         $this->app->bind(MembershipApprovalsInterface::class, MembershipApprovalsRepository::class);
         $this->app->bind(LoanAmortizationInterface::class, LoanAmortizationRepository::class);
+
+        //Reports
+        $this->app->bind(LoansReportInterface::class, LoansReportRepository::class);
+
 
         //Services
         //Activities

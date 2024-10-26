@@ -49,7 +49,27 @@ export default function Dropdown() {
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}
                     >
-                        Loan Portfolio
+                        Loans
+                    </Link>
+                    <Link
+                        href={route('main.report.loan.index')}
+                        className={`block max-w-48 px-4 py-2 rounded ${
+                            route().current() === "main.report.loan.index"
+                                ? "bg-blue-600 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                        }`}
+                    >
+                        Membership
+                    </Link>
+                    <Link
+                        href={route('main.report.loan.index')}
+                        className={`block max-w-48 px-4 py-2 rounded ${
+                            route().current() === "main.report.loan.index"
+                                ? "bg-blue-600 text-white" // Active style (highlighted)
+                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                        }`}
+                    >
+                        Transactions
                     </Link>
                 </div>
             )}
