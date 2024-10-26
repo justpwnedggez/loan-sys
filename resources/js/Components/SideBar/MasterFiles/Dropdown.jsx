@@ -52,7 +52,7 @@ export default function Dropdown() {
                     <Link
                         href={route("main.list.mems")}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.mems"
+                            route().current() === "main.list.mems"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}

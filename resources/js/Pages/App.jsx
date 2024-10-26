@@ -60,25 +60,30 @@ export default function Component({ children }) {
                         Dashboard
                     </Link>
 
-                    <div>{/** Activities Dropdown */}
+                    {/** Activities Dropdown */}
+                    <div>
                         <DropdownSideNavAct />
                     </div>
 
-                    <div>{/** Approvals Dropdown */}
+                    {/** Approvals Dropdown */}
+                    <div>
                         <DropdownSideNavApprv />
                     </div>
 
-                    <div>{/** Master Files Dropdown */}
+                    {/** Master Files Dropdown */}
+                    <div>
                         <DropdownSideNavMastFil />
                     </div>
 
-                    <div>{/** Reports Dropdown */}
+                    {/** Reports Dropdown */}
+                    <div>
                         <DropdownSideNavReports />
                     </div>
 
-                    <div>{/** Reports Dropdown */}
+                    {/** Sessions Dropdown */}
+                    {/* <div>
                         <DropdownSideNavSessions />
-                    </div>
+                    </div> */}
                 </nav>
             </aside>
 
