@@ -26,7 +26,7 @@ class CreateLoanPaymentRequest extends FormRequest
             'mem_id' => 'required|int',
             'pay_code' => 'required',
             'payment_amount' => 'required',
-            ''
+            'previous_balance' => 'required',
 
         ];
     }

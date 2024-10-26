@@ -7,7 +7,7 @@ export default function Loan({ children }) {
     return (
         <div className="max-w-screen-2xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
     <h1 className="text-2xl font-bold text-center mb-6">
-        User Management
+        Loans Management
     </h1>
 
     {/* Tab buttons */}

@@ -19,7 +19,6 @@ import { PaymentInformation } from "./Sections/LoanAmortization/PaymentInformati
 import { GenerateTransactionNumber } from "@/Methods/Common/TransNumber";
 import { submitPaymentForm } from "@/Methods/Activities/Transactions/LoanAmortization/Submit/submitPaymentForm";
 
-
 export default function LoanPayment() {
     const [formData, setFormData] = useState({});
 
@@ -29,13 +28,18 @@ export default function LoanPayment() {
     const toast = useRef(null);
 
     const selectLoanTrans = (loanTrans) => {
+        const previousBalance = loanTrans?.loan_payments?.length
+            ? loanTrans.loan_payments[loanTrans.loan_payments.length - 1]
+                  .ending_balance
+            : loanTrans?.principal_amt;
+
         setFormData((prevData) => ({
             ...prevData,
-            //Member Info
+            // Member Info
             mem_id: loanTrans?.mem_id,
             mem_name: loanTrans?.mem_name,
 
-            //Loan Trans Info
+            // Loan Trans Info
             loan_trans_id: loanTrans?.id,
             trans_no: loanTrans?.trans_no,
             loan_name: loanTrans?.loan_name,
@@ -50,22 +54,23 @@ export default function LoanPayment() {
             remaning_amt: loanTrans?.remaining_amt,
             next_payment_due: loanTrans?.next_payment_due,
 
-            //Payment Details
+            // Payment Details
             loan_payments: loanTrans?.loan_payments,
-            pay_code: 'PAY#' + GenerateTransactionNumber(),
-            payment_amount: ""
+            pay_code: "PAY#" + GenerateTransactionNumber(),
+            payment_amount: "",
+            previous_balance: previousBalance,
         }));
 
         setDialogVisibleSearch(false);
         setDialogVisiblePay(false);
     };
-
+    console.log(formData);
     const openSearchDialog = () => {
         setDialogVisibleSearch(true);
     };
 
     const openPayDialog = () => {
-        if(Object.keys(formData).length === 0) {
+        if (Object.keys(formData).length === 0) {
             toast.current.show({
                 severity: "error",
                 summary: "Error",
@@ -86,7 +91,7 @@ export default function LoanPayment() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+
         submitPaymentForm(formData, toast);
     };
 
@@ -126,7 +131,7 @@ export default function LoanPayment() {
 
     return (
         <div className="card">
-        <Toast ref={toast} />
+            <Toast ref={toast} />
             <Card
                 title={header}
                 footer={footer}
@@ -157,7 +162,11 @@ export default function LoanPayment() {
                 onHide={() => setDialogVisiblePay(false)}
             >
                 <p>Enter your payment details here.</p>
-                <PaymentInformation formData={formData} handleInputChange={handleInputChange} toast={toast}/>
+                <PaymentInformation
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    toast={toast}
+                />
             </Dialog>
         </div>
     );

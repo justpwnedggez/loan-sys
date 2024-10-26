@@ -11,9 +11,11 @@ trait LoanPaymentsTrait
     {
         $size = $request->input('size');
         $page = $request->input('page');
+
         $data = $this->loanTransactionModel()
             ->whereHas('toApprovals')
             ->paginate($size, ['*'], 'page', $page);
+
         $modifiedData = $this->modifyFieldsHeader($data->getCollection());
 
         return $data->setCollection($modifiedData);

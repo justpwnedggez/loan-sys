@@ -24,6 +24,7 @@ use App\Http\Services\Activities\Memberships\MembershipService;
 use App\Http\Services\Activities\Transactions\LoanPaymentService;
 use App\Http\Services\Activities\Transactions\LoanTransService;
 use App\Http\Services\Approvals\LoanApprovals\CreateApprovalService as CreateLoanAprovalService;
+use App\Http\Services\Approvals\LoanApprovals\UpdateMemberService;
 use App\Http\Services\Approvals\MembershipApprovals\CreateApprovalService as CreateMembershipApprovalService;
 use App\Http\Services\MasterFiles\Loans\LoanService;
 use App\Http\Services\MasterFiles\Roles\RoleService;
@@ -62,6 +63,9 @@ class AppServiceProvider extends ServiceProvider
         });
         $this->app->singleton(CreateLoanAprovalService::class, function($app) {
             return new CreateLoanAprovalService();
+        });
+        $this->app->singleton(UpdateMemberService::class, function($app) {
+            return new UpdateMemberService();
         });
         $this->app->singleton(CreateMembershipApprovalService::class, function($app) {
             return new CreateMembershipApprovalService();
