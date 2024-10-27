@@ -24,6 +24,8 @@ use App\Http\Repositories\Reports\MasterFiles\Loans\LoansReportInterface;
 use App\Http\Repositories\Reports\MasterFiles\Loans\LoansReportRepository;
 use App\Http\Repositories\Reports\MasterFiles\Membership\MembershipReportInterface;
 use App\Http\Repositories\Reports\MasterFiles\Membership\MembershipReportRepository;
+use App\Http\Repositories\Reports\Transactions\TransactionPayment\TransPaymentReportInterface;
+use App\Http\Repositories\Reports\Transactions\TransactionPayment\TransPaymentReportRepository;
 use App\Http\Repositories\Reports\Transactions\TransactionRegister\TransRegisterReportInterface;
 use App\Http\Repositories\Reports\Transactions\TransactionRegister\TransRegisterReportRepository;
 use App\Http\Services\Activities\Memberships\MembershipService;
@@ -60,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LoansReportInterface::class, LoansReportRepository::class);
         $this->app->bind(MembershipReportInterface::class, MembershipReportRepository::class);
         $this->app->bind(TransRegisterReportInterface::class, TransRegisterReportRepository::class);
+        $this->app->bind(TransPaymentReportInterface::class, TransPaymentReportRepository::class);
 
 
         //Services

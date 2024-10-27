@@ -59,6 +59,6 @@ class LoanTransactions extends Model
 
     public function toUsers()
     {
-        return $this->hasOne(User::class, 'id', 'loan_collat_id');
+        return $this->hasOne(User::class, 'id', 'encoded_by');
     }
 }

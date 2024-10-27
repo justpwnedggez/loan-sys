@@ -72,14 +72,14 @@ export default function Dropdown() {
                         Transaction Register
                     </Link>
                     <Link
-                        href={route('main.report.loan.index')}
+                        href={route('main.report.trans-pay.index')}
                         className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.report.loan.index"
+                            route().current() === "main.report.trans-pay.index"
                                 ? "bg-blue-600 text-white" // Active style (highlighted)
                                 : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
                         }`}
                     >
-                        Approved Transaction
+                        Transaction Payment
                     </Link>
                 </div>
             )}

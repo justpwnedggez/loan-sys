@@ -28,4 +28,19 @@ class LoanPayment extends Model
     {
         return Crypt::encryptString($this->id);
     }
+
+    public function toLoanTransaction()
+    {
+        return $this->hasOne(LoanTransactions::class, 'id', 'loan_trans_id');
+    }
+
+    public function toMembership()
+    {
+        return $this->hasOne(MembershipModel::class, 'id', 'mem_id');
+    }
+
+    public function toUser()
+    {
+        return $this->hasOne(User::class, 'id',  'encoded_by');
+    }
 }
