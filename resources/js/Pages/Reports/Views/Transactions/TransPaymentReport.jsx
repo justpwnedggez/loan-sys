@@ -3,7 +3,7 @@ export default function TransRegisterReport({ payment }) {
     return (
         <div className="min-h-screen flex flex-col bg-gray-100">
             <header className="p-5 bg-blue-600 text-white text-center">
-                <h1 className="text-4xl font-bold">Transaction Register Report</h1>
+                <h1 className="text-4xl font-bold">Transaction Payment Report</h1>
             </header>
 
             <main className="min-h-screen flex-grow p-10 flex justify-center">
