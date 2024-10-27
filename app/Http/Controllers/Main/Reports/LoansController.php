@@ -18,7 +18,7 @@ class LoansController extends Controller
 
     public function repIndex()
     {
-        return Inertia::render('Reports/LoanPortfolio');
+        return Inertia::render('Reports/Loans');
     }
 
     public function toFilter(Request $request)

@@ -52,8 +52,10 @@ Route::group(['middleware', 'auth'], function () {
             Route::prefix('/master-files/memberships')->group(base_path('routes/master-files/memberships/web.php'));
 
             //Reports
-            Route::prefix('/reports')->group(base_path('routes/reports/loans/web.php'));
-
+            Route::prefix('/reports/loans')->group(base_path('routes/reports/loans/web.php'));
+            Route::prefix('/reports/members')->group(base_path('routes/reports/memberships/web.php'));
+            Route::prefix('/reports/transaction-register')->group(base_path('routes/reports/transactions/transaction-register/web.php'));
+            Route::prefix('/reports/approved-transactions')->group(base_path('routes/reports/transactions/approved-transactions/web.php'));
             //Sessions
             Route::prefix('/sessions/list')->group(base_path('routes/sessions/web.php'));
 
