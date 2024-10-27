@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import App from "../App";
 
-export default function LoanPortfolio() {
+export default function Membership() {
     const [filters, setFilters] = useState({
         date_from: "",
         date_to: "",
@@ -22,7 +22,7 @@ export default function LoanPortfolio() {
                 Object.entries(filters).filter(([_, v]) => v)
             );
 
-            const response = await axios.get("/main/reports/loan-master/filter", {
+            const response = await axios.get("/main/reports/transaction-register/transaction-register/filter", {
                 params: filteredParams,
                 headers: { "Content-Type": "application/json" },
             });
@@ -41,7 +41,7 @@ export default function LoanPortfolio() {
     return (
         <div className="max-w-2xl mx-auto p-5 bg-gray-100 font-sans">
             <h1 className="text-4xl font-bold text-center text-orange-500 mb-8">
-                Loans Master Report
+                Transaction Register Report
             </h1>
 
             {/* Filter Card */}
@@ -103,4 +103,4 @@ export default function LoanPortfolio() {
     );
 }
 
-LoanPortfolio.layout = (page) => <App children={page} />;
+Membership.layout = (page) => <App children={page} />;
