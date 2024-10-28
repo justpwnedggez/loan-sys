@@ -12,7 +12,7 @@ import SubscriptionAgreement from "./Forms/SubscriptionAgreementMember";
 //Submit
 import { submitMembershipForm } from "@/Methods/Activities/Memberships/Submit/SubmitFormData";
 
-export default function Memberships() {
+export default function Memberships({ genSett }) {
     const toast = useRef(null);
     const [page, setPage] = useState(1);
 
@@ -30,7 +30,7 @@ export default function Memberships() {
                 );
             case 2:
                 return (
-                    <SubscriptionAgreement/>
+                    <SubscriptionAgreement genSett={genSett}/>
                 );
             default:
                 return null;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Divider } from "primereact/divider";
 
-const SubscriptionAgreement = () => {
+const SubscriptionAgreement = ({ genSett }) => {
     const [amount, setAmount] = useState("");
     const [years, setYears] = useState("");
 
@@ -123,7 +123,9 @@ const SubscriptionAgreement = () => {
                     <p className="font-extrabold">Member</p>
                 </div>
                 <div className="p-col-6">
-                    <p className="text-right signature-line underline underline-offset-1"></p>
+                    <p className="text-right signature-line underline underline-offset-1">
+                        {genSett.bod_chairman}
+                    </p>
                     <p className="text-right font-extrabold">BOD Chairman</p>
                 </div>
             </div>
