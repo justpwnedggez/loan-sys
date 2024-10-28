@@ -11,6 +11,8 @@ use App\Http\Repositories\Approvals\Loans\LoanApprovalsInterface;
 use App\Http\Repositories\Approvals\Loans\LoanApprovalsRepository;
 use App\Http\Repositories\Approvals\Memberships\MembershipApprovalsInterface;
 use App\Http\Repositories\Approvals\Memberships\MembershipApprovalsRepository;
+use App\Http\Repositories\Dashboard\DashboardInterface;
+use App\Http\Repositories\Dashboard\DashboardRepository;
 use App\Http\Services\MasterFiles\Users\UserService;
 use App\Http\Repositories\MasterFiles\Roles\RoleInterface;
 use App\Http\Repositories\MasterFiles\Users\UserInterface;
@@ -45,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //Repositories
+
+        //Dashboard
+        $this->app->bind(DashboardInterface::class, DashboardRepository::class);
 
         //Master Files
         $this->app->bind(UserInterface::class, UserViewRepository::class);

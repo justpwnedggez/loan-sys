@@ -4,11 +4,22 @@ namespace App\Http\Controllers\Main\Dashboard;
 
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\Dashboard\DashboardInterface;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function dashView()
+    protected $dashboardRepository;
+
+    public function __construct(DashboardInterface $dashboardRepository)
     {
-        return Inertia::render('Dashboard/index');
+        $this->dashboardRepository = $dashboardRepository;
+    }
+
+    public function dashView(Request $request)
+    {
+        $dashData = $this->dashboardRepository->retrieveData($request);
+
+        return Inertia::render('Dashboard/index', ['dashData' => $dashData]);
     }
 }
