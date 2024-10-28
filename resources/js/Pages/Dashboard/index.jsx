@@ -2,31 +2,23 @@ import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import App from '../App';
 
-// Updated data structure for loan portfolio report with dates
-const loanData = [
-  { date: '2024-01-01', loanType: 'House Loan', totalAmount: 500000, outstandingBalance: 450000, interestRate: 3.5 },
-  { date: '2024-02-05', loanType: 'House Loan', totalAmount: 490000, outstandingBalance: 440000, interestRate: 3.5 },
-  { date: '2024-03-15', loanType: 'House Loan', totalAmount: 500000, outstandingBalance: 450000, interestRate: 3.5 },
-  { date: '2024-04-27', loanType: 'House Loan', totalAmount: 490000, outstandingBalance: 440000, interestRate: 3.5 },
-  { date: '2024-05-31', loanType: 'House Loan', totalAmount: 500000, outstandingBalance: 450000, interestRate: 3.5 },
-  { date: '2024-06-22', loanType: 'House Loan', totalAmount: 490000, outstandingBalance: 440000, interestRate: 3.5 },
-  { date: '2024-07-11', loanType: 'House Loan', totalAmount: 500000, outstandingBalance: 450000, interestRate: 3.5 },
-  { date: '2024-08-31', loanType: 'House Loan', totalAmount: 490000, outstandingBalance: 440000, interestRate: 3.5 },
-  { date: '2024-01-01', loanType: 'Feed Loan', totalAmount: 100000, outstandingBalance: 70000, interestRate: 5.0 },
-  { date: '2024-02-01', loanType: 'Feed Loan', totalAmount: 98000, outstandingBalance: 65000, interestRate: 5.0 },
-  { date: '2024-01-01', loanType: 'Emergency Loan', totalAmount: 25000, outstandingBalance: 10000, interestRate: 8.0 },
-  { date: '2024-02-01', loanType: 'Emergency Loan', totalAmount: 24000, outstandingBalance: 9000, interestRate: 8.0 },
-  { date: '2024-01-01', loanType: 'Mortgage', totalAmount: 300000, outstandingBalance: 250000, interestRate: 4.0 },
-  { date: '2024-02-01', loanType: 'Mortgage', totalAmount: 295000, outstandingBalance: 240000, interestRate: 4.0 },
-  { date: '2024-01-01', loanType: 'Regular Loan', totalAmount: 50000, outstandingBalance: 20000, interestRate: 7.0 },
-  { date: '2024-02-01', loanType: 'Regular Loan', totalAmount: 48000, outstandingBalance: 18000, interestRate: 7.0 },
-];
-
 export default function Index({ dashData }) {
-    console.log(dashData);
-    const [selectedLoanType, setSelectedLoanType] = useState('House Loan'); // Default to House Loan
+    const [selectedLoanType, setSelectedLoanType] = useState('Regular Loan'); // Default to Regular Loan
 
+    // Extract loan data from dashData
+    const loanData = dashData.map(loan => ({
+        date: new Date(loan.created_at).toISOString().split('T')[0], // Format date as YYYY-MM-DD
+        loanType: loan.loan_name, // Using loan_name for loan type
+        totalAmount: loan.total_amount || 0,
+        outstandingBalance: loan.outstanding_balance || 0,
+        interestRate: loan.interest // Assuming the interest is a string, adjust if needed
+    }));
+
+    // Filter the loan data based on the selected loan type
     const filteredData = loanData.filter(loan => loan.loanType === selectedLoanType);
+
+    // Get unique loan types for button rendering
+    const loanTypes = Array.from(new Set(loanData.map(loan => loan.loanType)));
 
     const handleLoanChange = (loanType) => {
         setSelectedLoanType(loanType);
@@ -37,7 +29,7 @@ export default function Index({ dashData }) {
             <h1 className="text-2xl font-bold">Dashboard</h1>
             <h2 className="text-xl mt-2">Loan Portfolio Summary</h2>
             <div className="flex justify-center my-4 space-x-2">
-                {Array.from(new Set(loanData.map(loan => loan.loanType))).map(loanType => (
+                {loanTypes.map(loanType => (
                     <button
                         key={loanType}
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 active:bg-green-700 transition"

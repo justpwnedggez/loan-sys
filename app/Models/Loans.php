@@ -27,4 +27,9 @@ class Loans extends Model
     {
         return Crypt::encryptString($this->id);
     }
+
+    public function toLoanTransaction()
+    {
+        return $this->hasOne(LoanTransactions::class, 'loan_id', 'id');
+    }
 }
