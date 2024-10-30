@@ -3,7 +3,6 @@ import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
 import SubscriptionAgreement from "@/Pages/Approvals/Forms/SubscriptionAgreementBoard";
 import MemorandumAgreement from "@/Pages/Approvals/Forms/MemorandumAgreement";
-import PalagipUtang from "@/Pages/Approvals/Forms/PalagipUtang";
 
 export default function MemberRequirements({ stepperRef }) {
     return (
@@ -52,20 +51,20 @@ export default function MemberRequirements({ stepperRef }) {
                 </Card>
 
                 {/* Second Card */}
-                <Card
+                {/* <Card
                     style={{ height: "800px", width: "1600px" }} // Fixed height and width
                     className="mx-auto relative"
                 >
                     <SubscriptionAgreement/>
-                </Card>
+                </Card> */}
 
                 {/* Third Card */}
-                <Card
+                {/* <Card
                     style={{ height: "350px", width: "1600px" }} // Fixed height and width
                     className="mx-auto relative"
                 >
                     <MemorandumAgreement/>
-                </Card>
+                </Card> */}
             </div>
             <div className="flex pt-4 justify-between">
                 <Button
