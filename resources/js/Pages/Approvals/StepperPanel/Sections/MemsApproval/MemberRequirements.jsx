@@ -1,8 +1,8 @@
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
-import SubscriptionAgreement from "@/Pages/Approvals/Forms/SubscriptionAgreementBoard";
-import MemorandumAgreement from "@/Pages/Approvals/Forms/MemorandumAgreement";
+import SubscriptionAgreement from "@/Pages/Activities/Forms/SubscriptionAgreementBoard";
+import MemorandumAgreement from "@/Pages/Activities/Forms/MemorandumAgreement";
 
 export default function MemberRequirements({ stepperRef }) {
     return (

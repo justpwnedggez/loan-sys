@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Divider } from "primereact/divider";
 
-const SubscriptionAgreement = ({ genSett }) => {
+const SubscriptionAgreement1 = ({ genSett }) => {
     const [amount, setAmount] = useState("");
     const [years, setYears] = useState("");
 
@@ -133,4 +133,4 @@ const SubscriptionAgreement = ({ genSett }) => {
     );
 };
 
-export default SubscriptionAgreement;
+export default SubscriptionAgreement1;
