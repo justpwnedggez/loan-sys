@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider } from 'primereact/divider';
 
-const SubscriptionAgreement = () => {
+const SubscriptionAgreement2 = () => {
 
     return (
         <div className="subscription-form p-grid p-fluid">
@@ -89,4 +89,4 @@ const SubscriptionAgreement = () => {
     );
 }
 
-export default SubscriptionAgreement;
+export default SubscriptionAgreement2;

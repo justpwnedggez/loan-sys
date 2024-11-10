@@ -6,8 +6,10 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 
 //Forms
-import BioDataForm from "../Activities/Forms/BioDataForm";
-import SubscriptionAgreement from "./Forms/SubscriptionAgreementMember";
+import BioDataForm from "./Forms/BioDataForm";
+import SubscriptionAgreement1 from "./Forms/SubscriptionAgreementMember";
+import SubscriptionAgreement2 from "./Forms/SubscriptionAgreementBoard";
+import MemorandumAgreement from "./Forms/MemorandumAgreement";
 
 //Submit
 import { submitMembershipForm } from "@/Methods/Activities/Memberships/Submit/SubmitFormData";
@@ -30,15 +32,23 @@ export default function Memberships({ genSett }) {
                 );
             case 2:
                 return (
-                    <SubscriptionAgreement genSett={genSett}/>
+                    <SubscriptionAgreement1 genSett={genSett}/>
                 );
+            case 3:
+                return (
+                    <SubscriptionAgreement2/>
+                )
+            case 4:
+                return (
+                    <MemorandumAgreement/>
+                )
             default:
                 return null;
         }
     };
 
     const nextPage = () => {
-        if (page < 2) setPage(page + 1);
+        if (page < 4) setPage(page + 1);
     };
 
     const previousPage = () => {
@@ -52,7 +62,7 @@ export default function Memberships({ genSett }) {
     return (
         <div className="max-w-5xl mx-auto p-8 border border-gray-300 bg-white rounded-lg shadow-md">
             <h2 className="text-xl text-center mb-6">
-                Membership Form - Page {page} of 2
+                Membership Form - Page {page} of 4
             </h2>
             <Toast ref={toast} />
             {renderPageContent()}
@@ -63,7 +73,7 @@ export default function Memberships({ genSett }) {
                     onClick={previousPage}
                     disabled={page === 1}
                 />
-                {page < 2 ? (
+                {page < 4 ? (
                     <Button label="Next" onClick={nextPage} />
                 ) : (
                     <Button label="Submit" onClick={handleSubmit} />
