@@ -28,17 +28,18 @@ export default function TransRegisterReport({ transaction = [] }) {
                                     <th className="px-2 py-1 text-xs font-semibold text-left">No.</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Member Code</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Loan Trans No.</th>
+                                    <th className="px-2 py-1 text-xs font-semibold text-left">Loan Type</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Collateral</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Collateral Description</th>
+                                    <th className="px-2 py-1 text-xs font-semibold text-left">Encoded By</th>
+                                    <th className="px-2 py-1 text-xs font-semibold text-left">Applied Date</th>
+                                    <th className="px-2 py-1 text-xs font-semibold text-left">Maturity Date</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Status</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Principal Amount</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Total Interest</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Service Deduction</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">CBU</th>
                                     <th className="px-2 py-1 text-xs font-semibold text-left">Net Amount</th>
-                                    <th className="px-2 py-1 text-xs font-semibold text-left">Encoded By</th>
-                                    <th className="px-2 py-1 text-xs font-semibold text-left">Date Encoded</th>
-                                    <th className="px-2 py-1 text-xs font-semibold text-left">Date Modified</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,17 +48,18 @@ export default function TransRegisterReport({ transaction = [] }) {
                                         <td className="px-2 py-1 text-xs border">{loan.no}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.mem_code}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.trans_no}</td>
+                                        <td className="px-2 py-1 text-xs border">{loan.loan_type}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.collat_name}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.loan_collat_desc}</td>
+                                        <td className="px-2 py-1 text-xs border">{loan.encoded_by}</td>
+                                        <td className="px-2 py-1 text-xs border">{loan.date_created}</td>
+                                        <td className="px-2 py-1 text-xs border">{loan.date_maturity}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.status}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.principal_amt}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.total_interest}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.service_deduction}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.cbu}</td>
                                         <td className="px-2 py-1 text-xs border">{loan.net_amt}</td>
-                                        <td className="px-2 py-1 text-xs border">{loan.encoded_by}</td>
-                                        <td className="px-2 py-1 text-xs border">{loan.date_created}</td>
-                                        <td className="px-2 py-1 text-xs border">{loan.date_modified}</td>
                                     </tr>
                                 ))}
                             </tbody>
