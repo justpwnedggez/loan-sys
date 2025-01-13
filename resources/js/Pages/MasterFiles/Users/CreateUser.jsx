@@ -1,40 +1,42 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import App from "../../App";
 import Users from "../Users";
 
 //Methods
-import { submitCreateUserForm } from '../../../Methods/MasterFiles/Users/CreateUser/Submit/SubmitFormData';
+import { submitCreateUserForm } from "../../../Methods/MasterFiles/Users/CreateUser/Submit/SubmitFormData";
 
 //Message Popper
-import { Toast } from 'primereact/toast';
+import { Toast } from "primereact/toast";
 
 //Elements
 import { Button } from "primereact/button";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { SelectButton } from "primereact/selectbutton";
+import { Dropdown } from "primereact/dropdown";
 
-export default function CreateUser() {
+export default function CreateUser({ roles }) {
 
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        is_active: 'Y',
-        password: '',
-        confirmPassword: ''
+        first_name: "",
+        last_name: "",
+        email: "",
+        is_active: "Y",
+        user_role: "",
+        password: "",
+        confirmPassword: "",
     });
 
     const options = [
-        { label: 'Active', value: 'Y' },
-        { label: 'Inactive', value: 'N' }
+        { label: "Active", value: "Y" },
+        { label: "Inactive", value: "N" },
     ];
 
     const toast = useRef(null);
 
     const handleInputChange = (e) => {
         const { id, value } = e.target;
-        setFormData({ ...formData, [id]: value });
+        setFormData({ ...formData, [id]: value, user_role: e.value });
     };
 
     const handleStatusChange = (e) => {
@@ -45,7 +47,7 @@ export default function CreateUser() {
         e.preventDefault();
         submitCreateUserForm(formData, toast);
     };
-
+    console.log(formData)
     return (
         <div>
             <div>
@@ -64,7 +66,7 @@ export default function CreateUser() {
                                     value={formData.first_name}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
                                 />
                                 <label htmlFor="first_name">First Name</label>
                             </FloatLabel>
@@ -80,7 +82,7 @@ export default function CreateUser() {
                                     value={formData.last_name}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
                                 />
                                 <label htmlFor="last_name">Last Name</label>
                             </FloatLabel>
@@ -96,7 +98,7 @@ export default function CreateUser() {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
                                 />
                                 <label htmlFor="email">Email</label>
                             </FloatLabel>
@@ -109,7 +111,8 @@ export default function CreateUser() {
                                 <SelectButton
                                     value={formData.is_active}
                                     onChange={handleStatusChange}
-                                    options={options} />
+                                    options={options}
+                                />
                             </FloatLabel>
                         </div>
                         <div className="p-inputgroup flex">
@@ -124,9 +127,25 @@ export default function CreateUser() {
                                     value={formData.password}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
                                 />
                                 <label htmlFor="password">Password</label>
+                            </FloatLabel>
+                        </div>
+                        <div className="p-inputgroup flex">
+                            <span className="p-inputgroup-addon">
+                                <i className="pi pi-user-edit"></i>
+                            </span>
+                            <FloatLabel>
+                                <Dropdown
+                                    id="user_role"
+                                    value={formData.user_role}
+                                    onChange={handleInputChange}
+                                    options={roles}
+                                    optionLabel="name"
+                                    placeholder="Select Role"
+                                />
+                                <label htmlFor="password">Role</label>
                             </FloatLabel>
                         </div>
                         <div className="p-inputgroup flex">
@@ -141,7 +160,7 @@ export default function CreateUser() {
                                     value={formData.confirmPassword}
                                     onChange={handleInputChange}
                                     required
-                                    autocomplete="off"
+                                    autoComplete="off"
                                 />
                                 <label htmlFor="confirmPassword">
                                     Confirm Password

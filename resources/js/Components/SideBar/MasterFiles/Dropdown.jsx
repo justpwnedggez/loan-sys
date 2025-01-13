@@ -5,6 +5,9 @@ import { Link, usePage } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
 
+//Permission
+import PermissionGate from "@/Components/PermissionGate";
+
 export default function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -39,46 +42,57 @@ export default function Dropdown() {
             {/* Dropdown options */}
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
-                    <Link
-                        href={route("main.create.loans")}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.create.loans"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Loans
-                    </Link>
-                    <Link
-                        href={route("main.list.mems")}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.list.mems"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Memberships
-                    </Link>
-                    <Link
-                        href={route("main.list.user")}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.list.user"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Users
-                    </Link>
-                    <Link
-                        href={route("main.list.roles")}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.list.roles"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Roles
-                    </Link>
+                    <PermissionGate permission="view mf_loans">
+                        <Link
+                            href={route("main.create.loans")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() === "main.create.loans"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Loans
+                        </Link>
+                    </PermissionGate>
+
+                    <PermissionGate permission="view mf_memberships">
+                        <Link
+                            href={route("main.list.mems")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() === "main.list.mems"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Memberships
+                        </Link>
+                    </PermissionGate>
+
+                    <PermissionGate permission="view mf_users">
+                        <Link
+                            href={route("main.list.user")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() === "main.list.user"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Users
+                        </Link>
+                    </PermissionGate>
+
+                    <PermissionGate permission="view mf_roles">
+                        <Link
+                            href={route("main.list.roles")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() === "main.list.roles"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Roles
+                        </Link>
+                    </PermissionGate>
                 </div>
             )}
         </div>

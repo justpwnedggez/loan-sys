@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Link } from "@inertiajs/react";
 
 //Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartBar } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartBar } from "@fortawesome/free-regular-svg-icons";
+
+//Permission
+import PermissionGate from "@/Components/PermissionGate";
 
 export default function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +28,7 @@ export default function Dropdown() {
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className={`ml-auto h-5 w-5 transform transition-transform ${
-                        isOpen ? 'rotate-180' : ''
+                        isOpen ? "rotate-180" : ""
                     }`}
                     viewBox="0 0 20 20"
                     fill="currentColor"
@@ -41,46 +44,60 @@ export default function Dropdown() {
             {/* Dropdown options */}
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
-                    <Link
-                        href={route('main.report.loan.index')}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.report.loan.index"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Loans
-                    </Link>
-                    <Link
-                        href={route('main.report.members.index')}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.report.members.index"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Membership
-                    </Link>
-                    <Link
-                        href={route('main.report.trans-reg.index')}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.report.trans-reg.index"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Transaction Register
-                    </Link>
-                    <Link
-                        href={route('main.report.trans-pay.index')}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.report.trans-pay.index"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Transaction Payment
-                    </Link>
+                    <PermissionGate permission="view report_loans">
+                        <Link
+                            href={route("main.report.loan.index")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() === "main.report.loan.index"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Loans
+                        </Link>
+                    </PermissionGate>
+
+                    <PermissionGate permission="view report_memberships">
+                        <Link
+                            href={route("main.report.members.index")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() ===
+                                "main.report.members.index"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Membership
+                        </Link>
+                    </PermissionGate>
+
+                    <PermissionGate permission="view report_trans_register">
+                        <Link
+                            href={route("main.report.trans-reg.index")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() ===
+                                "main.report.trans-reg.index"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Transaction Register
+                        </Link>
+                    </PermissionGate>
+
+                    <PermissionGate permission="view report_trans_payment">
+                        <Link
+                            href={route("main.report.trans-pay.index")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() ===
+                                "main.report.trans-pay.index"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Transaction Payment
+                        </Link>
+                    </PermissionGate>
                 </div>
             )}
         </div>

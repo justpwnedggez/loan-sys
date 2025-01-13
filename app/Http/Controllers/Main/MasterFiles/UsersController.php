@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Main\MasterFiles;
 
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
 use App\Http\Services\MasterFiles\Users\UserService;
@@ -29,11 +31,19 @@ class UsersController extends Controller
         return Inertia::render('MasterFiles/Users/ListUser', ['users' => $users]);
     }
 
+    public function createUserView()
+    {
+        $roles = $this->userRepository->getRoles()->toArray();
+
+        return Inertia::render('MasterFiles/Users/CreateUser', ['roles' => $roles]);
+    }
+
     public function userView($id)
     {
         $user = $this->userRepository->findUser($id);
-
-        return Inertia::render('MasterFiles/Users/ViewUser', ['user' => $user]);
+        $roles = $this->userRepository->getRoles()->toArray();
+        $userRoleIds = $user->roles->pluck('id')->toArray();
+        return Inertia::render('MasterFiles/Users/ViewUser', ['user' => $user, 'roles' => $roles, 'userRoleIds' => $userRoleIds]);
     }
 
     public function createUsers(CreateUserRequest $request)

@@ -1,38 +1,44 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import App from "../../App";
 import Users from "../Users";
 
 //Methods
-import { submitUpdateUserForm } from '../../../Methods/MasterFiles/Users/UpdateUser/Submit/SubmitFormData';
+import { submitUpdateUserForm } from "../../../Methods/MasterFiles/Users/UpdateUser/Submit/SubmitFormData";
 
 //Message Popper
-import { Toast } from 'primereact/toast';
+import { Toast } from "primereact/toast";
 
 //Elements
 import { Button } from "primereact/button";
 import { FloatLabel } from "primereact/floatlabel";
 import { InputText } from "primereact/inputtext";
 import { SelectButton } from "primereact/selectbutton";
+import { Dropdown } from "primereact/dropdown";
 
-export default function EditUser({ user }) {
-
+export default function EditUser({ user, roles, userRoleIds }) {
     const [formData, setFormData] = useState({
         id: user.id,
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
-        is_active: user.is_active
+        is_active: user.is_active,
+        user_role: userRoleIds[0],
     });
 
+    console.log(userRoleIds);
     const options = [
-        { label: 'Active', value: 'Y' },
-        { label: 'Inactive', value: 'N' }
+        { label: "Active", value: "Y" },
+        { label: "Inactive", value: "N" },
     ];
 
     const toast = useRef(null);
 
     const handleStatusChange = (e) => {
         setFormData({ ...formData, is_active: e.value });
+    };
+
+    const handleInputChange = (e) => {
+        setFormData({ ...formData, user_role: e.value });
     };
 
     const handleSubmit = (e) => {
@@ -47,7 +53,7 @@ export default function EditUser({ user }) {
                 <Toast ref={toast} />
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-6 mb-4">
-                        <InputText type="hidden" value={formData.id}/>
+                        <InputText type="hidden" value={formData.id} />
                         <div className="p-inputgroup flex">
                             <span className="p-inputgroup-addon">
                                 <i className="pi pi-user"></i>
@@ -104,7 +110,28 @@ export default function EditUser({ user }) {
                                 <SelectButton
                                     value={formData.is_active}
                                     onChange={handleStatusChange}
-                                    options={options} />
+                                    options={options}
+                                />
+                            </FloatLabel>
+                        </div>
+                        <div className="p-inputgroup flex">
+                            <span className="p-inputgroup-addon">
+                                <i className="pi pi-user-edit"></i>
+                            </span>
+                            <FloatLabel>
+                                <Dropdown
+                                    id="user_role"
+                                    value={formData.user_role} // Preselected role ID
+                                    onChange={handleInputChange}
+                                    options={roles.map((role) => ({
+                                        label: role.name,
+                                        value: role.id,
+                                    }))}
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    placeholder="Select Role"
+                                />
+                                <label htmlFor="password">Role</label>
                             </FloatLabel>
                         </div>
                     </div>

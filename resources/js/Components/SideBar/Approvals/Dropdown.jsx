@@ -5,6 +5,9 @@ import { Link } from "@inertiajs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
+//Permission
+import PermissionGate from "@/Components/PermissionGate";
+
 export default function Dropdown() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -17,7 +20,7 @@ export default function Dropdown() {
                 onClick={toggleDropdown}
                 className="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700 flex items-center w-full text-left"
             >
-                <FontAwesomeIcon icon={ faCircleCheck } className="mr-2" />
+                <FontAwesomeIcon icon={faCircleCheck} className="mr-2" />
 
                 <span>Approvals</span>
 
@@ -41,26 +44,31 @@ export default function Dropdown() {
             {/* Dropdown options */}
             {isOpen && (
                 <div className="mt-4 ml-8 space-y-2 w-full">
-                    <Link
-                        href={route("main.apprv.loans.list")}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.apprv.loans.list"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Loans
-                    </Link>
-                    <Link
-                        href={route("main.apprv.mems.list")}
-                        className={`block max-w-48 px-4 py-2 rounded ${
-                            route().current() === "main.apprv.mems.list"
-                                ? "bg-blue-600 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
-                        }`}
-                    >
-                        Membership
-                    </Link>
+                    <PermissionGate permission="view loan_approvals">
+                        <Link
+                            href={route("main.apprv.loans.list")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() === "main.apprv.loans.list"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Loans
+                        </Link>
+                    </PermissionGate>
+
+                    <PermissionGate permission="view membership_approvals">
+                        <Link
+                            href={route("main.apprv.mems.list")}
+                            className={`block max-w-48 px-4 py-2 rounded ${
+                                route().current() === "main.apprv.mems.list"
+                                    ? "bg-blue-600 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-600 hover:text-white" // Default style
+                            }`}
+                        >
+                            Membership
+                        </Link>
+                    </PermissionGate>
                 </div>
             )}
         </div>

@@ -2,8 +2,9 @@
 
 namespace App\Http\Repositories\MasterFiles\Users;
 
-use App\Http\Traits\MasterFiles\Users\UsersTrait;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
+use App\Http\Traits\MasterFiles\Users\UsersTrait;
 
 class UserViewRepository implements UserInterface
 {
@@ -13,6 +14,11 @@ class UserViewRepository implements UserInterface
     {
         $users = $this->getUser()->get();
         return $this->modifyFields($users);
+    }
+
+    public function getRoles()
+    {
+        return Role::all();
     }
 
     public function modifyFields($query)

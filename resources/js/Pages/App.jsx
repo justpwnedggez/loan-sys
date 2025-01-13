@@ -9,9 +9,12 @@ import DropdownSideNavApprv from "@/Components/Sidebar/Approvals/Dropdown";
 import DropdownSideNavReports from "@/Components/Sidebar/Reports/Dropdown";
 import DropdownSideNavSessions from "@/Components/Sidebar/Sessions/Dropdown";
 
+//Permission
+import PermissionGate from "@/Components/PermissionGate";
+
 //Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartLine } from "@fortawesome/free-solid-svg-icons";
 
 export default function Component({ children }) {
     const { auth } = usePage().props;
@@ -47,43 +50,58 @@ export default function Component({ children }) {
                             </svg>
                         </button>
                     </div>
-                    <Link
-                        href={route("main.dashboard")}
-                        className={`block py-2.5 px-4 rounded ${
-                            route().current() === "main.dashboard"
-                                ? "bg-blue-700 text-white" // Active style (highlighted)
-                                : "text-gray-300 hover:bg-blue-700 hover:text-white" // Default style
-                        }`}
 
-                    >
-                        <FontAwesomeIcon icon={faChartLine} className="mr-2" />
-                        Dashboard
-                    </Link>
+                    <PermissionGate permission="access nav-dashboard">
+                        <Link
+                            href={route("main.dashboard")}
+                            className={`block py-2.5 px-4 rounded ${
+                                route().current() === "main.dashboard"
+                                    ? "bg-blue-700 text-white" // Active style (highlighted)
+                                    : "text-gray-300 hover:bg-blue-700 hover:text-white" // Default style
+                            }`}
+                        >
+                            <FontAwesomeIcon
+                                icon={faChartLine}
+                                className="mr-2"
+                            />
+                            Dashboard
+                        </Link>
+                    </PermissionGate>
 
                     {/** Activities Dropdown */}
-                    <div>
-                        <DropdownSideNavAct />
-                    </div>
+                    <PermissionGate permission="access nav-activities">
+                        <div>
+                            <DropdownSideNavAct />
+                        </div>
+                    </PermissionGate>
 
                     {/** Approvals Dropdown */}
-                    <div>
-                        <DropdownSideNavApprv />
-                    </div>
+                    <PermissionGate permission="access nav-approvals">
+                        <div>
+                            <DropdownSideNavApprv />
+                        </div>
+                    </PermissionGate>
 
                     {/** Master Files Dropdown */}
-                    <div>
-                        <DropdownSideNavMastFil />
-                    </div>
+                    <PermissionGate permission="access nav-master-files">
+                        <div>
+                            <DropdownSideNavMastFil />
+                        </div>
+                    </PermissionGate>
 
                     {/** Reports Dropdown */}
-                    <div>
-                        <DropdownSideNavReports />
-                    </div>
+                    <PermissionGate permission="access nav-reports">
+                        <div>
+                            <DropdownSideNavReports />
+                        </div>
+                    </PermissionGate>
 
                     {/** Sessions Dropdown */}
-                    {/* <div>
+                    <PermissionGate permission="access nav-sessions">
+                        {/* <div>
                         <DropdownSideNavSessions />
                     </div> */}
+                    </PermissionGate>
                 </nav>
             </aside>
 

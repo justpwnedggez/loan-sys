@@ -45,10 +45,10 @@ class UpdateRoleRequest extends FormRequest
     private function hasAnyTruePermission(array $permissions): bool
     {
         return $permissions['dashboard'] ||
-            ($permissions['activities']['enabled'] && ($permissions['activities']['transactions'] || $permissions['activities']['membership'])) ||
+            ($permissions['activities']['enabled'] && ($permissions['activities']['act_loan_transaction'] || $permissions['activities']['act_loan_amortization'] || $permissions['activities']['act_membership'])) ||
             ($permissions['approvals']['enabled'] && ($permissions['approvals']['loan_approvals'] || $permissions['approvals']['membership_approvals'])) ||
-            ($permissions['master_files']['enabled'] && ($permissions['master_files']['users'] || $permissions['master_files']['roles'] || $permissions['master_files']['memberships'] || $permissions['master_files']['loans'])) ||
-            ($permissions['reports']['enabled'] && $permissions['reports']['loan_portfolio']) ||
+            ($permissions['master_files']['enabled'] && ($permissions['master_files']['mf_users'] || $permissions['master_files']['mf_roles'] || $permissions['master_files']['mf_memberships'] || $permissions['master_files']['mf_loans'])) ||
+            ($permissions['reports']['enabled'] && ($permissions['reports']['report_loans'] || $permissions['reports']['report_memberships'] || $permissions['reports']['report_trans_register'] || $permissions['reports']['report_trans_payment'])) ||
             ($permissions['sessions']['enabled'] && $permissions['sessions']['active_sessions']);
     }
 
@@ -57,10 +57,10 @@ class UpdateRoleRequest extends FormRequest
      */
     private function validateChildPermissions(array $permissions, $fail)
     {
-        $this->checkEnabledChildPermission($permissions['activities'], 'activities', ['transactions', 'membership'], $fail);
+        $this->checkEnabledChildPermission($permissions['activities'], 'activities', ['act_loan_transaction', 'act_loan_amortization', 'act_membership'], $fail);
         $this->checkEnabledChildPermission($permissions['approvals'], 'approvals', ['loan_approvals', 'membership_approvals'], $fail);
-        $this->checkEnabledChildPermission($permissions['master_files'], 'master files', ['users', 'roles', 'memberships', 'loans'], $fail);
-        $this->checkEnabledChildPermission($permissions['reports'], 'reports', ['loan_portfolio'], $fail);
+        $this->checkEnabledChildPermission($permissions['master_files'], 'master files', ['mf_users', 'mf_roles', 'mf_memberships', 'mf_loans'], $fail);
+        $this->checkEnabledChildPermission($permissions['reports'], 'reports', ['report_loans', 'report_memberships', 'report_trans_register', 'report_trans_payment'], $fail);
         $this->checkEnabledChildPermission($permissions['sessions'], 'sessions', ['active_sessions'], $fail);
     }
 

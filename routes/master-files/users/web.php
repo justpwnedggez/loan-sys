@@ -8,9 +8,7 @@ use App\Http\Controllers\Main\MasterFiles\UsersController;
     Route::get('/list', [UsersController::class, 'listView'])->name('list.user');
     Route::get('/view/{id}', [UsersController::class, 'userView'])->name('view.user');
 
-    Route::get('/create', function () {
-        return Inertia::render('MasterFiles/Users/CreateUser');
-    })->name('add.user');
+    Route::get('/create', [UsersController::class, 'createUserView'])->name('add.user');
 
     //Post Methods
 

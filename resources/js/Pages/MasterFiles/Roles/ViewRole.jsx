@@ -15,18 +15,19 @@ import { InputText } from "primereact/inputtext";
 import { Checkbox } from 'primereact/checkbox';  // Import Checkbox
 
 export default function UpdateRole({ role }) {
-    console.log(role);
+
     const [formData, setFormData] = useState({
         id: role.original.id,
         role_name: role.original.role_name,
         permissions: {
             dashboard: {
-                enabled: role.original.permissions.dashboard.enabled,
+                enabled: role.original.permissions.dashboard.enabled ?? 0,
             },
             activities: {
-                enabled: role.original.permissions.activities.enabled,
-                transactions: role.original.permissions.activities.transactions,
-                membership: role.original.permissions.activities.membership,
+                enabled: role.original.permissions.activities.enabled ?? 0,
+                act_loan_transaction: role.original.permissions.activities.loan_transaction,
+                act_loan_amortization: role.original.permissions.activities.loan_amortization,
+                act_membership: role.original.permissions.activities.membership,
             },
             approvals: {
                 enabled: role.original.permissions.approvals.enabled,
@@ -35,14 +36,17 @@ export default function UpdateRole({ role }) {
             },
             master_files: {
                 enabled: role.original.permissions.master_files.enabled,
-                users: role.original.permissions.master_files.users,
-                roles: role.original.permissions.master_files.roles,
-                memberships: role.original.permissions.master_files.memberships,
-                loans: role.original.permissions.master_files.loans,
+                mf_users: role.original.permissions.master_files.users,
+                mf_roles: role.original.permissions.master_files.roles,
+                mf_memberships: role.original.permissions.master_files.memberships,
+                mf_loans: role.original.permissions.master_files.loans,
             },
             reports: {
                 enabled: role.original.permissions.reports.enabled,
-                loan_portfolio: role.original.permissions.reports.loan_portfolio,
+                report_loans: role.original.permissions.reports.report_loans,
+                report_memberships: role.original.permissions.reports.report_memberships,
+                report_trans_register: role.original.permissions.reports.report_trans_register,
+                report_trans_payment: role.original.permissions.reports.report_trans_payment,
             },
             sessions: {
                 enabled: role.original.permissions.sessions.enabled,
@@ -197,18 +201,27 @@ export default function UpdateRole({ role }) {
                                     <div className="flex flex-col ml-2">
                                         <div className="flex items-center">
                                             <Checkbox
-                                                inputId="activities_transactions"
-                                                name="activities.transactions"
-                                                checked={formData.permissions.activities.transactions}
+                                                inputId="activities_loan_transaction"
+                                                name="activities.act_loan_transaction"
+                                                checked={formData.permissions.activities.act_loan_transaction}
                                                 onChange={handleCheckboxChange}
                                             />
-                                            <label htmlFor="activities_transactions" className="ml-2">Transaction</label>
+                                            <label htmlFor="activities_loan_transaction" className="ml-2">Loan Transaction</label>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <Checkbox
+                                                inputId="activities_loan_amortization"
+                                                name="activities.act_loan_amortization"
+                                                checked={formData.permissions.activities.act_loan_amortization}
+                                                onChange={handleCheckboxChange}
+                                            />
+                                            <label htmlFor="activities_loan_amortization" className="ml-2">Loan Amortization</label>
                                         </div>
                                         <div className="flex items-center">
                                             <Checkbox
                                                 inputId="activities_membership"
-                                                name="activities.membership"
-                                                checked={formData.permissions.activities.membership}
+                                                name="activities.act_membership"
+                                                checked={formData.permissions.activities.act_membership}
                                                 onChange={handleCheckboxChange}
                                             />
                                             <label htmlFor="activities_membership" className="ml-2">Membership</label>
@@ -248,8 +261,8 @@ export default function UpdateRole({ role }) {
                                         <div className="flex items-center">
                                             <Checkbox
                                                 inputId="master_files_users"
-                                                name="master_files.users"
-                                                checked={formData.permissions.master_files.users}
+                                                name="master_files.mf_users"
+                                                checked={formData.permissions.master_files.mf_users}
                                                 onChange={handleCheckboxChange}
                                             />
                                             <label htmlFor="master_files_users" className="ml-2">Users</label>
@@ -257,8 +270,8 @@ export default function UpdateRole({ role }) {
                                         <div className="flex items-center">
                                             <Checkbox
                                                 inputId="master_files_roles"
-                                                name="master_files.roles"
-                                                checked={formData.permissions.master_files.roles}
+                                                name="master_files.mf_roles"
+                                                checked={formData.permissions.master_files.mf_roles}
                                                 onChange={handleCheckboxChange}
                                             />
                                             <label htmlFor="master_files_roles" className="ml-2">Roles</label>
@@ -266,8 +279,8 @@ export default function UpdateRole({ role }) {
                                         <div className="flex items-center">
                                             <Checkbox
                                                 inputId="master_files_memberships"
-                                                name="master_files.memberships"
-                                                checked={formData.permissions.master_files.memberships}
+                                                name="master_files.mf_memberships"
+                                                checked={formData.permissions.master_files.mf_memberships}
                                                 onChange={handleCheckboxChange}
                                             />
                                             <label htmlFor="master_files_memberships" className="ml-2">Memberships</label>
@@ -275,8 +288,8 @@ export default function UpdateRole({ role }) {
                                         <div className="flex items-center">
                                             <Checkbox
                                                 inputId="master_files_loans"
-                                                name="master_files.loans"
-                                                checked={formData.permissions.master_files.loans}
+                                                name="master_files.mf_loans"
+                                                checked={formData.permissions.master_files.mf_loans}
                                                 onChange={handleCheckboxChange}
                                             />
                                             <label htmlFor="master_files_loans" className="ml-2">Loans</label>
@@ -290,12 +303,39 @@ export default function UpdateRole({ role }) {
                                     <div className="flex flex-col ml-2">
                                         <div className="flex items-center">
                                             <Checkbox
-                                                inputId="reports_loan_portfolio"
-                                                name="reports.loan_portfolio"
-                                                checked={formData.permissions.reports.loan_portfolio}
+                                                inputId="reports_loans"
+                                                name="reports.report_loans"
+                                                checked={formData.permissions.reports.report_loans}
                                                 onChange={handleCheckboxChange}
                                             />
-                                            <label htmlFor="reports_loan_portfolio" className="ml-2">Loan Portfolio</label>
+                                            <label htmlFor="reports_loans" className="ml-2">Loans</label>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <Checkbox
+                                                inputId="reports_memberships"
+                                                name="reports.report_memberships"
+                                                checked={formData.permissions.reports.report_memberships}
+                                                onChange={handleCheckboxChange}
+                                            />
+                                            <label htmlFor="reports_memberships" className="ml-2">Memberships</label>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <Checkbox
+                                                inputId="reports_trans_register"
+                                                name="reports.report_trans_register"
+                                                checked={formData.permissions.reports.report_trans_register}
+                                                onChange={handleCheckboxChange}
+                                            />
+                                            <label htmlFor="reports_trans_register" className="ml-2">Transaction Register</label>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <Checkbox
+                                                inputId="reports_trans_payment"
+                                                name="reports.report_trans_payment"
+                                                checked={formData.permissions.reports.report_trans_payment}
+                                                onChange={handleCheckboxChange}
+                                            />
+                                            <label htmlFor="reports_trans_payment" className="ml-2">Transaction Payment</label>
                                         </div>
                                     </div>
                                 </div>

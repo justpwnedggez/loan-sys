@@ -21,31 +21,35 @@ trait RolesTrait
 
         $permissionsData = [
             'dashboard' => [
-                'enabled' => $role->hasPermissionTo('view dashboard'),
+                'enabled' => $role->hasPermissionTo('access nav-dashboard'),
             ],
             'activities' => [
-                'enabled' => $role->hasPermissionTo('view activities'),
-                'transactions' => $role->hasPermissionTo('view transactions'),
-                'membership' => $role->hasPermissionTo('view memberships'),
+                'enabled' => $role->hasPermissionTo('access nav-activities'),
+                'loan_transaction' => $role->hasPermissionTo('view act_loan_transaction'),
+                'loan_amortization' => $role->hasPermissionTo('view act_loan_amortization'),
+                'membership' => $role->hasPermissionTo('view act_membership'),
             ],
             'approvals' => [
-                'enabled' => $role->hasPermissionTo('view approvals'),
+                'enabled' => $role->hasPermissionTo('access nav-approvals'),
                 'loan_approvals' => $role->hasPermissionTo('view loan_approvals'),
                 'membership_approvals' => $role->hasPermissionTo('view membership_approvals'),
             ],
             'master_files' => [
-                'enabled' => $role->hasPermissionTo('view master files'),
-                'users' => $role->hasPermissionTo('view users'),
-                'roles' => $role->hasPermissionTo('view roles'),
-                'memberships' => $role->hasPermissionTo('view memberships'),
-                'loans' => $role->hasPermissionTo('view loans'),
+                'enabled' => $role->hasPermissionTo('access nav-master-files'),
+                'users' => $role->hasPermissionTo('view mf_users'),
+                'roles' => $role->hasPermissionTo('view mf_roles'),
+                'memberships' => $role->hasPermissionTo('view mf_memberships'),
+                'loans' => $role->hasPermissionTo('view mf_loans'),
             ],
             'reports' => [
-                'enabled' => $role->hasPermissionTo('view reports'),
-                'loan_portfolio' => $role->hasPermissionTo('view loan_portfolio'),
+                'enabled' => $role->hasPermissionTo('access nav-reports'),
+                'report_loans' => $role->hasPermissionTo('view report_loans'),
+                'report_memberships' => $role->hasPermissionTo('view report_memberships'),
+                'report_trans_register' => $role->hasPermissionTo('view report_trans_register'),
+                'report_trans_payment' => $role->hasPermissionTo('view report_trans_payment'),
             ],
             'sessions' => [
-                'enabled' => $role->hasPermissionTo('view sessions'),
+                'enabled' => $role->hasPermissionTo('access nav-sessions'),
                 'active_sessions' => $role->hasPermissionTo('view active_sessions'),
             ],
         ];
@@ -60,7 +64,6 @@ trait RolesTrait
     public function permissionAssignment(array $data)
     {
         $roleId = $data['id'];
-
         foreach ($data['permissions'] as $parentPermission => $permissionDetails) {
             $parentPermName = $this->viewParentPerm($parentPermission);
             $this->processParentPermission($roleId, $parentPermName, $permissionDetails);
@@ -102,12 +105,12 @@ trait RolesTrait
     public function viewParentPerm(String $str)
     {
         return [
-            'dashboard' => 'view dashboard',
-            'activities' => 'view activities',
-            'approvals' => 'view approvals',
-            'master_files' => 'view master files',
-            'reports' => 'view reports',
-            'sessions' => 'view sessions',
+            'dashboard' => 'access nav-dashboard',
+            'activities' => 'access nav-activities',
+            'approvals' => 'access nav-approvals',
+            'master_files' => 'access nav-master-files',
+            'reports' => 'access nav-reports',
+            'sessions' => 'access nav-sessions',
         ][$str];
     }
 
