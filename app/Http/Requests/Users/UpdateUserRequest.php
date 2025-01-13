@@ -24,6 +24,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'id' => 'required',
             "is_active" => "required|string",
+            "user_role" => "required",
         ];
     }
 }

@@ -51,4 +51,11 @@ class User extends Authenticatable
     {
         return Crypt::encryptString($this->id);
     }
+
+    public function getRolePermissionsAttribute()
+    {
+        return $this->roles->flatMap(function ($role) {
+            return $role->permissions;
+        })->pluck('name')->unique();
+    }
 }
